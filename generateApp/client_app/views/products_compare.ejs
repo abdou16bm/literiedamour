@@ -1,0 +1,86 @@
+<%- include ("layout/header") %>
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <% if (typeof(product1) !== 'undefined' && product1 != null && product1.length > 0 && typeof(product2) !== 'undefined' && product2 != null && product2.length > 0 && typeof(sameProduct) == "undefined") { %>
+            <div class="col-md-6 col-xs-6 text-center" style="padding: 2%;">
+                <table class="table">
+                    <thead>
+                        <td>Fiche Technique <%= product1[0].product_name %></td>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">
+                                <div class="product-img text-center">
+                                    <img src="/img/product/<%= product1[0].product_id %>/main.jpg" alt=""
+                                        style="width: 250px; padding: 10px;">
+
+                                </div>
+                            </th>
+                        </tr>
+                        <% if (typeof(product1_details) !== 'undefined' && product1_details != null && product1_details.length > 0) { %>
+                            <%for (let i = 0; i < product1_details.length; i++) {%>
+                            <tr>
+                              <th scope="row"><%= product1_details[i].detail_name %></th>
+                              <td><%= product1_details[i].detail_desig %></td>
+                            </tr>
+                        <% }} %>
+                    </tbody>
+                  </table>	
+            </div>
+
+            <div class="col-md-6 col-xs-6 text-center" style="padding: 2%;">
+                <table class="table">
+                    <thead>
+                        <td>Fiche Technique <%= product2[0].product_name %></td>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">
+                                <div class="product-img text-center">
+                                    <img src="/img/product/<%= product2[0].product_id %>/main.jpg" alt=""
+                                        style="width: 250px; padding: 10px;">
+
+                                </div>
+                            </th>
+                        </tr>
+                        <% if (typeof(product2_details) !== 'undefined' && product2_details != null && product2_details.length > 0) { %>
+                            <%for (let i = 0; i < product2_details.length; i++) {%>
+                            <tr>
+                              <th scope="row"><%= product2_details[i].detail_name %></th>
+                              <td><%= product2_details[i].detail_desig %></td>
+                            </tr>
+                        <% }} %>
+                    </tbody>
+                  </table>	
+            </div>
+            <% } else if (typeof(sameProduct) != "undefined") { %>
+
+                <div class="alert alert-danger mt-5" role="alert">
+                    
+                    Les deux produits doivent étre différents !
+                
+                </div>
+        
+            <% } else { %>
+
+                <div class="alert alert-danger mt-5" role="alert">
+                    
+                    Aucun produit correspondant !
+                
+                </div>
+        
+            <% } %>
+
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /SECTION -->
+
+
+
+    <%- include ("layout/footer") %>

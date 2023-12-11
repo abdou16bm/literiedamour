@@ -1,0 +1,140 @@
+<%- include ("layouts/header.ejs") %>
+<div id="top" class="sa-app__body">
+    <div class="mx-sm-2 px-2 px-sm-3 px-xxl-4 pb-6">
+        <% if (typeof(product) !== 'undefined' && product != null && product.length > 0) { %>
+        <div class="container">
+            <div class="py-5">
+                <div class="row g-4 align-items-center">
+                    <div class="col">
+                        <h1 class="h3 m-0">Détails de produit</h1>
+                    </div>
+                    <div class="col-auto d-flex"><a href="/products/list" class="btn btn-info me-3">Retour</a><a
+                         href="/product/<%= product[0].product_id %>/edit" class="btn btn-primary">Modifier</a></div>
+                </div>
+            </div>
+            <div class="sa-entity-layout"
+                data-sa-container-query="{&quot;920&quot;:&quot;sa-entity-layout--size--md&quot;,&quot;1100&quot;:&quot;sa-entity-layout--size--lg&quot;}">
+                <div class="sa-entity-layout__body">
+
+                    <div class="col-12 mt-5">
+
+                        <div class="card">
+                            <div class="card-body p-5">
+                                <div class="mb-5">
+                                    <h2 class="mb-0 fs-exact-18">Informations</h2>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="sa-table text-nowrap">
+                                        <thead>
+                                            <tr>
+
+                                                <th >Réf</th>
+                                                <th>Produits</th>
+                                                <th>Catégories</th>
+                                                <th>Marque</th>
+                                                <th>Prix</th>
+                                                <th>Quantité</th>
+                                                <th>Etat</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+
+                                                <td><%= product[0].product_ref %></td>
+                                                <td><%= product[0].product_name %></td>
+                                                <td><%= product[0].sub_cat_name %></td>
+                                                <td><%= product[0].brand_name %></td>
+                                                <td><% let formating=Intl.NumberFormat('en-US') %><%= formating.format(product[0].product_price)+" DA" %></td>
+                                                <td><%= product[0].product_qt %></td>
+                                                <% if (product[0].product_qt > 0 ) { %>
+                                                <td class="text-success">Disponible</td>
+                                                <% } else { %>
+                                                <td class="text-danger">Rupture</td>
+                                                <% } %>
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12  col-sm-12 mt-2 my-5">
+                        <div class="card mt-5">
+                            <div class="card-body px-5 py-4 d-flex align-items-center justify-content-between">
+                                <h2 class="mb-0 fs-exact-18 me-4">Description</h2>
+
+                            </div>
+                            <div class="sa-divider"></div>
+                            <div class="px-5 py-3 my-2 d-flex align-items-center justify-content-between">
+                                <div>
+                                    <div class="text-muted fs-exact-14 mt-1"><%= product[0].product_desig %></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 mt-2 my-5">
+                        <div class="card w-100 mt-5">
+                            <div class="card-body p-5">
+                                <div class="mb-5">
+                                    <div class="col-md-12">
+                                        <div class="images p-3">
+                                            <div class="text-center p-4"> <img id="main-image"
+                                                    src="/img/product/<%= product[0].product_id %>/main.jpg" width="250" /> </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <% for (let i = 0; i < product[0].product_imgcount; i++) {
+
+                                            if (i == 0) {var img_name = "main"} else { var img_name = i}
+
+                                        %>
+
+                                            <img class="col-3 mb-1" onclick="change_image(this)" style="cursor: pointer;"
+                                            src="/img/product/<%= product[0].product_id %>/<%= img_name %>.jpg" width="70">
+
+                                        <% } %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <% } else { %>
+
+            <div class="alert alert-danger mt-5" role="alert">
+             
+              Aucun produit correspondant !
+         
+            </div>
+
+        <% } %>
+    </div>
+</div><!-- sa-app__body / end --><!-- sa-app__footer -->
+<%- include ("layouts/footer.ejs") %>
+<script>
+    function change_image(image) {
+
+        var container = document.getElementById("main-image");
+
+        container.src = image.src;
+    }
+
+
+
+    document.addEventListener("DOMContentLoaded", function (event) {
+
+
+
+
+
+
+
+    });
+</script>

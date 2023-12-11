@@ -1,0 +1,338 @@
+<%- include ("layouts/header.ejs") %>
+<div id="top" class="sa-app__body">
+    <div class="mx-sm-2 px-2 px-sm-3 px-xxl-4 pb-6">
+        <% if (typeof(product) !== 'undefined' && product != null && product.length > 0) {  %>
+        <form class="container" method="post" enctype="multipart/form-data">
+            <div class="py-5">
+                <div class="row g-4 align-items-center">
+                    <div class="col">
+                        <h1 class="h3 m-0">Modifier un produit</h1>
+                    </div>
+                    <div class="col-auto d-flex"><a href="/products/list" class="btn btn-danger me-3">Annuler</a>
+                        <button class="btn btn-primary" type="submit" data-bs-toggle="modal" data-bs-target="#loading">Sauvegarder</button>
+                    </div>
+                </div>
+            </div>
+            <div class="sa-entity-layout"
+                data-sa-container-query="{&quot;920&quot;:&quot;sa-entity-layout--size--md&quot;,&quot;1100&quot;:&quot;sa-entity-layout--size--lg&quot;}">
+                <div class="sa-entity-layout__body">
+                    <div class="sa-entity-layout__main">
+                        <div class="card">
+                            <div class="card-body p-5">
+                                <div class="mb-5">
+                                    <h2 class="mb-0 fs-exact-18">Informations</h2>
+                                </div>
+                                <% if (typeof(err) != "undefined" && err != null && err == 1) { %>
+                                <div class="alert alert-danger" role="alert">Remplissez les champs* obligatoire !</div>
+                                <% } %>
+                                <div class="mb-4"><label for="product_ref" class="form-label">Référence*</label><input
+                                        type="text" class="form-control" name="product_ref" required value="<%= product[0].product_ref %>"/></div>
+                                <div class="mb-4"><label for="product_name" class="form-label">Nom du
+                                        produit*</label><input type="text" class="form-control" name="product_name"
+                                        required value="<%= product[0].product_name %>" /></div>
+                                <div class="mb-2"><label for="product_desig" class="form-label">Description</label><textarea name="product_desig" class="form-control"
+                                        rows="2"><%= product[0].product_desig %></textarea></div>
+
+                            </div>
+                        </div>
+
+                        <div class="card mt-5">
+                            <div class="card-body p-5">
+                                <div class="mb-5">
+                                    <h2 class="mb-0 fs-exact-18">Images</h2>
+                                </div>
+                            </div>
+                            <div class="mt-n5">
+                                <div class="sa-divider"></div>
+                                <div class="table-responsive">
+                                    <table class="sa-table table">
+                                        <thead>
+                                            <tr>
+                                                <th class="w-min">Image</th>
+                                                <th class="min-w-10x"></th>
+                                                <th class="w-min">Order</th>
+                                                <th class="w-min"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <!--
+                                                    <div
+                                                        class="sa-symbol sa-symbol&#45;&#45;shape&#45;&#45;rounded sa-symbol&#45;&#45;size&#45;&#45;lg">
+                                                        <img src="" width="40" id="img_main"
+                                                            height="40" alt="" />
+                                                    </div>
+-->
+                                                </td>
+                                                <!--                                                <td><input type="file" class="form-control form-control-sm input_main" id="formFile-2-sm" name="input_main" onchange="display_img(event,'img_main')" /></td>-->
+                                                <td >
+                                                    <input type="file" class="form-control form-control-sm input_main"
+                                                        id="main" name="main"/>
+                                                    <!-- <span style="font-size: smaller;">Taille maximum de l'image principal (1 MB)</span> -->
+                                                </td>
+
+                                                <td>Principal</td>
+                                                <!--
+                                                <td><button class="btn btn-sa-muted btn-sm mx-n3" type="button" onclick="remove_img('.input_main','#img_main')"
+                                                        aria-label="Delete image" data-bs-toggle="tooltip"
+                                                        data-bs-placement="right" title="Supprimer"><svg
+                                                            xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                                            viewBox="0 0 12 12" fill="currentColor">
+                                                            <path
+                                                                d="M10.8,10.8L10.8,10.8c-0.4,0.4-1,0.4-1.4,0L6,7.4l-3.4,3.4c-0.4,0.4-1,0.4-1.4,0l0,0c-0.4-0.4-0.4-1,0-1.4L4.6,6L1.2,2.6 c-0.4-0.4-0.4-1,0-1.4l0,0c0.4-0.4,1-0.4,1.4,0L6,4.6l3.4-3.4c0.4-0.4,1-0.4,1.4,0l0,0c0.4,0.4,0.4,1,0,1.4L7.4,6l3.4,3.4 C11.2,9.8,11.2,10.4,10.8,10.8z">
+                                                            </path>
+                                                        </svg></button></td>
+-->
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <!--
+                                                    <div
+                                                        class="sa-symbol sa-symbol&#45;&#45;shape&#45;&#45;rounded sa-symbol&#45;&#45;size&#45;&#45;lg">
+                                                        <img src="" width="40" id="img_1"
+                                                            height="40" alt="" />
+                                                    </div>
+-->
+                                                </td>
+                                                <td>
+                                                    <input type="file" class="form-control form-control-sm input_1"
+                                                        id="file_u" name="file_u" multiple="multiple"/>
+                                                    <!-- <span style="font-size: smaller;">Taille maximum de chaque autres images (1 MB)</span> -->
+                                                </td>
+
+                                                <td>Autres</td>
+                                                <!--
+                                                <td>
+                                                    <button class="btn btn-sa-muted btn-sm mx-n3" type="button" onclick="remove_img('.input_1','#img_1')"
+                                                        aria-label="Delete image" data-bs-toggle="tooltip"
+                                                        data-bs-placement="right" title="Supprimer"><svg
+                                                            xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                                            viewBox="0 0 12 12" fill="currentColor">
+                                                            <path
+                                                                d="M10.8,10.8L10.8,10.8c-0.4,0.4-1,0.4-1.4,0L6,7.4l-3.4,3.4c-0.4,0.4-1,0.4-1.4,0l0,0c-0.4-0.4-0.4-1,0-1.4L4.6,6L1.2,2.6 c-0.4-0.4-0.4-1,0-1.4l0,0c0.4-0.4,1-0.4,1.4,0L6,4.6l3.4-3.4c0.4-0.4,1-0.4,1.4,0l0,0c0.4,0.4,0.4,1,0,1.4L7.4,6l3.4,3.4 C11.2,9.8,11.2,10.4,10.8,10.8z">
+                                                            </path>
+                                                        </svg></button>
+                                                </td>
+-->
+                                            </tr>
+
+                                            <!--
+                                                                                        <tr>
+                                                                                            <td>
+                                                                                                <div
+                                                                                                    class="sa-symbol sa-symbol&#45;&#45;shape&#45;&#45;rounded sa-symbol&#45;&#45;size&#45;&#45;lg">
+                                                                                                    <img src="" width="40" id="img_1"
+                                                                                                        height="40" alt="" />
+                                                                                                </div>
+                                                                                            </td>
+                                                                                            <td><input type="file" class="form-control form-control-sm input_1" id="formFile-2-sm" name="input_1" onchange="display_img(event,'img_1')" /></td>
+                                                                                            <td>1</td>
+                                                                                            <td><button class="btn btn-sa-muted btn-sm mx-n3" type="button" onclick="remove_img('.input_1','#img_1')"
+                                                                                                    aria-label="Delete image" data-bs-toggle="tooltip"
+                                                                                                    data-bs-placement="right" title="Supprimer"><svg
+                                                                                                        xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                                                                                        viewBox="0 0 12 12" fill="currentColor">
+                                                                                                        <path
+                                                                                                            d="M10.8,10.8L10.8,10.8c-0.4,0.4-1,0.4-1.4,0L6,7.4l-3.4,3.4c-0.4,0.4-1,0.4-1.4,0l0,0c-0.4-0.4-0.4-1,0-1.4L4.6,6L1.2,2.6 c-0.4-0.4-0.4-1,0-1.4l0,0c0.4-0.4,1-0.4,1.4,0L6,4.6l3.4-3.4c0.4-0.4,1-0.4,1.4,0l0,0c0.4,0.4,0.4,1,0,1.4L7.4,6l3.4,3.4 C11.2,9.8,11.2,10.4,10.8,10.8z">
+                                                                                                        </path>
+                                                                                                    </svg></button></td>
+                                                                                        </tr>
+                                            -->
+                                            <!--
+                                            <tr>
+                                                <td>
+                                                    <div
+                                                        class="sa-symbol sa-symbol&#45;&#45;shape&#45;&#45;rounded sa-symbol&#45;&#45;size&#45;&#45;lg">
+                                                        <img src="" width="40" id="img_2"
+                                                            height="40" alt="" />
+                                                    </div>
+                                                </td>
+                                                <td><input type="file" class="form-control form-control-sm input_2" id="formFile-2-sm" name="input_2" onchange="display_img(event,'img_2')" /></td>
+                                                <td>2</td>
+                                                <td><button class="btn btn-sa-muted btn-sm mx-n3" type="button" onclick="remove_img('.input_2','#img_2')"
+                                                        aria-label="Delete image" data-bs-toggle="tooltip"
+                                                        data-bs-placement="right" title="Supprimer"><svg
+                                                            xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                                            viewBox="0 0 12 12" fill="currentColor">
+                                                            <path
+                                                                d="M10.8,10.8L10.8,10.8c-0.4,0.4-1,0.4-1.4,0L6,7.4l-3.4,3.4c-0.4,0.4-1,0.4-1.4,0l0,0c-0.4-0.4-0.4-1,0-1.4L4.6,6L1.2,2.6 c-0.4-0.4-0.4-1,0-1.4l0,0c0.4-0.4,1-0.4,1.4,0L6,4.6l3.4-3.4c0.4-0.4,1-0.4,1.4,0l0,0c0.4,0.4,0.4,1,0,1.4L7.4,6l3.4,3.4 C11.2,9.8,11.2,10.4,10.8,10.8z">
+                                                            </path>
+                                                        </svg></button></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div
+                                                        class="sa-symbol sa-symbol&#45;&#45;shape&#45;&#45;rounded sa-symbol&#45;&#45;size&#45;&#45;lg">
+                                                        <img src="" width="40" id="img_3"
+                                                            height="40" alt="" />
+                                                    </div>
+                                                </td>
+                                                <td><input type="file" class="form-control form-control-sm input_3" id="formFile-2-sm" name="input_3" onchange="display_img(event,'img_3')" /></td>
+                                                <td>3</td>
+                                                <td><button class="btn btn-sa-muted btn-sm mx-n3" type="button" onclick="remove_img('.input_3','#img_3')"
+                                                        aria-label="Delete image" data-bs-toggle="tooltip"
+                                                        data-bs-placement="right" title="Supprimer"><svg
+                                                            xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                                            viewBox="0 0 12 12" fill="currentColor">
+                                                            <path
+                                                                d="M10.8,10.8L10.8,10.8c-0.4,0.4-1,0.4-1.4,0L6,7.4l-3.4,3.4c-0.4,0.4-1,0.4-1.4,0l0,0c-0.4-0.4-0.4-1,0-1.4L4.6,6L1.2,2.6 c-0.4-0.4-0.4-1,0-1.4l0,0c0.4-0.4,1-0.4,1.4,0L6,4.6l3.4-3.4c0.4-0.4,1-0.4,1.4,0l0,0c0.4,0.4,0.4,1,0,1.4L7.4,6l3.4,3.4 C11.2,9.8,11.2,10.4,10.8,10.8z">
+                                                            </path>
+                                                        </svg></button></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div
+                                                        class="sa-symbol sa-symbol&#45;&#45;shape&#45;&#45;rounded sa-symbol&#45;&#45;size&#45;&#45;lg">
+                                                        <img src="" width="40" id="img_4"
+                                                            height="40" alt="" />
+                                                    </div>
+                                                </td>
+                                                <td><input type="file" class="form-control form-control-sm input_4" id="formFile-2-sm" name="input_4" onchange="display_img(event,'img_4')" /></td>
+                                                <td>4</td>
+                                                <td><button class="btn btn-sa-muted btn-sm mx-n3" type="button" onclick="remove_img('.input_4','#img_4')"
+                                                        aria-label="Delete image" data-bs-toggle="tooltip"
+                                                        data-bs-placement="right" title="Supprimer"><svg
+                                                            xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                                            viewBox="0 0 12 12" fill="currentColor">
+                                                            <path
+                                                                d="M10.8,10.8L10.8,10.8c-0.4,0.4-1,0.4-1.4,0L6,7.4l-3.4,3.4c-0.4,0.4-1,0.4-1.4,0l0,0c-0.4-0.4-0.4-1,0-1.4L4.6,6L1.2,2.6 c-0.4-0.4-0.4-1,0-1.4l0,0c0.4-0.4,1-0.4,1.4,0L6,4.6l3.4-3.4c0.4-0.4,1-0.4,1.4,0l0,0c0.4,0.4,0.4,1,0,1.4L7.4,6l3.4,3.4 C11.2,9.8,11.2,10.4,10.8,10.8z">
+                                                            </path>
+                                                        </svg></button></td>
+                                            </tr>
+-->
+                                        </tbody>
+                                    </table>
+                                    <div class="row d-flex justify-content-around flex-wrap">
+                                        <% for (let i = 0; i < product[0].product_imgcount; i++) {
+                                                if (i == 0) {var img_name = "main"} else { var img_name = i}
+                                            %>
+                                        <span class="col-3 position-relative m-1 border border-1">
+                                            <div class="bg-secondary " style="position: absolute;top: 0;right: 0;">
+                                                <button type="button" class="btn-close" aria-label="Close"
+                                                    onclick="delpic('<%= product[0].product_id %>','<%= img_name %>.jpg')"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#confirmActionModal"></button>
+                                            </div>
+                                            <img class="col-12 mb-2"
+                                                src="/img/product/<%= product[0].product_id %>/<%= img_name %>.jpg">
+                                            <!--                                                <button type="button" class="btn-close btn-close-white position-absolut" style="position: absolute;top: 0;left: 80%;"></button>-->
+                                        </span>
+                                        <% } %>
+                                    </div>
+                                </div>
+                                <div class="sa-divider"></div>
+                                <!-- <div class="px-5 py-4 my-2"><a href="#">Upload new image</a></div> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sa-entity-layout__sidebar">
+                        <!-- <div class="card w-100">
+                            <div class="card-body p-5">
+                                <div class="mb-5">
+                                    <h2 class="mb-0 fs-exact-18">Visibilité</h2>
+                                </div>
+                                <div class="mb-4"><label class="form-check"><input type="radio" class="form-check-input"
+                                            name="status" /><span
+                                            class="form-check-label">Activer</span></label><label
+                                        class="form-check"><input type="radio" class="form-check-input" name="status"
+                                            checked="" /><span class="form-check-label">Désactiver</span></label></div>
+
+                            </div>
+                        </div> -->
+                        <div class="card w-100">
+                            <div class="card-body p-5">
+                                <div class="mb-5">
+                                    <h2 class="mb-0 fs-exact-18">Catégorie*</h2>
+                                </div><select class="sa-select2 form-select" name="product_category" required>
+                                    <% if (typeof(sub_category) !== 'undefined' && sub_category != null && sub_category.length > 0) {
+
+                                        for (var i = 0; i < sub_category.length; i++){ 
+                                            
+                                          let selected = ""; 
+                                          if (sub_category[i].sub_cat_id == product[0].sub_cat_id) {selected = "selected"}
+
+                                    %>
+                                    <option <%= selected %> value="<%= sub_category[i].sub_cat_id %>"><%= sub_category[i].sub_cat_name %></option>
+                                    <% }} %>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="card w-100">
+                            <div class="card-body p-5">
+                                <div class="mb-5">
+                                    <h2 class="mb-0 fs-exact-18">Marques*</h2>
+                                </div><select class="sa-select2 form-select" name="product_brand" required>
+                                    <% if (typeof(brands) !== 'undefined' && brands != null && brands.length > 0) {
+
+                                        for (var i = 0; i < brands.length; i++){
+
+                                          let selected = ""; 
+                                          if (brands[i].brand_id == product[0].brand_id) {selected = "selected"}
+
+                                    %>
+                                    <option <%= selected %> value="<%= brands[i].brand_id %>"><%= brands[i].brand_name %></option>
+                                    <% }} %>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="card w-100 mt-5">
+                            <div class="card-body p-5">
+                                <div class="mb-5">
+                                    <h2 class="mb-0 fs-exact-18">Tarification</h2>
+                                </div>
+                                <div class="row g-4">
+                                    <div class="col"><label for="product_price" class="form-label">Prix*</label><input
+                                            type="number" class="form-control" name="product_price" value="<%= product[0].product_price %>" required />
+                                    </div>
+                                    <!-- <div class="col"><label for="form-product/old-price" class="form-label">Ancien prix</label><input type="number" class="form-control"
+                                            id="form-product/old-price" /></div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card w-100 mt-5">
+                            <div class="card-body p-5">
+                                <div class="mb-5">
+                                    <h2 class="mb-0 fs-exact-18">Inventaire</h2>
+                                </div>
+                                <div class="mb-4 pt-2"><label class="form-check"><input type="checkbox"
+                                            onclick="if (this.checked) {document.querySelector('#product_quantity').value = 0} else {document.querySelector('#product_quantity').value = 1}"
+                                            class="form-check-input" /><span class="form-check-label text-danger"> Non
+                                            Disponible</span></label></div>
+                                <div><label for="product_quantity" class="form-label">Quantité*</label><input
+                                        type="number" class="form-control" id="product_quantity" name="product_quantity"
+                                        value="<%= product[0].product_qt %>" required /></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </form>
+        <% } else { %>
+        
+            <div class="alert alert-danger mt-5" role="alert">
+             
+                Aucun produit correspondant !
+            
+            </div>
+        
+        <%}%>
+    </div>
+</div><!-- sa-app__body / end --><!-- sa-app__footer -->
+<script>
+    function display_img(event, imgid) {
+
+        var img = URL.createObjectURL(event.target.files[0])
+        document.getElementById(imgid).src = img
+
+    }
+
+    function remove_img(input, img) {
+
+        document.querySelector(input).value = '';
+        document.querySelector(img).src = ''
+
+    }
+</script>
+<script src="/lib/data_control.js"></script>
+<%- include ("layouts/footer.ejs") %>
+<%- include ("layouts/modal.ejs") %>

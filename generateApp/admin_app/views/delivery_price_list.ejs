@@ -1,0 +1,55 @@
+<%- include ("layouts/header.ejs") %>
+<div id="top" class="sa-app__body">
+    <div class="mx-sm-2 px-2 px-sm-3 px-xxl-4 pb-6">
+        <div class="container">
+            <div class="py-5">
+                <div class="row g-4 align-items-center">
+                    <div class="col">
+                        <h1 class="h3 m-0">Liste des prix livraison</h1>
+                    </div>
+                    <!-- <div class="col-auto d-flex"></div> -->
+                </div>
+            </div>
+            <div class="card">
+                <div class="p-4"><input type="text" placeholder="Rechercher ..."
+                        class="form-control form-control--search mx-auto" id="table-search" /></div>
+                <div class="sa-divider"></div>
+                <table class="sa-datatables-init" data-order="[[ 1, &quot;asc&quot; ]]"
+                    data-sa-search-input="#table-search">
+                    <thead>
+                        <tr>
+                            
+                            <th>Wilaya</th>
+                            <th>Prix</th>
+                            <th class="w-min" data-orderable="false"></th>
+                        
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (typeof(delivery_price) !== 'undefined' && delivery_price != null && delivery_price.length > 0) { 
+             
+                            for (var i = 0; i < delivery_price.length; i++)
+                            
+                            {
+                          
+                          %>
+                        <tr>
+
+                            <td><%= delivery_price[i].wilaya_id +" - "+ delivery_price[i].wilaya_name %></td>
+                            <td class="d-flex justify-content-center align-items-center gap-5"> 
+                                <input type="text" class="form-control"  id="input<%=delivery_price[i].wilaya_id%>" value="<%=delivery_price[i].delivery_price%>" onkeyup="if (event.key === 'Enter'){document.getElementById('btn<%=delivery_price[i].wilaya_id%>').click()}"  required />
+                                <button class="btn btn-primary" id="btn<%=delivery_price[i].wilaya_id%>" onclick="updateDeliveryPrice(<%=delivery_price[i].wilaya_id%>,document.getElementById('input<%=delivery_price[i].wilaya_id%>').value)">modifier</button>
+                            </td>
+                            <td>
+                                
+                            </td>
+                        </tr>
+                        <% }} %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div><!-- sa-app__body / end --><!-- sa-app__footer -->
+<%- include ("layouts/footer.ejs") %>
+<%- include ("layouts/modal.ejs") %>

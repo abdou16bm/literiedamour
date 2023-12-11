@@ -1,0 +1,70 @@
+<%- include ("layouts/header.ejs") %>
+<div id="top" class="sa-app__body">
+    <div class="mx-sm-2 px-2 px-sm-3 px-xxl-4 pb-6">
+        <form class="container container--max--xl" method="post" enctype="multipart/form-data">
+            <div class="py-5">
+                <div class="row g-4 align-items-center">
+                    <div class="col">
+                        <h1 class="h3 m-0">Ajouter catégorie</h1>
+                    </div>
+                    <div class="col-auto d-flex"><a href="/sub_category/list" class="btn btn-secondary me-3">Retour</a>
+                        <button class="btn btn-primary" type="submit" >Sauvegarder</button></div>
+                </div>
+            </div>
+            <div class="sa-entity-layout"
+                data-sa-container-query="{&quot;920&quot;:&quot;sa-entity-layout--size--md&quot;,&quot;1100&quot;:&quot;sa-entity-layout--size--lg&quot;}">
+                <div class="sa-entity-layout__body">
+                    <div class="sa-entity-layout__main">
+                        <div class="card">
+                            <div class="card-body p-5">
+                                <% if (typeof(err) != "undefined" && err != null && err == 1) { %>
+                                
+                                    <div class="alert alert-danger" role="alert">Remplissez les champs* obligatoire !</div>
+                                
+                                <% } %>
+                                <div class="mb-5">
+                                    <h2 class="mb-0 fs-exact-18">Nom*</h2>
+                                </div>
+                                <div class="mb-4">
+                                    <input type="text" class="form-control" id="form-category/name" value="" name="sub_cat_name" required />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-body p-5">
+                                <div class="mb-5">
+                                    <h2 class="mb-0 fs-exact-18">Image</h2>
+                                </div>
+                                <div class="mb-4">
+                                    <input type="file" class="form-control form-control-sm" id="formFile-2-sm" name="main" onchange="display_img(event,'img_cat')" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sa-entity-layout__sidebar">
+                        <div class="card w-100 mt-5">
+                            <div class="card-body p-5">
+                                <div class="mb-5">
+                                    <h2 class="mb-0 fs-exact-18">Image</h2>
+                                </div>
+                                <div class="border p-4 d-flex justify-content-center">
+                                    <div class="max-w-20x"><img src="" class="w-100 h-auto"
+                                            width="320" height="320" alt="" id="img_cat"/></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div><!-- sa-app__body / end --><!-- sa-app__footer -->
+<script>
+    function display_img(event,imgid) {
+
+        var img = URL.createObjectURL(event.target.files[0])
+        document.getElementById(imgid).src = img
+
+    }
+</script>
+<%- include ("layouts/footer.ejs") %>

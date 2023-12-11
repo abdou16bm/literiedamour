@@ -1,0 +1,138 @@
+<%- include ("layouts/header.ejs") %>
+<div id="top" class="sa-app__body">
+    <div class="mx-sm-2 px-2 px-sm-3 px-xxl-4 pb-6">
+        <% if (typeof(order) !== 'undefined' && order != null && order.length > 0) { %>
+        <div class="container container--max--xl">
+            <div class="py-5">
+                <div class="row g-4 align-items-center">
+                    <div class="col">
+                        <h1 class="h3 m-0">Commande #<%= order[0].order_id %></h1>
+                    </div>
+                    
+                    <div class="col-auto d-flex">
+                        <a href="/orders/list" class="btn btn-warning me-3">Retour</a>
+                        <% if (order[0].stat_id == 1) { %>
+                        <a href="/order/<%= order[0].order_id %>/status/2" class="btn btn-danger me-3">Annuler</a>
+                        <a href="/order/<%= order[0].order_id %>/status/3" class="btn btn-info">Valider</a>
+                        <% } else if (order[0].stat_id == 2) { %>
+                        <a href="/order/<%= order[0].order_id %>/status/3" class="btn btn-info">Valider</a>
+                        <% } else if (order[0].stat_id == 3) { %>
+                            <a href="/order/<%= order[0].order_id %>/status/2" class="btn btn-danger me-3">Annuler</a>
+                            <a href="/order/<%= order[0].order_id %>/status/4" class="btn btn-success me-3">Récéptionnée</a>
+                        <% } %>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="sa-page-meta mb-5">
+                <div class="sa-page-meta__body">
+                    <div class="sa-page-meta__list">
+                        <div class="sa-page-meta__item"><%= order[0].order_date.toLocaleDateString() %></div>
+                        <div class="sa-page-meta__item"><%= order[0].products_count %> Produits</div>
+                        <div class="sa-page-meta__item"><% let formating=Intl.NumberFormat('en-US') %><%= formating.format(order[0].order_total_price + order[0].delivery_price)+" DA" %></div>
+                        <% 
+        
+                            let color = ""
+                            if (order[0].stat_id == 1) color = "warning"
+                            else if (order[0].stat_id == 2) color = "danger"
+                            else if (order[0].stat_id == 3) color = "info"
+                            else if (order[0].stat_id == 4) color = "success"
+
+                         %>
+                        <div class="sa-page-meta__item d-flex align-items-center fs-6">
+                            <span class="badge badge-sa-<%= color %> me-2"><%= order[0].stat_name %></span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="sa-entity-layout"
+                data-sa-container-query="{&quot;920&quot;:&quot;sa-entity-layout--size--md&quot;}">
+                <div class="sa-entity-layout__body">
+                    <div class="sa-entity-layout__main">
+                        <div class="card mt-5">
+                            <div class="card-body px-5 py-4 d-flex align-items-center justify-content-between">
+                                <h2 class="mb-0 fs-exact-18 me-4">Produits</h2>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="sa-table">
+                                    <tbody>
+                                        <% if (typeof(order_p) !== 'undefined' && order_p != null && order_p.length > 0) { %>
+                                        <% for (var i = 0; i < order_p.length; i++) { %>
+                                        <tr>
+                                            <td class="min-w-20x">
+                                                <div class="d-flex align-items-center"><img
+                                                        src="/img/product/<%= order_p[i].product_id %>/main.jpg" class="me-4"
+                                                        width="40" height="40" alt="" /><a href="/product/<%= order_p[i].product_id %>/details"
+                                                        class="text-reset"><%= order_p[i].product_name %></a></div>
+                                            </td>
+                                            <td class="text-end">
+                                                <div class="sa-price"><span class="sa-price__integer"><%= formating.format(order_p[i].product_price_o)+" DA" %></span></div>
+                                            </td>
+                                            <td class="text-end">x<%= order_p[i].product_qt_o %></td>
+                                            <td class="text-end">
+                                                <div class="sa-price"><span class="sa-price__integer"><%= formating.format(order_p[i].product_qt_o * order_p[i].product_price_o)+" DA" %></span></div>
+                                            </td>
+                                        </tr>
+                                        <% }} %>
+
+                                    </tbody>
+                                    <tbody>
+                                        <tr>
+                                            <td colSpan="3">Sous total</td>
+                                            <td class="text-end">
+                                                <div class="sa-price"><span class="sa-price__integer"><%= formating.format(order[0].order_total_price)+" DA" %></span></div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody class="sa-table__group">
+                                        <tr>
+                                            <td colSpan="3">Livraison</td>
+                                            <td class="text-end">
+                                                <div class="sa-price"><span class="sa-price__integer"><%= formating.format(order[0].delivery_price)+" DA" %></span></div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody>
+                                        <tr>
+                                            <td colSpan="3">Total</td>
+                                            <td class="text-end">
+                                                <div class="sa-price"><span class="sa-price__integer"><%= formating.format(order[0].order_total_price + order[0].delivery_price)+" DA" %></span></div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sa-entity-layout__sidebar">
+                        <div class="card">
+                            <div class="card-body d-flex align-items-center justify-content-between pb-0 pt-4">
+                                <h2 class="fs-exact-16 mb-0">Client </h2>
+                            </div>
+                            <div class="card-body pt-4 fs-exact-14">
+                                <div><%= order[0].user_name +" "+ order[0].user_lastname %></div>
+                                <div class="mt-1"><a href="mailto:<%= order[0].user_email %>"><%= order[0].user_email %></a></div>
+                                <div class="text-muted mt-1"><%= order[0].user_phone %></div>
+                            </div>
+                        </div>
+                        <div class="card mt-5">
+                            <div class="card-body d-flex align-items-center justify-content-between pb-0 pt-4">
+                                <h2 class="fs-exact-16 mb-0">Adresse de livraison</h2>
+                            </div>
+                            <div class="card-body pt-4 fs-exact-14"><%= order[0].user_name +" "+ order[0].user_lastname %><br /><%= order[0].user_address +" - "+ order[0].wilaya_name %></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% } else { %>
+
+            <div class="alert alert-danger mt-5" role="alert">
+             
+              Aucune commande correspondante !
+         
+            </div>
+
+        <% } %>
+    </div>
+</div><!-- sa-app__body / end --><!-- sa-app__footer -->
+<%- include ("layouts/footer.ejs") %>

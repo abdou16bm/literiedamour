@@ -1,0 +1,207 @@
+<%- include ("layout/header") %>
+
+    <% if (typeof(product) !== 'undefined' && product != null && product.length > 0) { %>
+		<!-- BREADCRUMB -->
+		<div id="breadcrumb" class="section">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+					<div class="col-md-12">
+						<ul class="breadcrumb-tree">
+							<li><a href="/">ACCUEIL</a></li>
+							<li><a href="#"><%= product[0].sub_cat_name %></a></li>
+							<li><a href="#"><%= product[0].brand_name %></a></li>
+							<li class="active">Détails</li>
+						</ul>
+					</div>
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /BREADCRUMB -->
+
+		<!-- SECTION -->
+		<div class="section">
+			<!-- container -->
+			<div class="container-fluid">
+				<!-- row -->
+				<div class="row">
+					<!-- Product main img -->
+					<div class="col-md-5 col-md-push-2">
+						<div id="product-main-img">
+
+							<% for (let i = 0; i < product[0].product_imgcount; i++) { 
+								
+								let img_name = "main"; 
+								if (i > 0) { img_name = i} 
+							%>
+							
+							<div class="product-preview">
+								<img src="/img/product/<%= product[0].product_id %>/<%= img_name %>.jpg" alt="" style="height: 500px;">
+							</div>
+							
+							<%}%>
+
+
+						</div>
+					</div>
+					<!-- /Product main img -->
+
+					<!-- Product thumb imgs -->
+					<div class="col-md-2  col-md-pull-5">
+						<div id="product-imgs">
+							<% for (let i = 0; i < product[0].product_imgcount; i++) { 
+								
+								let img_name = "main"; 
+								if (i > 0) { img_name = i} 
+							%>
+							
+							<div class="product-preview">
+								<img src="/img/product/<%= product[0].product_id %>/<%= img_name %>.jpg" alt="" style="height: 180px;">
+							</div>
+							
+							<%}%>
+						</div>
+					</div>
+					<!-- /Product thumb imgs -->
+
+					<!-- Product details -->
+					<div class="col-md-5">
+						<div class="product-details">
+							<h2 class="product-name"><%= product[0].product_name %></h2>
+							<div>
+								<h3 class="product-price">  
+									<% let formating=Intl.NumberFormat('en-US') %>
+                                    <%= formating.format(product[0].product_price)+" DA" %>
+								</h3>
+								<% if (product[0].product_qt > 0) { %>
+									
+									<span class="product-available">Disponible</span>
+
+								<%} else {%>
+						        
+									<span class="product-available" style="color: red;">Rupture</span>
+
+								<%}%>			
+								
+							</div>
+							<p style="padding-top: 5%;padding-bottom: 5%;"><%= product[0].product_desig %></p>
+
+							<!-- <div class="product-options">
+								<label>
+									Size
+									<select class="input-select">
+										<option value="0">X</option>
+									</select>
+								</label>
+								<label>
+									Color
+									<select class="input-select">
+										<option value="0">Red</option>
+									</select>
+								</label>
+							</div>  -->
+
+							<div class="add-to-cart">
+								<!-- <div class="qty-label">
+									Qty
+									<div class="input-number">
+										<input type="number">
+										<span class="qty-up">+</span>
+										<span class="qty-down">-</span>
+									</div>
+								</div> -->
+								<button class="add-to-cart-btn" onclick="location.href='/checkout/<%= product[0].product_id %>'"><i class="fa fa-shopping-cart"></i> Commander</button>
+							</div>
+							<ul class="product-links">
+								<li>Categorie :</li>
+								<li><a href="#"><%= product[0].sub_cat_name %></a></li>
+								<!-- <li><a href="#">Accessories</a></li> -->
+							</ul>
+
+							<ul class="product-links">
+								<li>Suivez-nous :</li>
+								<li><a href="https://www.facebook.com/literiedamour"><i class="fa fa-facebook"></i></a></li>
+								<li><a href="https://www.instagram.com/literie_damour/"><i class="fa fa-instagram"></i></a></li>
+								<!-- <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+								<li><a href="#"><i class="fa fa-envelope"></i></a></li> -->
+							</ul>
+
+
+
+
+						</div>
+					</div>
+					<!-- /Product details -->
+
+					<!-- Product tab -->
+					<div class="col-md-12">
+						<div id="product-tab">
+							<!-- product tab nav -->
+							<ul class="tab-nav">
+								<li class="active"><a data-toggle="tab" href="#tab1">Détails</a></li>
+								<li><a data-toggle="tab" href="#tab2">Description</a></li>
+							</ul>
+							<!-- /product tab nav -->
+
+							<!-- product tab content -->
+							<div class="tab-content">
+								<!-- tab1  -->
+								<div id="tab1" class="tab-pane fade in active">
+									<div class="row">
+										<div class="col-md-12 col-xs-12">
+											<table class="table">
+												<thead>
+													<td><%= product[0].product_name %></td>
+												</thead>
+												<tbody>
+												  <% if (typeof(product_details) !== 'undefined' && product_details != null && product_details.length > 0) { %>
+                                                  <%for (let i = 0; i < product_details.length; i++) {%>
+												  <tr>
+													<th scope="row"><%= product_details[i].detail_name %></th>
+													<td><%= product_details[i].detail_desig %></td>
+												  </tr>
+												  <% }} %>
+												</tbody>
+											  </table>										</div>
+									</div>
+								</div>
+								<!-- /tab1  -->
+
+								<!-- tab2  -->
+								<div id="tab2" class="tab-pane fade in">
+									<div class="row">
+										<div class="col-md-12">
+											<p><%= product[0].product_desig %></p>
+										</div>
+									</div>
+								</div>
+								<!-- /tab2  -->
+							</div>
+							<!-- /product tab content  -->
+						</div>
+					</div>
+					<!-- /product tab -->
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /SECTION -->
+
+	<% } else { %>
+
+		<div class="alert alert-danger mt-5" role="alert">
+			
+			Aucun produit correspondant !
+		
+		</div>
+
+	<% } %>
+
+
+
+
+		<%- include ("layout/footer") %>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-scompiler-id="0">
+<!-- Mirrored from Tahaadou-admin.html.themeforest.scompiler.ru/variants/ltr/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 06 Apr 2023 11:41:32 GMT -->
+
+<head>
+  <meta charSet="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="format-detection" content="telephone=no" />
+  <title>E-commerce Admin</title><!-- icon -->
+  <link rel="icon" type="image/png" href="/assets/imgs/template/icon.png" /><!-- fonts -->
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900,900i" />
+  <!-- css -->
+  <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.ltr.css" />
+  <link rel="stylesheet" href="/assets/vendor/highlight.js/styles/github.css" />
+  <link rel="stylesheet" href="/assets/vendor/simplebar/simplebar.min.css" />
+  <link rel="stylesheet" href="/assets/vendor/quill/quill.snow.css" />
+  <link rel="stylesheet" href="/assets/vendor/air-datepicker/css/datepicker.min.css" />
+  <link rel="stylesheet" href="/assets/vendor/select2/css/select2.min.css" />
+  <link rel="stylesheet" href="/assets/vendor/datatables/css/dataTables.bootstrap5.min.css" />
+  <link rel="stylesheet" href="/assets/vendor/nouislider/nouislider.min.css" />
+  <link rel="stylesheet" href="/assets/vendor/fullcalendar/main.min.css" />
+  <link rel="stylesheet" href="/assets/css/style.css" />
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-97489509-8');
+  </script>
+</head>
+
+<body><!-- sa-app -->
+  <div class="sa-app sa-app--desktop-sidebar-shown sa-app--mobile-sidebar-hidden sa-app--toolbar-fixed">
+    <!-- sa-app__sidebar -->
+    <div class="sa-app__sidebar">
+      <div class="sa-sidebar">
+        <div class="sa-sidebar__header"><a class="sa-sidebar__logo" href="/home"><!-- logo -->
+            <div class="sa-sidebar-logo" style="padding-left: 20%; padding-top: 5%;"><img src="/assets/images/logo1.png" width="100"   alt="" /><div class="sa-sidebar-logo__caption">Admin</div>
+              <!--<div class="sa-sidebar-logo__caption">Admin</div>-->
+            </div><!-- logo / end -->
+          </a></div>
+
+        <%- include ("nav.ejs") %>
+
+      </div>
+      <div class="sa-app__sidebar-shadow"></div>
+      <div class="sa-app__sidebar-backdrop" data-sa-close-sidebar=""></div>
+    </div><!-- sa-app__sidebar / end --><!-- sa-app__content -->
+    <div class="sa-app__content"><!-- sa-app__toolbar -->
+      <div class="sa-toolbar sa-toolbar--search-hidden sa-app__toolbar">
+        <div class="sa-toolbar__body">
+          <div class="sa-toolbar__item"><button class="sa-toolbar__button" type="button" aria-label="Menu"
+              data-sa-toggle-sidebar=""><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                viewBox="0 0 20 20" fill="currentColor">
+                <path d="M1,11V9h18v2H1z M1,3h18v2H1V3z M15,17H1v-2h14V17z"></path>
+              </svg></button></div>
+
+          <div class="mx-auto"></div>
+          <div class="dropdown sa-toolbar__item">
+            <button class="sa-toolbar-user" type="button" id="dropdownMenuButton"
+              data-bs-toggle="dropdown" data-bs-offset="0,1" aria-expanded="false">
+              <span class="sa-toolbar-user__info"><span class="sa-toolbar-user__title">
+                <% if (session) {%>
+                  <%= session.username %></span>
+                <% } %>
+             </span></button>
+            <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton">
+              <li><a class="dropdown-item" href="/profil">Profil</a></li>
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
+              <li><a class="dropdown-item" href="/logout">Se déconnecter</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="sa-toolbar__shadow"></div>
+      </div><!-- sa-app__toolbar / end -->
+
+
+      <!-- .............. -->

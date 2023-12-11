@@ -1,0 +1,112 @@
+<%- include ("layout/header") %>
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <% if (typeof(product1) !== 'undefined' && product1 != null && product1.length > 0) { %>
+        <!-- row -->
+        <div class="row">
+            <!-- shop -->
+            <div class="col-md-6 col-xs-6" style="background-color: rgba(38, 255, 0, 0.122);">
+                <div class="billing-details">
+                    <div class="section-title">
+                        <!--  <h3 class="title">Informations</h3> -->
+                    </div>
+                    <div class="form-group">
+                        <!-- <select class="selectpicker form-control border-0 mb-1 px-4  rounded shadow">
+                            <option value="CATEGORIE">CATEGORIE ?</option>
+                            <option value="TELEPHONE PORTABLE">TELEPHONE PORTABLE</option>
+                            <option value="ACCESSOIRES">ACCESSOIRES </option>
+                        </select> -->
+                        <input type="text" readonly class="form-control" catId = "<%= product1[0].sub_cat_id %>" value="<%= product1[0].sub_cat_name %>" id="inputCat" placeholder="CATEGORIE?">
+                    </div>
+
+                    <div class="form-group">
+                        <!-- <select class="selectpicker form-control border-0 mb-1 px-4  rounded shadow">
+                            <option value="MARQUE">MARQUE ?</option>
+                            <option value="APPLE">APPLE</option>
+                            <option value="SAMSUNG">SAMSUNG </option>
+                            <option value="XIAOMI">XIAOMI </option>
+                            <option value="OPPO">OPPO </option>
+                        </select> -->
+                        <input type="text" readonly class="form-control" value="<%= product1[0].brand_name %>" placeholder="MARQUE?">
+                    </div>
+                    <div class="form-group">
+                        <!-- <select class="selectpicker form-control border-0 mb-1 px-4  rounded shadow">
+                            <option value="PRODUIT">PRODUIT ?</option>
+                            <option value="IPHONE 14 PRO MAX 128GB ">IPHONE 14 PRO MAX 128GB</option>
+                            <option value="IPHONE 14 PRO MAX 128GB">IPHONE 14 PRO MAX 128GB </option>
+                        </select> -->
+                        <input type="text" readonly class="form-control" idp = "<%= product1[0].product_id %>" value="<%= product1[0].product_name %>" placeholder="PRODUIT?">
+                    </div>
+                    <div class="product-img text-center">
+                        <img src="/img/product/<%= product1[0].product_id %>/main.jpg" alt=""
+                            style="width: 250px; padding: 10px;">
+
+                    </div>
+
+
+                </div>
+            </div>
+            <!-- /shop -->
+
+            <!-- shop -->
+            <div class="col-md-6 col-xs-6" style="background-color: rgba(0, 0, 0, 0.122);">
+                <div class="billing-details">
+                    <div class="section-title">
+                        <!--  <h3 class="title">Informations</h3> -->
+                    </div>
+                    <div class="form-group">
+                        <!-- <select class="selectpicker form-control border-0 mb-1 px-4  rounded shadow">
+                            <option value="CATEGORIE">CATEGORIE ?</option>
+                            <option value="TELEPHONE PORTABLE">TELEPHONE PORTABLE</option>
+                            <option value="ACCESSOIRES">ACCESSOIRES </option>
+                        </select> -->
+                        <input type="text" class="form-control" readonly catId = "<%= product1[0].sub_cat_id %>"  value="<%= product1[0].sub_cat_name %>" id="inputCat" placeholder="CATEGORIE?">
+                    </div>
+                    <div class="form-group">
+                        <select class="selectpicker form-control border-0 mb-1 px-4  rounded shadow" id="select_brand">
+                            <% if (typeof(brands) !== 'undefined' && brands != null && brands.length > 0) { %>
+                            <% for (var i = 0; i < brands.length; i++) { %>
+                            <option value="<%= brands[i].brand_id %>"><%= brands[i].brand_name %></option>
+                            <% }} %>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select class="selectpicker form-control border-0 mb-1 px-4  rounded shadow" id="select_product" oninput='document.getElementById("product2Img").src = "/img/product/"+this.value+"/main.jpg"'>
+                            
+                        </select>
+                    </div>
+
+                    <div class="product-img text-center">
+                        <img  alt="" id="product2Img"
+                            style="width: 250px; padding: 10px;">
+
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="col-md-12 col-xs-12 text-center" style="padding: 2%;">
+                <button class="btn btn-success btn-lg" id="btn_compare">Comparer</button>
+            </div>
+            <!-- /row -->
+        </div>
+        <% } else { %>
+
+            <div class="alert alert-danger mt-5" role="alert">
+                
+                Aucun produit correspondant !
+            
+            </div>
+    
+        <% } %>
+        <!-- /container -->
+    </div>
+    <!-- /SECTION -->
+
+
+
+ 
+    <%- include ("layout/footer") %>

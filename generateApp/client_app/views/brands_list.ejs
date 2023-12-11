@@ -1,0 +1,37 @@
+<%- include ("layout/header") %>
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <!-- shop -->
+            <% if (typeof(brands) !== 'undefined' && brands != null && brands.length > 0) %> 
+            <% { for (var i = 0; i < brands.length; i++){ %>
+                <div class="col-md-3 col-xs-6">
+                    <div class="shop text-center">
+                        <a href="/products/list/1?brand=<%= brands[i].brand_id %>">
+                            <div class="shop-img">
+                                <img src="/img/brand/<%= brands[i].brand_id %>/main.jpg" alt="">
+                            </div>
+                        </a>
+                        <div class="shop-text">
+    
+                            <a href="/products/list/1?brand=<%= brands[i].brand_id %>">
+                                <h3><%= brands[i].brand_name %></h3>
+                            </a>
+                            <a href="/products/list/1?rand=<%= brands[i].brand_id %>" class="cta-btn">Voir plus <i class="fa fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+                </div>  
+            <% }} %>
+            <!-- /shop -->
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /SECTION -->
+
+
+
+    <%- include ("layout/footer") %>
