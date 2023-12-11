@@ -475,7 +475,7 @@ CREATE TABLE IF NOT EXISTS `shop` (
 --
 
 INSERT INTO `shop` (`shop_id`, `shop_ref`, `shop_name`, `shop_address`, `shop_phone`, `shop_email`, `shop_status`) VALUES
-(1, NULL, 'Iphone Prix Algérie', NULL, NULL, NULL, 1);
+(1, NULL, 'Literie d''amour', NULL, NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
