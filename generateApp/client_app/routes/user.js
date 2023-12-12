@@ -15,6 +15,11 @@ user_router.post('/confirm/email',user_controller.confirm_email_valid);
 
 
 user_router.get('/login',user_controller.login);
+user_router.post('/login',user_controller.login_check);
+
+
+user_router.get('/logout',user_controller.logout);
+
 
 
 module.exports = user_router;

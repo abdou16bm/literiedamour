@@ -4,7 +4,7 @@
         <div class="container">
           <div class="row mb-100">
             <div class="col-lg-1"></div>
-              <form class="col-md-12" method="post">
+              <form class="col-md-12" method="post" id="login_form">
                 <!-- Billing Details -->
                 <div class="billing-details">
                   <div class="section-title">
@@ -12,7 +12,11 @@
                     <p>Content de te revoir !</p>
                   </div>
                   <% if (typeof(err) != "undefined" && err != null && err == 1) { %>
+                    <div class="alert alert-danger ms-4 me-4" role="alert">Remplissez tous les champs obligatoire* ! !</div>
+                  <% } else if (typeof(err) != "undefined" && err != null && err == 2) { %>
                     <div class="alert alert-danger ms-4 me-4" role="alert">Erreur d'informations !</div>
+                  <% } else if (typeof(err) != "undefined" && err != null && err == 3) { %>
+                    <div class="alert alert-danger ms-4 me-4" role="alert">Erreur d'envoie d'email de confirmation !</div>
                   <% } %>
                   <div class="form-group col-md-12">
                     <input class="input" type="text" name="username" placeholder="Nom d'Utilisateur*" required>
@@ -42,11 +46,19 @@
     
 <script>
   function myFunction() {
-var x = document.getElementById("passwordInput");
-if (x.type === "password") {
-  x.type = "text";
-} else {
-  x.type = "password";
-}
-}
+    var x = document.getElementById("passwordInput");
+    if (x.type === "password") {
+      x.type = "text";
+    } else {
+      x.type = "password";
+    }
+  }
+</script>
+
+
+
+<script>
+      
+  document.querySelector("#login_form").addEventListener("submit",()=>{$('#loading-modal').modal('show');})
+  
 </script>

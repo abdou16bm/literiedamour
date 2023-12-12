@@ -27,7 +27,7 @@ const home = function (req, res) {
         brand_module.brand_get_all_client(function (err,result2) {
 
             if (err) console.log(err)
-            console.log(result1)
+            //console.log(result1)
             res.render('home',{brands : result2, sub_category : result1, err : err, session : req.session});
             
     

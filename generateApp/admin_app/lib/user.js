@@ -15,7 +15,9 @@ exports.user_get_all = user_get_all;
 
 
 const user_get_one = function(user_id,callback){
- let sql='SELECT * from  user where user_id =?';
+ let sql='SELECT * from  user\n' +
+ 'left join cart on cart.user_id = user.user_id\n' +
+ 'where user.user_id =?';
  database_module.db.query(sql,[user_id], function (error, results, fields) {
   if (error) console.log('error : ',error);
 //console.log('results: ', results);

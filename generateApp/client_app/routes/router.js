@@ -20,9 +20,6 @@ router.get('/brands/list',band_controller.brand_list);
 //   res.render('products');
 // });
 
-router.get('/login', function (req, res) {
-  res.render('login');
-});
 
 router.get('/contact', function (req, res) {
   res.render('contact');
