@@ -20,7 +20,7 @@
                   <div class="card saw-indicator flex-grow-1"
                     data-sa-container-query="{&quot;340&quot;:&quot;saw-indicator--size--lg&quot;}">
                     <div class="sa-widget-header saw-indicator__header">
-                      <span><h2 class="sa-widget-header__title">Catégories</h2></span>
+                      <span><a href="/sub_category/list"> <h2 class="sa-widget-header__title">Catégories</h2></a></span>
                     </div>
                     <div class="saw-indicator__body">
                       <div class="saw-indicator__value"><%= sub_category[0].sub_category_count %></div>
@@ -46,7 +46,7 @@
                       <div class="card saw-indicator flex-grow-1"
                         data-sa-container-query="{&quot;340&quot;:&quot;saw-indicator--size--lg&quot;}">
                         <div class="sa-widget-header saw-indicator__header">
-                          <span><h2 class="sa-widget-header__title">Produits</h2></span>
+                          <span><a href="/products/list"><h2 class="sa-widget-header__title">Produits</h2></a></span>
                         </div>
                         <div class="saw-indicator__body">
                           <div class="saw-indicator__value"><%= products[0].products_count %></div>
@@ -59,7 +59,7 @@
                       <div class="card saw-indicator flex-grow-1"
                         data-sa-container-query="{&quot;340&quot;:&quot;saw-indicator--size--lg&quot;}">
                         <div class="sa-widget-header saw-indicator__header">
-                          <span><h2 class="sa-widget-header__title">Commandes</h2></span>
+                          <span><a href="/orders/list"><h2 class="sa-widget-header__title">Commandes</h2></a></span>
                         </div>
                         <div class="saw-indicator__body">
                           <div class="saw-indicator__value"><%= orders[0].orders_count %></div>
