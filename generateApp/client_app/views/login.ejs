@@ -18,7 +18,11 @@
                     <input class="input" type="text" name="username" placeholder="Nom d'Utilisateur*" required>
                   </div>
                   <div class="form-group col-md-12">
-                    <input class="input" type="password" name="password" placeholder="Mot de passe*" required>
+                    <input class="input" type="password" name="password" id="passwordInput" placeholder="Mot de passe*" required>
+                  </div>
+                  <div class="form-group col-md-12">
+                    <input class="checkagree" id="showpassword" type="checkbox" onclick="myFunction()">
+                    <label for="showpassword">Voir le mot de passe</label>
                   </div>
                 </div>
                 <!-- /Billing Details -->
@@ -33,3 +37,16 @@
     </main>
 
     <%- include ("layout/footer.ejs") %>
+
+
+    
+<script>
+  function myFunction() {
+var x = document.getElementById("passwordInput");
+if (x.type === "password") {
+  x.type = "text";
+} else {
+  x.type = "password";
+}
+}
+</script>
