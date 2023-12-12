@@ -1,0 +1,36 @@
+
+<%- include ("layout/header.ejs") %>
+<main class="main" style="margin-top: 25px;">
+    <section class="section-box shop-template mt-60">
+      <div class="container">
+        <div class="row mb-100 justify-content-center d-flex">
+          <form class="col-md-12" method="post">
+            <!-- Billing Details -->
+            <div class="billing-details">
+              <div class="section-title">
+                <h3 class="title">Confirmation de l'Email</h3>
+              </div>
+              <div class="alert alert-success mt-20" role="alert">
+                Nous avons envoyé un code de confirmation a votre email.
+              </div>
+              <br>
+              <% if (typeof(err) != 'undefined' && err != null && err==1) { %> 
+               <!--  <div class="alert alert-danger mt-20" role="alert"></div> -->   
+              <% } else if (typeof(err) != 'undefined' && err != null && err==2) { %>           
+                <div class="alert alert-danger mt-20" role="alert">Code de confirmation invalide.</div>                          
+              <% } %>
+              <div class="form-group col-md-6">
+                <input class="input" type="number" name="confirmCode" placeholder="Code de confirmation ici..." style="border: 2px solid gray; border-radius: 5px; padding: 19px;" required>         
+              </div>
+            <!-- /Billing Details -->
+            <div class="form-group col-md-6">
+              <button type="submit" class="primary-btn order-submit" style="width: 200px; border-radius: 5px;">Confirmer</button>
+            </div>
+            <!-- Shiping Details -->
+          </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+<%- include ("layout/footer.ejs") %>

@@ -1,0 +1,77 @@
+<%- include ("layout/header.ejs") %>
+    <main class="main" style="margin-top: 25px;">
+      <section class="section-box shop-template mt-60">
+        <div class="container">
+          <div class="row mb-100">
+            <div class="col-lg-1"></div>
+              <form class="col-md-12" method="post" id="signup_form">
+                <!-- Billing Details -->
+                <div class="billing-details">
+                  <div class="section-title">
+                    <h3 class="title">CRÉER VOTRE COMPTE</h3>
+                    <p>Accès à toutes les fonctionnalités.</p>
+                  </div>
+                  <% if (typeof(err) != "undefined" && err != null && err == 1) { %>
+                    <div class="alert alert-danger ms-4 me-4" role="alert">Remplissez tous les champs obligatoire* !</div>
+                  <% } else if (typeof(err) != "undefined" && err != null && err == 2) { %>
+                    <div class="alert alert-danger ms-4 me-4" role="alert">Confirmation du mot de passe incorrect !</div>
+                  <% } else if (typeof(err) != "undefined" && err != null && err == 3) { %>
+                    <div class="alert alert-danger ms-4 me-4" role="alert">Minimum 6 caractére pour le mot de passe !</div>
+                  <% } else if (typeof(err) != "undefined" && err != null && err == 4) { %>
+                    <div class="alert alert-danger ms-4 me-4" role="alert">Nom d'Utilisateur existe déja !</div>
+                  <% } else if (typeof(err) != "undefined" && err != null && err == 5) { %>
+                    <div class="alert alert-danger ms-4 me-4" role="alert">Erreur d'envoie d'email de confirmation !</div>
+                  <% } %>
+                  <div class="form-group col-md-6">
+                    <input class="input" type="text" name="lastname" placeholder="Nom*" required>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <input class="input" type="text" name="name" placeholder="Prénom*" required>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <input class="input" type="tel" name="phone" placeholder="Téléphone*" required>
+                  </div>    
+                  <div class="form-group col-md-6">
+                    <input class="input" type="email" name="email" placeholder="Email" required>
+                  </div>            
+                  <div class="form-group col-md-12">
+                    <input class="input" type="text" name="address" placeholder="Adresse*" required>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <select class="selectpicker form-control border-0 mb-1 px-4  rounded shadow" name="wilaya" required>
+                      <option selected disabled>Choisir wilaya*...</option>
+                      <% if (typeof(wilaya) !== 'undefined' && wilaya != null && wilaya.length > 0) {                        
+                       for (var i = 0; i < wilaya.length; i++) { %>
+                      <option value="<%= wilaya[i].wilaya_id %>"><%= wilaya[i].wilaya_num + " - " + wilaya[i].wilaya_name %></option>
+                      <% }} %>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <input class="input" type="text" name="username" placeholder="Nom d'Utilisateur*" required>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <input class="input" type="password" name="password" placeholder="Mot de passe* (Minimum 6 caractéres)" required>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <input class="input" type="password" name="password_c" placeholder="Confirmation mot de passe*" required>
+                  </div>
+                </div>
+                <!-- /Billing Details -->
+                <div class="col-md-12 text-center" style="margin-top: 25px;">
+                  <button type="submit" class="primary-btn order-submit" style="width: 200px;">S'inscrire</button>  
+                </div>               
+                <!-- Shiping Details -->
+              </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <%- include ("layout/footer.ejs") %>
+
+
+    <script>
+      
+      document.querySelector("#signup_form").addEventListener("submit",()=>{$('#loading-modal').modal('show');})
+      
+    </script>

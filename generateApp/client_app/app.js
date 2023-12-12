@@ -1,9 +1,16 @@
 // Modules
 const express = require('express');
+const session = require('express-session');
 const path = require('path');
 const bodyParser = require('body-parser');
 
 const app = express();
+
+app.use(session({
+secret: 'secret',
+resave: true,
+saveUninitialized: true
+}));
 
 // all environments
 app.use(bodyParser.urlencoded({extended : true}));
@@ -31,6 +38,9 @@ app.use('/', product_router);
 
 const order_router = require('./routes/customer_order');
 app.use('/', order_router);
+
+const user_router = require('./routes/user');
+app.use('/', user_router);
 
 
 

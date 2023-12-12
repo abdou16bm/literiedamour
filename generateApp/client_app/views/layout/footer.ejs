@@ -134,6 +134,86 @@
 <script src="/assets/js/jquery.zoom.min.js"></script>
 <script src="/assets/js/main.js"></script>
 
+
+   <!-- Modal loading -->
+   <div class="modal fade" id="loading-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop = "static" data-bs-keyboard="false">
+	<div class="modal-dialog" style="width: 200px;" role="document">
+	  <div class="modal-content">
+		<div class="modal-body d-flex justify-content-between align-items-center gap-3"> 
+			<div class="load-wrapp">
+				<p>En cours......</p>
+				<div class="load-10">
+				  <div class="bar"></div>
+				</div>
+			</div>
+		</div>
+	  </div>
+	</div>
+  </div>
+
+
 </body>
 
 </html>
+
+
+
+<style>
+
+
+	.spinner {
+	  position: relative;
+	  width: 45px;
+	  height: 45px;
+	  margin: 0 auto;
+	}
+	
+	.bubble-1,
+	.bubble-2 {
+	  position: absolute;
+	  top: 0;
+	  width: 25px;
+	  height: 25px;
+	  border-radius: 100%;
+	  background-color: #223f3a;
+	}
+	
+	.bubble-2 {
+	  top: auto;
+	  bottom: 0;
+	}
+	
+	.bar {
+	  float: left;
+	  width: 50px;
+	  height: 6px;
+	  border-radius: 2px;
+	  background-color: #223f3a;
+	}
+	
+
+	.l-10 {
+	  animation-delay: 1.56s;
+	}
+	
+	
+	.load-10 .bar {
+	  animation: loadingJ 1s cubic-bezier(0.17, 0.37, 0.43, 0.67) infinite;
+	}
+	
+	
+	@keyframes loadingJ {
+	  0%,
+	  100% {
+		transform: translateX(130px);
+	  }
+	
+	  50% {
+		transform: translateX(-10px);
+		background-color: #d3a04f;
+		
+		
+	  }
+	}
+	
+</style>

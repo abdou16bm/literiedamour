@@ -1,0 +1,35 @@
+<%- include ("layout/header.ejs") %>
+    <main class="main" style="margin-top: 25px;">
+      <section class="section-box shop-template mt-60">
+        <div class="container">
+          <div class="row mb-100">
+            <div class="col-lg-1"></div>
+              <form class="col-md-12" method="post">
+                <!-- Billing Details -->
+                <div class="billing-details">
+                  <div class="section-title">
+                    <h3 class="title">Authentification</h3>
+                    <p>Content de te revoir !</p>
+                  </div>
+                  <% if (typeof(err) != "undefined" && err != null && err == 1) { %>
+                    <div class="alert alert-danger ms-4 me-4" role="alert">Erreur d'informations !</div>
+                  <% } %>
+                  <div class="form-group col-md-12">
+                    <input class="input" type="text" name="username" placeholder="Nom d'Utilisateur*" required>
+                  </div>
+                  <div class="form-group col-md-12">
+                    <input class="input" type="password" name="password" placeholder="Mot de passe*" required>
+                  </div>
+                </div>
+                <!-- /Billing Details -->
+                <div class="col-md-12 text-center" style="margin-top: 25px;">
+                  <button type="submit" class="primary-btn order-submit" style="width: 200px;">Connexion</button>  
+                </div>               
+                <!-- Shiping Details -->
+              </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <%- include ("layout/footer.ejs") %>
