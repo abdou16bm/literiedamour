@@ -1,7 +1,7 @@
 const database_module=require('./database');
 
 const category_get_all = function(callback){ 
- let sql='SELECT * from category order by cat_id DESC ';
+ let sql='SELECT * from category order by cat_id ASC ';
 database_module.db.query(sql,[], function (error, results, fields) {
 if (error) console.log('error : ',error);
 //console.log('results: ', results);
@@ -12,6 +12,20 @@ return results;
 
 
 exports.category_get_all = category_get_all;
+
+
+const category_get_all_top = function(top,callback){ 
+let sql='SELECT * from category order by cat_id ASC limit ?';
+database_module.db.query(sql,[top], function (error, results, fields) {
+if (error) console.log('error : ',error);
+//console.log('results: ', results);
+if (callback){callback(error,results)};
+return results;
+});
+};
+   
+   
+exports.category_get_all_top = category_get_all_top;
 
 
 const category_get_one = function(cat_id,callback){ 

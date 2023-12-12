@@ -6,6 +6,7 @@ const apis = express.Router();
 // MY MODULES
 const product_module = require ("../../admin_app/lib/product")
 const delivery_module = require("../../admin_app/lib/delivery_price")
+const category_module = require("../../admin_app/lib/category")
 const sub_category_module = require("../../admin_app/lib/sub_category")
 
 
@@ -54,6 +55,24 @@ apis.get("/subcat/list",function (req,res) {
         res.send({
     
             sub_category: result1,
+            err : err
+        
+        });
+
+    });
+
+})
+
+
+apis.get("/cat/list",function (req,res) {
+
+    category_module.category_get_all_top(5,function (err,result1){
+
+        if (err) console.log('Error : ',err);
+
+        res.send({
+    
+            category: result1,
             err : err
         
         });

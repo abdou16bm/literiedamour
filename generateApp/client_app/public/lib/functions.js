@@ -190,31 +190,49 @@ if (document.getElementById("wilaya_checkout") && document.getElementById("deliv
 
 
 
-if (document.getElementById("footer_cat")) {
-
-    fetch("/api/subcat/list")
-    .then((response)=>response.json())
-    .then(data=>{
 
 
-        if (data.err != null && typeof(data.err) != "undefined") {
+fetch("/api/cat/list")
+.then((response)=>response.json())
+.then(data=>{
 
-            console.log(data.err)     
 
-        } else {
+    if (data.err != null && typeof(data.err) != "undefined") {
+
+        console.log(data.err)     
+
+    } else {
+
+        if (document.getElementById("header_cat")) {
+
+            document.getElementById("header_cat").innerHTML = ""
+            
+            for (let i = 0; i < data.category.length; i++) {
+    
+                document.getElementById("header_cat").innerHTML +=
+                
+                "<li><a href='/products/list/1?cat="+data.category[i].cat_id+"&bprice=&eprice='>"+data.category[i].cat_name+"</a></li>"
+    
+            }
+
+        }
+
+        if (document.getElementById("footer_cat")) {
 
             document.getElementById("footer_cat").innerHTML = ""
-            for (let i = 0; i < data.sub_category.length; i++) {
-
-                document.getElementById("footer_cat").innerHTML +=
-
-                "<li><a href='/products/list/1?cat=["+data.sub_category[i].sub_cat_id+"]&price=[]&brand=[]'>"+data.sub_category[i].sub_cat_name+"</a></li>"
-
-            }
-        
-        
-        }
-        
-    })
+            
+            for (let i = 0; i < data.category.length; i++) {
     
-}
+                document.getElementById("footer_cat").innerHTML +=
+    
+                "<li><a href='/products/list/1?cat="+data.category[i].cat_id+"&bprice=&eprice='>"+data.category[i].cat_name+"</a></li>"
+                
+            }
+
+        }
+
+    }
+    
+})
+    
+

@@ -4,7 +4,7 @@ const sub_category_get_all = function(callback){
  let sql='SELECT sc.*, COUNT(p.product_id) AS product_count from sub_category sc\n' +
  'LEFT JOIN product p ON p.sub_cat_id = sc.sub_cat_id\n' +
  'GROUP BY sc.sub_cat_id\n' +
- 'order by sc.sub_cat_id DESC';
+ 'order by sc.sub_cat_id';
 database_module.db.query(sql,[], function (error, results, fields) {
 if (error) console.log('error : ',error);
 //console.log('results: ', results);
