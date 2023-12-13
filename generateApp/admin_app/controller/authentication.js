@@ -3,12 +3,16 @@ const user_module = require('../lib/user');
 
 let isAuthenticated = function (req,res,next) {
 
+    console.log("loggedin : ",req.session.loggedin)
+
     if (req.session.loggedin) {
 
         next();
     }
     else {
-         res.redirect('/');
+
+        if (req.baseUrl == "/api") res.send({loggedin : "Not Authenticated"})
+        else res.redirect('/');
         //req.session.userid = 1;
         //next();
     }

@@ -19,7 +19,7 @@ const checkout = function (req, res) {
 
         wilaya_module.wilaya_get_all(function (err,result2) {
 
-            res.render('checkout',{product : result1, wilaya : result2, err : req.query.err});
+            res.render('checkout',{product : result1, wilaya : result2, session : req.session, err : req.query.err});
             
         })
     

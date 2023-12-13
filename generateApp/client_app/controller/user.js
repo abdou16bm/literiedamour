@@ -142,7 +142,7 @@ const signup_save = function (req,res) {
 
 const confirm_email = function (req, res) {
 
-    res.render('confirm_email',{err : req.query.err});
+    res.render('confirm_email',{session : req.session, err : req.query.err});
 
 }
 
@@ -190,7 +190,7 @@ const confirm_email_valid = function (req, res) {
 
 const login = function (req, res) {
 
-    res.render('login',{err:req.query.err});
+    res.render('login',{session : req.session, err:req.query.err});
 
 }
 

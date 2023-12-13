@@ -22,14 +22,14 @@ router.get('/brands/list',band_controller.brand_list);
 
 
 router.get('/contact', function (req, res) {
-  res.render('contact');
+  res.render('contact',{session : req.session});
 });
 // router.get('/checkout', function (req, res) {
 //   res.render('checkout');
 // });
 
 router.get('/success/checkout', function (req, res) {
-  res.render('checkout_success');
+  res.render('checkout_success',{session : req.session});
 });
 
 

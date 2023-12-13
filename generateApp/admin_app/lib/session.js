@@ -9,6 +9,7 @@ let  session_create = function (req,res,data) {
     req.session.userid = data.user_id;
     req.session.user_id_s = data.user_id_s;
     req.session.privid = data.privid;
+    req.session.cart_id = data.cart_id
     req.session.shop_id = data.shop_id;
     req.session.location = '/';
     //req.session.localisation = info;

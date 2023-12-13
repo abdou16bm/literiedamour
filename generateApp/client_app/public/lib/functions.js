@@ -1,3 +1,6 @@
+let productToCart_btn_list = document.querySelectorAll(".productToCart_btn")
+let cart_wait = localStorage.getItem("cartWait")
+
 
 
 if (document.getElementById("select_brand")) {
@@ -235,4 +238,120 @@ fetch("/api/cat/list")
     
 })
     
+
+
+
+if (typeof(productToCart_btn_list) != "undefined" && productToCart_btn_list.length > 0) {
+
+    for (let i = 0; i < productToCart_btn_list.length; i++) {
+     
+        productToCart_btn_list[i].addEventListener("click",function () {
+            
+            let product = productToCart_btn_list[i].getAttribute("idp")
+
+            if (typeof(product) != "undefined" && product != null && product != null) {
+
+                fetch("/api/cart_p/add?product="+product)
+                .then(response => response.json())
+                .then(result => {
+
+                    if (typeof(result.loggedin) != "undefined" && result.loggedin != null) {
+                    
+                        let dataWait = {product : productToCart_btn_list[i].getAttribute("idp")}
+
+                        localStorage.setItem('cartWait',JSON.stringify(dataWait))
+                        location.href = "/login"
+                    
+                    }
+                    else {
+
+                        if (typeof(result.err) != "undefined" && result.err != null){
+
+                            if (result.err.code == "ER_DUP_ENTRY") {
+                                
+                                console.log("Product exixts.")
+                                document.getElementById("alert_msg").innerHTML = '<div class="alert alert-primary" role="alert">Produit existe déja dans votre panier. <a href="/cart">Voir panier</a></div>'
+                                setTimeout(() => {
+                                    
+                                    $('#alert_modal').modal('show');
+                                    
+                                }, 500);
+                                
+                            } else console.log(result.err)
+        
+                        }   
+                        else {
+                    
+                            console.log("Product add to cart.")
+                            setTimeout(() => {
+                    
+                                $('#cart_modal').modal('show');
+                                
+                            }, 500);
+
+                        }
+
+                    }
+
+                })
+         
+            }
+
+        })
+        
+    }
+    
+}
+
+
+
+
+if (typeof(cart_wait) != "undefined" && cart_wait != null && cart_wait != "") {
+
+    let product = JSON.parse(cart_wait).product
+    
+    if (typeof(product) != "undefined" && product != null && product != null) {
+        
+        fetch("/api/cart_p/add?product="+product)
+        .then(response => response.json())
+        .then(result => {
+
+            if (typeof(result.loggedin) != "undefined" && result.loggedin != null) console.log("Not Authentificated.")
+            else {
+
+                localStorage.removeItem("cartWait")
+
+                if (typeof(result.err) != "undefined" && result.err != null){
+
+                    if (result.err.code == "ER_DUP_ENTRY") {
+                        
+                        console.log("Product exixts.")
+                        document.getElementById("alert_msg").innerHTML = '<div class="alert alert-primary" role="alert">Produit existe déja dans votre panier. <a href="/cart">Voir panier</a></div>'
+                        setTimeout(() => {
+                            
+                            $('#alert_modal').modal('show');
+                            
+                        }, 500);
+                        
+                    } else console.log(result.err)
+
+                }    
+                else {
+                                           
+                    console.log("Product add to cart.")
+                    setTimeout(() => {
+            
+                        $('#cart_modal').modal('show');
+                        
+                    }, 500);
+
+                }
+
+            }
+
+        })
+
+    }
+    
+}
 

@@ -8,6 +8,10 @@ const product_module = require ("../../admin_app/lib/product")
 const delivery_module = require("../../admin_app/lib/delivery_price")
 const category_module = require("../../admin_app/lib/category")
 const sub_category_module = require("../../admin_app/lib/sub_category")
+const cart_p_module = require("../../admin_app/lib/cart_p")
+
+//MY CONTROLLER
+const authentication_controller = require('../../admin_app/controller/authentication');
 
 
 apis.get("/products/:brand/:subcat",function (req,res) {
@@ -80,5 +84,48 @@ apis.get("/cat/list",function (req,res) {
     });
 
 })
+
+
+
+apis.get("/cart_p/add",authentication_controller.isAuthenticated,function (req,res) {
+
+    let product_id = req.query.product
+    let cart_id = req.session.cart_id
+
+    console.log("productId : ",product_id)
+    console.log("cartId : ",cart_id)
+
+    product_module.product_get_one(product_id,function (err,result) {
+
+        if (err) console.log(err)
+
+        if (result.length > 0) {
+            
+            console.log("productPrice : ",result[0].product_price)
+
+            let data_insert = {
+                
+                product_id : product_id, 
+                cart_id : cart_id, 
+                product_qt_c : 1, 
+                product_price_c : result[0].product_price
+            
+            };
+
+            cart_p_module.cart_p_add(data_insert,function (err,result1) {
+                
+                if (err) console.log('error',err);
+
+                res.send({insert_result : result1, err : err, session : req.session});
+            
+            });
+
+        }
+         
+    })
+   
+});
+
+
 
 module.exports = apis;

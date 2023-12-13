@@ -22,7 +22,7 @@ const product_details = function (req, res) {
             if (err) console.log(err)
 
             
-            res.render('product_details',{product : result1, product_details : result2, err : err});
+            res.render('product_details',{product : result1, product_details : result2, session : req.session, err : err});
 
             
         })
@@ -142,7 +142,7 @@ const product_compare_choice = function (req, res) {
                               if (err) console.log(err)
 
                               
-                              res.render('products_compare_choice',{product1 : result1, product1_details : resul2, products : resul3, brands : result4, err : err});
+                              res.render('products_compare_choice',{product1 : result1, product1_details : resul2, products : resul3, brands : result4, session : req.session, err : err});
                          
                          
                          })
@@ -153,7 +153,7 @@ const product_compare_choice = function (req, res) {
           
           } else {
 
-               res.render('products_compare_choice',{product1 : [], product1_details : [], products : [], brands : [], err : err});
+               res.render('products_compare_choice',{product1 : [], product1_details : [], products : [], brands : [], session : req.session, err : err});
 
           }
             
@@ -188,7 +188,7 @@ const product_compare_choice = function (req, res) {
                     
                                    if (err) console.log(err)
           
-                                   res.render('products_compare',{product1 : result1, product1_details : resul2, product2 : result3, product2_details : result4, err : err});
+                                   res.render('products_compare',{product1 : result1, product1_details : resul2, product2 : result3, product2_details : result4, session : req.session, err : err});
                               
                               })
                                    
@@ -201,7 +201,7 @@ const product_compare_choice = function (req, res) {
                
           } else {
 
-               res.render('products_compare',{product1 : [], product1_details : [], product2 : [], product2_details : [], sameProduct : true, err : err});
+               res.render('products_compare',{product1 : [], product1_details : [], product2 : [], product2_details : [], sameProduct : true, session : req.session, err : err});
 
           }
 
@@ -209,7 +209,7 @@ const product_compare_choice = function (req, res) {
 
      } else {
 
-          res.render('products_compare',{product1 : [], product1_details : [], product2 : [], product2_details : [], err : err});
+          res.render('products_compare',{product1 : [], product1_details : [], product2 : [], product2_details : [], session : req.session, err : err});
 
      }
 

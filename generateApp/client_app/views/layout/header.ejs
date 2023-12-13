@@ -40,10 +40,16 @@
 								<li><a href="mailto:contact@literiedamour.dz"><i class="fa fa-envelope-o"></i> contact@literiedamour.dz</a></li>
 								<li><a href="https://maps.app.goo.gl/KbpANepKFsNSBQgf8" target="_blank"><i class="fa fa-map-marker"></i> Rue 20 aout commune bordj bahri </a></li>
 							</ul>
+							
 							<ul class="header-links pull-right">
-								<li><a href="/signup"><i class="fa fa-sign-in"></i> S'inscrire</a></li>
-								<li><a href="/login"><i class="fa fa-user-o"></i> Mon Compte</a></li>
+								<% if (typeof(session) != "undefined" && session.loggedin != true) {%>
+								<li><a href="/signup"><i class="fa fa-user-plus"></i> S'inscrire</a></li>
+								<li><a href="/login"><i class="fa fa-sign-in"></i> Se connecter</a></li>
+								<% } else { %>
+								<li><a href="/logout"><i class="fa fa-sign-out"></i> Se déconnecter</a></li>
+								<% } %>
 							</ul>
+							
 						</div>
 					</div>
 					<!-- /TOP HEADER -->
@@ -79,23 +85,27 @@
 									</div>
 								</div>
 								<!-- /SEARCH BAR -->
-		
+								<% if (typeof(session) != "undefined" && session.loggedin == true) {%>
 								<!-- ACCOUNT -->
 								<div class="col-md-3 clearfix">
 									<div class="header-ctn">
-										<!-- Wishlist -->
-										<div>
-											<a href="#">
-												<i class="fa fa-heart-o"></i>
-												<span>Your Wishlist</span>
-												<div class="qty">2</div>
+										
+										<div class="dropdown">
+											<a class="dropdown-toggle" href="" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+												<i class="fa fa-user"></i>
+												<span>Compte</span>
 											</a>
-										</div>
-										<!-- /Wishlist -->
-		
+											<ul class="dropdown-menu" aria-labelledby="dropdownMenu">
+												<li><a href="/account">Mon compte</a></li>
+												<li><a href="/orders/list">Mes commandes</a></li>												
+												<li role="separator" class="divider"></li>
+												<li><a href="/logout">Déconnecter</a></li>
+											</ul>
+										  </div>
+
 										<!-- Cart -->
 										<div class="dropdown">
-											<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+											<a class="dropdown-toggle" href="" data-toggle="dropdown" aria-expanded="true">
 												<i class="fa fa-shopping-cart"></i>
 												<span>Your Cart</span>
 												<div class="qty">3</div>
@@ -147,6 +157,7 @@
 									</div>
 								</div>
 								<!-- /ACCOUNT -->
+								<% } %>
 							</div>
 							<!-- row -->
 						</div>
