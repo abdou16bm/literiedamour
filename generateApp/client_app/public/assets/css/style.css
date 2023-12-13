@@ -2188,6 +2188,10 @@ textarea.input {
     float: none;
     margin-top: 10px;
   }
+  .mobile-none
+  {
+    display: none;
+  }
 }
 
 

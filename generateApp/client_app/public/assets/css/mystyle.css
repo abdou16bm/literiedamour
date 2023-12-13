@@ -2197,6 +2197,10 @@ textarea.input {
   .section-tab-nav li {
     margin-top: 10px;
   }
+  .mobile-none
+  {
+    display: none;
+  }
 }
 
 @media only screen and (max-width: 480px) {
