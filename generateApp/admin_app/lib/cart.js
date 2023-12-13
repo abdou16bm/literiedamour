@@ -27,6 +27,19 @@ return results;
 
 exports.cart_get_one = cart_get_one;
 
+const cart_get_one_user = function(user_id,callback){ 
+    let sql='SELECT * from  cart where user_id =?';
+   database_module.db.query(sql,[user_id], function (error, results, fields) {
+   if (error) console.log('error : ',error);
+   //console.log('results: ', results);
+   if (callback){callback(error,results)};
+   return results;
+   });
+   };
+   
+   
+   exports.cart_get_one_user = cart_get_one_user;
+
 
 const cart_add = function(data,callback){ 
 let fields = '('+Object.keys(data).toString()+')';

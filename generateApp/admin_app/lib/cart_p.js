@@ -27,6 +27,21 @@ return results;
 
 exports.cart_p_get_one = cart_p_get_one;
 
+const cart_p_get_one_cart = function(cart_id,callback){ 
+    
+    let sql='SELECT * from  cart_p where cart_id =?';
+
+    database_module.db.query(sql,[cart_id], function (error, results, fields) {
+    if (error) console.log('error : ',error);
+    //console.log('results: ', results);
+    if (callback){callback(error,results)};
+    return results;
+    });
+
+};
+   
+   
+exports.cart_p_get_one_cart = cart_p_get_one_cart;
 
 const cart_p_add = function(data,callback){ 
 let fields = '('+Object.keys(data).toString()+')';

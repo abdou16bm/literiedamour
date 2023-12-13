@@ -25,10 +25,18 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, '../admin_app/public')));
 
+
+
+
 // include ROUTES & APIs
 const routes = require('./routes/router');
+const apis = require('./routes/apis');
 
 app.use('/', routes);
+app.use('/api', apis);
+
+
+
 
 const home_router = require('./routes/home');
 app.use('/', home_router);
@@ -43,10 +51,10 @@ const user_router = require('./routes/user');
 app.use('/', user_router);
 
 
+const cart_router = require('./routes/cart');
+app.use('/', cart_router);
 
 
-const apis = require('./routes/apis');
-app.use('/api', apis);
 
 console.log('http://localhost:3300');
 app.listen(3300);
