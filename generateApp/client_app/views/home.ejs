@@ -35,7 +35,7 @@
 								</li>
 							</ul> -->
 							<h2 class="text-uppercase" style="  color: #d3a04f; margin-bottom: 5%;">Découvre notre gamme de produits</h2>
-						
+
 							<a class="primary-btn cta-btn" href="/products/list/1">Voir Plus</a>
 						</div>
 					</div>
@@ -189,11 +189,11 @@
                         <h3 class="title">Nos Produits</h3>
                         <div class="section-nav">
                             <ul class="section-tab-nav tab-nav">
-                                 
+
                                 <% for (var i = 0; i < sub_category.length; i++){ let active = ""; if (i==0) {active = "active"} %>
                                 <li class="<%= active %>"><a data-toggle="tab" href="#cat<%= sub_category[i].sub_cat_id %>"><%= sub_category[i].sub_cat_name %></a></li>
                                 <% } %>
-                            
+
                             </ul>
                         </div>
                     </div>
@@ -248,7 +248,7 @@
                                             <!-- <button class="add-to-compare" onclick="location.href='/compare/<%= sub_category[i].products[j].product_id %>'"><i
                                                     class="fa fa-exchange"></i><span
                                                     class="tooltipp">comparer</span></button> -->
-                                            <button class="quick-view" onclick="location.href='/product/<%= sub_category[i].products[j].product_id %>/details#product-tab'"><i class="fa fa-eye"></i><span
+                                            <button class="quick-view" onclick="location.href='/product/<%= sub_category[i].products[j].product_id %>/details'"><i class="fa fa-eye"></i><span
                                                     class="tooltipp">Détail</span></button>
                                         </div>
 									</div>
@@ -260,8 +260,8 @@
                             <% } %>
 							<!-- /product -->
 
-                                  
-                                  
+
+
 
                                     </div>
                                     <!-- /store products -->
