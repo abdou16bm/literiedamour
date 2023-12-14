@@ -14,6 +14,10 @@ const order_module = require("../../admin_app/lib/customer_order")
 
 //MY CONTROLLER
 const authentication_controller = require('../../admin_app/controller/authentication');
+const cart_controller = require('../controller/cart');
+
+
+apis.get("/cart",authentication_controller.isAuthenticated,cart_controller.cart_get_one_user)
 
 
 apis.get("/products/:brand/:subcat",function (req,res) {

@@ -2,6 +2,7 @@ let productToCart_btn_list = document.querySelectorAll(".productToCart_btn")
 let myInputQte_list = document.querySelectorAll(".myInputQte")
 let myBtnDelete_list = document.querySelectorAll(".myBtnDelete")
 let cart_wait = localStorage.getItem("cartWait")
+let formating=Intl.NumberFormat('en-US')
 
 
 
@@ -284,12 +285,14 @@ if (typeof(productToCart_btn_list) != "undefined" && productToCart_btn_list.leng
                         }
                         else {
 
-                            console.log("Product add to cart.")
+                            console.log("Product add to cart.");
                             setTimeout(() => {
 
                                 $('#cart_modal').modal('show');
 
                             }, 500);
+
+                            loadDropCart()
 
                         }
 
@@ -346,6 +349,8 @@ if (typeof(cart_wait) != "undefined" && cart_wait != null && cart_wait != "") {
                         $('#cart_modal').modal('show');
 
                     }, 500);
+
+                    loadDropCart()
 
                 }
 
@@ -422,6 +427,7 @@ if (typeof(myInputQte_list) != "undefined" && myInputQte_list.length > 0) {
 
                             console.log("Product qte updated.")
                             $(".myTotalCart").load(" .myTotalCart > *");
+                            loadDropCart()
 
                         }
 
@@ -460,3 +466,94 @@ if (document.querySelector(".myBtnValid")) {
     })
     
 }
+
+
+if (document.querySelector(".myBtnValid_drop")) {
+    
+    document.querySelector(".myBtnValid_drop").addEventListener("click",function () {
+
+        fetch("/api/cart/valid")
+        .then(response => response.json())
+        .then(result => {
+
+            if (typeof(result.loggedin) != "undefined" && result.loggedin != null) console.log("Not Authentificated.")
+            else {
+
+                if (typeof(result.err) != "undefined" && result.err != null) console.log(result.err)
+                else location.href = "/orders"
+
+            }
+                    
+        })
+
+    })
+    
+}
+
+function loadDropCart() {
+    
+    if (document.getElementById("qteCart_drop") && document.getElementById("productCart_drop") && document.getElementById("totalCart_drop")) {
+
+        fetch("/api/cart")
+        .then(response => response.json())
+        .then(result => {
+    
+          
+    
+            if (typeof(result.loggedin) != "undefined" && result.loggedin != null) console.log("Not Authentificated.")
+            else {
+    
+                if (typeof(result.err) != "undefined" && result.err != null) console.log(result.err)
+                else {
+            
+                    let qteCart = document.getElementById("qteCart_drop")
+                    let productCart = document.getElementById("productCart_drop")
+                    let totalCart = document.getElementById("totalCart_drop")
+
+                    qteCart.innerHTML = ""
+                    productCart.innerHTML = ""
+                    totalCart.innerHTML = ""
+    
+                    if (result.cart.length > 0) {
+    
+                        qteCart.innerText = result.cart[0].productCount                    
+    
+                        if (result.cart_p.length > 0) {
+                               
+                            totalCart.innerText = "Total : " + formating.format(result.cart[0].totalPrice)+" DA"            
+    
+                            for (let i = 0; i < result.cart_p.length; i++) {
+                           
+                                productCart.innerHTML += 
+                                
+                                '<div class="product-widget">' +
+                                '<div class="product-img">' +
+                                    '<img src="/img/product/'+result.cart_p[i].product_id+'/main.jpg" alt="">' +
+                                '</div>' +
+                                '<div class="product-body">' +
+                                    '<h3 class="product-name"><a href="#">'+result.cart_p[i].product_name+'</a></h3>' +
+                                    '<h4 class="product-price"><span class="qty">'+result.cart_p[i].product_qt_c+'x</span>'+formating.format(result.cart_p[i].product_price_c)+" DA"+'</h4>' +
+                                '</div>' +
+                                '</div>' 
+                                
+                            }
+    
+                        } else {productCart.innerHTML = "<span class = 'text-info'>Votre panier est vide.</span>"}
+                        
+                    }
+    
+                }
+    
+            }
+    
+        })
+        
+    }
+
+}
+
+
+
+
+
+window.onload = loadDropCart()

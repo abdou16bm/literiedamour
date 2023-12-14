@@ -22,15 +22,30 @@ let cart_get_one_user = function (req,res) {
             cart_p_module.cart_p_get_one_cart(result1[0].cart_id,function (err,result2) {
 
                 if (err) console.log(err)
+                   
+                if (req.baseUrl == "/api") {
                     
-                res.render("cart",{cart : result1, cart_p : result2, session : req.session, err : req.query.err})
-                
+                    res.send({cart : result1, cart_p : result2, session : req.session, err : err})
+
+                } else {
+
+                    res.render("cart",{cart : result1, cart_p : result2, session : req.session, err : err})
+
+                }
                 
             })
 
         } else {
 
-            res.render("cart",{cart : [], cart_p : [], session : req.session, err : req.query.err})
+            if (req.baseUrl == "/api") {
+                    
+                res.send({cart : [], cart_p : [], session : req.session, err : err})
+
+            } else {
+
+                res.render("cart",{cart : [], cart_p : [], session : req.session, err : err})
+
+            }         
 
         }
     
