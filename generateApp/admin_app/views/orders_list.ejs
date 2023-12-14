@@ -36,7 +36,7 @@
                         
                     %>
                         <tr>
-                            <td><a href="/order/<%= orders[i].order_id %>" class="text-reset">#<%= orders[i].order_id %></a></td>
+                            <td><a href="/order/<%= orders[i].order_id %>/details" class="text-reset">#<%= orders[i].order_id %></a></td>
                             <td><%=orders[i].order_date.toLocaleDateString()%></td>
                             <td class="text-reset"><%= orders[i].user_lastname +" "+ orders[i].user_name %></td>
                             <% 
