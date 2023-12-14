@@ -24,11 +24,11 @@ const home = function (req, res) {
             
         }
 
-        brand_module.brand_get_all_client(function (err,result2) {
+        product_module.product_get_all_top(12,function (err,result2) {
 
             if (err) console.log(err)
             //console.log(result1)
-            res.render('home',{brands : result2, sub_category : result1, err : err, session : req.session});
+            res.render('home',{product_top : result2, sub_category : result1, err : err, session : req.session});
             
     
     

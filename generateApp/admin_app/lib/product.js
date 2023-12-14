@@ -18,6 +18,24 @@ const product_get_all = function(callback){
 exports.product_get_all = product_get_all;
 
 
+const product_get_all_top = function(top,callback){
+   
+    let sql='SELECT * from product\n' +
+    'LEFT JOIN brand ON brand.brand_id = product.brand_id\n' +
+    'LEFT JOIN shop ON shop.shop_id = product.shop_id\n' +
+    'LEFT JOIN sub_category sc ON sc.sub_cat_id = product.sub_cat_id\n' +
+    'order by product_id DESC limit ?';
+   
+    database_module.db.query(sql,[top], function (error, results, fields) {
+    if (error) console.log('error : ',error);
+    if (callback){callback(error,results)};
+    return results;
+    });
+};
+
+
+exports.product_get_all_top = product_get_all_top;
+
 const product_get_one = function(product_id,callback){
     let sql='SELECT * FROM product\n' +
         'LEFT JOIN sub_category sc ON sc.sub_cat_id = product.sub_cat_id\n' +
