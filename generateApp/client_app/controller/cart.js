@@ -23,14 +23,14 @@ let cart_get_one_user = function (req,res) {
 
                 if (err) console.log(err)
                     
-                res.render("cart",{cart : result1, cart_p : result2, session : req.session, err : err})
+                res.render("cart",{cart : result1, cart_p : result2, session : req.session, err : req.query.err})
                 
                 
             })
 
         } else {
 
-            res.render("cart",{cart : [], cart_p : [], session : req.session, err : err})
+            res.render("cart",{cart : [], cart_p : [], session : req.session, err : req.query.err})
 
         }
     

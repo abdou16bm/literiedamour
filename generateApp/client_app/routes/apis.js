@@ -8,7 +8,9 @@ const product_module = require ("../../admin_app/lib/product")
 const delivery_module = require("../../admin_app/lib/delivery_price")
 const category_module = require("../../admin_app/lib/category")
 const sub_category_module = require("../../admin_app/lib/sub_category")
+const cart_module = require("../../admin_app/lib/cart")
 const cart_p_module = require("../../admin_app/lib/cart_p")
+const order_module = require("../../admin_app/lib/customer_order")
 
 //MY CONTROLLER
 const authentication_controller = require('../../admin_app/controller/authentication');
@@ -158,6 +160,22 @@ apis.get("/cart_p/:product/edit",authentication_controller.isAuthenticated,funct
         
     })
     
+})
+
+
+
+apis.get("/cart/valid",authentication_controller.isAuthenticated,function (req,res) {
+
+    let user_id = req.session.userid
+
+    order_module.customer_order_generate(user_id,function (err,result1) {
+
+        if (err) console.log(err)
+            
+        res.send({result : result1, err : err})
+        
+    })    
+
 })
 
 

@@ -272,7 +272,7 @@ if (typeof(productToCart_btn_list) != "undefined" && productToCart_btn_list.leng
                             if (result.err.code == "ER_DUP_ENTRY") {
                                 
                                 console.log("Product exixts.")
-                                document.getElementById("alert_msg").innerHTML = '<div class="alert alert-primary" role="alert">Produit existe déja dans votre panier. <a href="/cart">Voir panier</a></div>'
+                                document.getElementById("alert_msg").innerHTML = '<div class="alert alert-info" role="alert">Produit existe déja dans votre panier. <a href="/cart">Voir panier</a></div>'
                                 setTimeout(() => {
                                     
                                     $('#alert_modal').modal('show');
@@ -328,7 +328,7 @@ if (typeof(cart_wait) != "undefined" && cart_wait != null && cart_wait != "") {
                     if (result.err.code == "ER_DUP_ENTRY") {
                         
                         console.log("Product exixts.")
-                        document.getElementById("alert_msg").innerHTML = '<div class="alert alert-primary" role="alert">Produit existe déja dans votre panier. <a href="/cart">Voir panier</a></div>'
+                        document.getElementById("alert_msg").innerHTML = '<div class="alert alert-info" role="alert">Produit existe déja dans votre panier. <a href="/cart">Voir panier</a></div>'
                         setTimeout(() => {
                             
                             $('#alert_modal').modal('show');
@@ -435,4 +435,28 @@ if (typeof(myInputQte_list) != "undefined" && myInputQte_list.length > 0) {
 
     }
 
+}
+
+
+
+if (document.querySelector(".myBtnValid")) {
+    
+    document.querySelector(".myBtnValid").addEventListener("click",function () {
+
+        fetch("/api/cart/valid")
+        .then(response => response.json())
+        .then(result => {
+
+            if (typeof(result.loggedin) != "undefined" && result.loggedin != null) console.log("Not Authentificated.")
+            else {
+
+                if (typeof(result.err) != "undefined" && result.err != null) console.log(result.err)
+                else location.href = "/cart?err=0"
+
+            }
+                    
+        })
+
+    })
+    
 }
