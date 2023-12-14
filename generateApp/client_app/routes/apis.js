@@ -128,4 +128,38 @@ apis.get("/cart_p/add",authentication_controller.isAuthenticated,function (req,r
 
 
 
+apis.get("/cart_p/:product/delete",authentication_controller.isAuthenticated,function (req,res) {
+
+    let product_id = req.params.product
+    let cart_id = req.session.cart_id
+
+    cart_p_module.cart_p_delete(product_id,cart_id,function (err,result1) {
+
+        if (err) console.log(err)
+            
+        res.send({result_delete : result1, err : err})
+        
+    })
+    
+})
+
+
+apis.get("/cart_p/:product/edit",authentication_controller.isAuthenticated,function (req,res) {
+
+    let product_id = req.params.product
+    let cart_id = req.session.cart_id
+    let qte = req.query.qte
+
+    cart_p_module.cart_p_update2({product_qt_c : qte},product_id,cart_id,function (err,result1) {
+
+        if (err) console.log(err)
+            
+        res.send({result_update : result1, err : err})
+        
+    })
+    
+})
+
+
+
 module.exports = apis;

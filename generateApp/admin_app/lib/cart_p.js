@@ -29,7 +29,9 @@ exports.cart_p_get_one = cart_p_get_one;
 
 const cart_p_get_one_cart = function(cart_id,callback){ 
     
-    let sql='SELECT * from  cart_p where cart_id =?';
+    let sql='SELECT * from  cart_p cp\n' +
+    'inner join product p on p.product_id = cp.product_id\n' +
+    'where cart_id =?';
 
     database_module.db.query(sql,[cart_id], function (error, results, fields) {
     if (error) console.log('error : ',error);
@@ -75,9 +77,23 @@ return results;
 exports.cart_p_update = cart_p_update;
 
 
-const cart_p_delete = function(id,callback){ 
-let sql = 'delete from cart_p where product_id =?';
-database_module.db.query(sql,[id], function (error, results, fields) {
+const cart_p_update2 = function(data,product_id,cart_id,callback){ 
+    let sql = 'update cart_p set ? where product_id =? and cart_id = ?';
+    database_module.db.query(sql,[data,product_id,cart_id], function (error, results, fields) {
+    if (error) console.log('error : ',error);
+    //console.log('results: ', results);
+    if (callback){callback(error,results)};
+    return results;
+    });
+    };
+    
+    
+    exports.cart_p_update2 = cart_p_update2;
+
+
+const cart_p_delete = function(product_id,cart_id,callback){ 
+let sql = 'delete from cart_p where product_id =? and cart_id = ?';
+database_module.db.query(sql,[product_id,cart_id], function (error, results, fields) {
 if (error) console.log('error : ',error);
 //console.log('results: ', results);
 if (callback){callback(error,results)};

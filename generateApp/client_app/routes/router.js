@@ -27,9 +27,9 @@ router.get('/contact', function (req, res) {
 // router.get('/checkout', function (req, res) {
 //   res.render('checkout');
 // });
-router.get('/cart', function (req, res) {
+/* router.get('/cart', function (req, res) {
   res.render('cart',{session : req.session});
-});
+}); */
 
 router.get('/orders', function (req, res) {
   res.render('orders',{session : req.session});

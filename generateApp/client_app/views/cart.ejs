@@ -4,74 +4,87 @@
 <div class="section">
     <div class="container">
         <div class="row">
+            <% if (typeof(cart) !== 'undefined' && cart.length > 0) { %>
             <div class="col-md-12">
                 <div class="panel panel-info">
                     <div class="panel-heading" style="background-color: #223f3a;">
                         <div class="panel-title" >
                             <div class="row">
-                                <div class="col-md-12">
-                                    <h3 style="color: #d3a04f;"><i class="fa fa-shopping-cart"></i> <span style="color: #fff;">Panier</span> </h3>
+                                <div class="col-md-12" style="display: flex; justify-content: space-between; align-items: center;">
+                                    <h3 style="color: #d3a04f;"><i class="fa fa-shopping-cart"></i> <span style="color: #fff;">Panier</span></h3>
+                                    <h3 style="color: #d3a04f;"><%= cart[0].productCount %> <span style="color: #fff; font-size: 15px;"> Produits</span></h3>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="panel-body">
+                        <% if (typeof(cart_p) !== 'undefined' && cart_p.length > 0) { %>
+						<% for (var i = 0; i < cart_p.length; i++) { %>
                         <div class="row">
-                            <div class="col-md-2 col-xs-12 text-center"><img class="img-responsive" src="/assets/img/product02.png" width="80">
+                            <div class="col-md-2 col-xs-12 text-center"><img class="img-responsive" src="/img/product/<%= cart_p[i].product_id %>/main.jpg" width="80">
                             </div>
                             <div class="col-md-4 col-xs-12">
-                                <h4 class="product-name"><strong>Product name</strong></h4><h4><small>Product description</small></h4>
+                                <h4 class="product-name"><strong><%= cart_p[i].product_name %></strong></h4><h4><small><%= cart_p[i].product_desig %></small></h4>
                             </div>
                             <div class="col-md-6" style="display: flex; justify-content: space-between;">
                                 <div class="col-md-8 col-xs-8 text-right">
-                                    <h4><strong>2 500 <span class="text-muted">x</span></strong></h4>
+                                    <h4><strong>
+                                        <% let formating=Intl.NumberFormat('en-US') %>
+                                        <%= formating.format(cart_p[i].product_price_c)+" DA" %>
+                                    <span class="text-muted">x</span></strong></h4>
                                 </div>
                                 <div class="col-md-2 col-xs-2">
-                                    <input type="number" class="form-control input-xs" value="1">
+                                    <input type="number" class="form-control input-xs myInputQte" value="<%= cart_p[i].product_qt_c %>" idp = "<%= cart_p[i].product_id %>">
                                 </div>
                                 <div class="col-md-2 col-xs-2">
-                                    <button type="button" class="btn btn-link">
+                                    <button type="button" class="btn btn-link myBtnDelete" idp = "<%= cart_p[i].product_id %>">
                                         <i class="fa fa-trash"></i>
                                     </button>
                                 </div>
                             </div>
                         </div>
                         <hr>
-                        <div class="row">
-                            <div class="col-md-2 col-xs-6 text-center"><img class="img-responsive" src="/assets/img/product02.png" width="80">
+                        <% }} else { %>
+
+                            <div class="alert alert-info mt-5" role="alert">
+                                
+                                Votre panier est vide.
+                            
                             </div>
-                            <div class="col-md-4 col-xs-6">
-                                <h4 class="product-name"><strong>Product name</strong></h4><h4><small>Product description</small></h4>
-                            </div>
-                            <div class="col-md-6 col-xs-12" style="display: flex; justify-content: space-between;">
-                                <div class="col-md-8 col-xs-8 text-right">
-                                    <h4><strong>2 500 <span class="text-muted">x</span></strong></h4>
+                    
+                        <% } %>
+
+                    </div>
+                    <% if (cart[0].productCount > 0) { %>
+
+                        <div class="panel-footer">
+                            <div class="row text-center">
+                                <div class="col-md-9 myTotalCart">
+                                    <h4 class="text-right">Total : <strong> 
+                                        <% let formating=Intl.NumberFormat('en-US') %>
+                                        <%= formating.format(cart[0].totalPrice)+" DA" %>
+                                    </strong></h4>
                                 </div>
-                                <div class="col-md-2 col-xs-2">
-                                    <input type="number" class="form-control input-xs" value="1">
-                                </div>
-                                <div class="col-md-2 col-xs-2">
-                                    <button type="button" class="btn btn-link">
-                                        <i class="fa fa-trash"></i>
+                                <div class="col-md-3">
+                                    <button type="button" class="btn btn-success btn-block">
+                                        Valider
                                     </button>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="panel-footer">
-                        <div class="row text-center">
-                            <div class="col-md-9">
-                                <h4 class="text-right">Total : <strong>5 000.00</strong></h4>
-                            </div>
-                            <div class="col-md-3">
-                                <button type="button" class="btn btn-success btn-block">
-                                    Valider
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                        
+                    <% } %>
                 </div>
             </div>
+            <% } else { %>
+
+                <div class="alert alert-danger mt-5" role="alert">
+                    
+                    Aucun panier trouvé !
+                
+                </div>
+        
+            <% } %>
         </div>
     </div>
     

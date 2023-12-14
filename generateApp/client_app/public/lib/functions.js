@@ -1,4 +1,6 @@
 let productToCart_btn_list = document.querySelectorAll(".productToCart_btn")
+let myInputQte_list = document.querySelectorAll(".myInputQte")
+let myBtnDelete_list = document.querySelectorAll(".myBtnDelete")
 let cart_wait = localStorage.getItem("cartWait")
 
 
@@ -355,3 +357,82 @@ if (typeof(cart_wait) != "undefined" && cart_wait != null && cart_wait != "") {
     
 }
 
+
+
+
+if (typeof(myBtnDelete_list) != "undefined" && myBtnDelete_list.length > 0) {
+
+
+    for (let i = 0; i < myBtnDelete_list.length; i++) {
+  
+
+        myBtnDelete_list[i].addEventListener("click",function () {
+            
+
+            let product = myBtnDelete_list[i].getAttribute("idp")
+
+            fetch("/api/cart_p/"+product+"/delete")
+            .then(response => response.json())
+            .then(result => {
+    
+                if (typeof(result.loggedin) != "undefined" && result.loggedin != null) console.log("Not Authentificated.")
+                else {
+    
+                    if (typeof(result.err) != "undefined" && result.err != null) console.log(result.err)
+                    else {
+                                               
+                        console.log("Product deleted from cart.")
+                        location.reload()
+    
+                    }
+    
+                }
+
+            }) 
+
+        })
+
+    }
+
+}
+
+
+
+
+if (typeof(myInputQte_list) != "undefined" && myInputQte_list.length > 0) {
+
+    for (let i = 0; i < myInputQte_list.length; i++) {
+  
+        myInputQte_list[i].addEventListener("input",function () {
+            
+            if (myInputQte_list[i].value != null && myInputQte_list[i].value != "" && myInputQte_list[i].value > 0) {
+                
+                let product = myInputQte_list[i].getAttribute("idp")
+                let qte = myInputQte_list[i].value
+
+                fetch("/api/cart_p/"+product+"/edit?qte="+qte)
+                .then(response => response.json())
+                .then(result => {
+        
+                    if (typeof(result.loggedin) != "undefined" && result.loggedin != null) console.log("Not Authentificated.")
+                    else {
+        
+                        if (typeof(result.err) != "undefined" && result.err != null) console.log(result.err)
+                        else {
+                                                   
+                            console.log("Product qte updated.")
+                            $(".myTotalCart").load(" .myTotalCart > *");
+        
+                        }
+        
+                    }
+    
+                }) 
+
+            } else myInputQte_list[i].value = 1       
+
+        })
+
+    }
+
+}

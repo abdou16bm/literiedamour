@@ -28,7 +28,10 @@ return results;
 exports.cart_get_one = cart_get_one;
 
 const cart_get_one_user = function(user_id,callback){ 
-    let sql='SELECT * from  cart where user_id =?';
+    let sql="SELECT c.*,COUNT(cp.cart_id) AS productCount,IFNULL(SUM(cp.product_price_c * cp.product_qt_c),0) AS totalPrice from  cart c\n" +
+    "LEFT JOIN cart_p cp ON cp.cart_id = c.cart_id\n" +
+    "where user_id = ?\n" +
+    "GROUP BY c.cart_id";
    database_module.db.query(sql,[user_id], function (error, results, fields) {
    if (error) console.log('error : ',error);
    //console.log('results: ', results);
