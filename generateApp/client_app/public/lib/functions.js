@@ -436,7 +436,6 @@ if (typeof(myInputQte_list) != "undefined" && myInputQte_list.length > 0) {
     }
 
 }
-<<<<<<< HEAD
 
 
 
@@ -461,5 +460,3 @@ if (document.querySelector(".myBtnValid")) {
     })
     
 }
-=======
->>>>>>> 605209f8b9ff85d1aeb8c29c1afb816c099fded3
