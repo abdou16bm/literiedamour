@@ -451,7 +451,7 @@ if (document.querySelector(".myBtnValid")) {
             else {
 
                 if (typeof(result.err) != "undefined" && result.err != null) console.log(result.err)
-                else location.href = "/cart?err=0"
+                else location.href = "/orders"
 
             }
                     

@@ -253,3 +253,26 @@ const customer_order_generate = function(user_id,callback){
 exports.customer_order_generate = customer_order_generate;
 
 
+
+
+const customer_order_get_all_user = function(user_id,callback){ 
+let sql='SELECT co.*,dp.delivery_price,user.user_lastname,user.user_name,w.wilaya_name,os.stat_id,s.stat_name,COUNT(co.order_id) AS products_count from customer_order co\n' +
+'LEFT JOIN user ON user.user_id = co.user_id\n' +
+'LEFT JOIN order_stat os ON os.order_id = co.order_id\n' +
+'LEFT JOIN status s ON s.stat_id = os.stat_id\n' +
+'LEFT JOIN wilaya w ON w.wilaya_id = user.wilaya_id\n' +
+'LEFT JOIN delivery_price dp ON dp.wilaya_id = user.wilaya_id\n' +
+'LEFT JOIN order_p op ON op.order_id = co.order_id\n' +
+'WHERE co.user_id = ?\n' +
+'GROUP BY co.order_id\n' +
+'order by co.order_id DESC';
+database_module.db.query(sql,[user_id], function (error, results, fields) {
+if (error) console.log('error : ',error);
+//console.log('results: ', results);
+if (callback){callback(error,results)};
+return results;
+});
+};
+
+
+exports.customer_order_get_all_user = customer_order_get_all_user;

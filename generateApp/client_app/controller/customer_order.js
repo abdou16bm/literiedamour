@@ -9,6 +9,22 @@ const order_stat_module = require ("../../admin_app/lib/order_stat")
 
 
 
+const order_list = function (req,res) {
+
+    const user_id = req.session.userid
+
+    order_module.customer_order_get_all_user(user_id,function (err,result1) {
+
+        if (err) console.log(err)
+
+        res.render('orders',{orders : result1, session : req.session, err : req.query.err});
+        
+    })
+
+}
+
+
+
 const checkout = function (req, res) {
     
     const product = req.params.product
@@ -144,6 +160,7 @@ const checkout_valid = function (req, res) {
 module.exports = {
 
     checkout,
-    checkout_valid
+    checkout_valid,
+    order_list
 
 }
