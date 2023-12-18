@@ -31,7 +31,6 @@ const home = function (req, res) {
             res.render('home',{product_top : result2, sub_category : result1, err : err, session : req.session});
             
     
-    
         })
     
     

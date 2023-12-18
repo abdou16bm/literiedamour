@@ -216,7 +216,7 @@ const product_get_all_client = function(sub_cat,callback){
         'LEFT JOIN brand ON brand.brand_id = p.brand_id\n' +
         'LEFT JOIN sub_category sc ON sc.sub_cat_id = p.sub_cat_id\n' +
         'WHERE p.sub_cat_id = ?\n' +
-        'order by product_id DESC LIMIT 6';
+        'order by product_id DESC LIMIT 12';
     database_module.db.query(sql,[sub_cat], function (error, results, fields) {
         if (error) console.log('error : ',error);
         //console.log('results: ', results);
