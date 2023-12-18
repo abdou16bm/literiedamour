@@ -453,13 +453,22 @@ if (document.querySelector(".myBtnValid")) {
         .then(response => response.json())
         .then(result => {
 
-            if (typeof(result.loggedin) != "undefined" && result.loggedin != null) console.log("Not Authentificated.")
-            else {
+            if (typeof(result.err) != "undefined" && result.err != null){
 
-                if (typeof(result.err) != "undefined" && result.err != null) console.log(result.err)
-                else location.href = "/orders"
+                if (result.err.code == "EMPTY_CART") {
+
+                    console.log("Empty cart")
+                    document.getElementById("alert_msg").innerHTML = '<div class="alert alert-info" role="alert">Votre panier est vide. </div>'
+                    setTimeout(() => {
+
+                        $('#alert_modal').modal('show');
+
+                    }, 500);
+
+                } else console.log(result.err)
 
             }
+            else location.href = "/orders"
                     
         })
 
@@ -479,7 +488,21 @@ if (document.querySelector(".myBtnValid_drop")) {
             if (typeof(result.loggedin) != "undefined" && result.loggedin != null) console.log("Not Authentificated.")
             else {
 
-                if (typeof(result.err) != "undefined" && result.err != null) console.log(result.err)
+                if (typeof(result.err) != "undefined" && result.err != null){
+
+                    if (result.err.code == "EMPTY_CART") {
+
+                        console.log("Empty cart")
+                        document.getElementById("alert_msg").innerHTML = '<div class="alert alert-info" role="alert">Votre panier est vide. </div>'
+                        setTimeout(() => {
+
+                            $('#alert_modal').modal('show');
+
+                        }, 500);
+
+                    } else console.log(result.err)
+
+                }
                 else location.href = "/orders"
 
             }

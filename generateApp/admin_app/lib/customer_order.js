@@ -240,7 +240,7 @@ const customer_order_generate = function(user_id,callback){
         } else {
 
             console.log("empty cart.")
-            if (callback){callback({status : "empty cart"},[])};
+            if (callback){callback({code :"EMPTY_CART"},[])};
             return [];
 
         }
