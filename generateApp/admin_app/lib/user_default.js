@@ -159,7 +159,7 @@ let user_update = function (id,data,callback) {
      }*/
 
 
-    if (data.user_password !== undefined && data.user_password !== "" && data.user_password.length > 6 )// password change
+    if (data.user_password !== undefined && data.user_password !== "" && data.user_password.length >= 6 )// password change
     {
         console.log('password change');
 

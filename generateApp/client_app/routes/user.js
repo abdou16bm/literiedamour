@@ -22,6 +22,10 @@ user_router.post('/login',user_controller.login_check);
 user_router.get('/logout',user_controller.logout);
 
 
+user_router.get('/account',authentication_controller.isAuthenticated,user_controller.account_edit);
+user_router.post('/account',authentication_controller.isAuthenticated,user_controller.account_edit_save);
+
+
 
 module.exports = user_router;
 

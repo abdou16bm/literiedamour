@@ -54,7 +54,7 @@ const signup_save = function (req,res) {
     
                 } else {
 
-                    user_module.user_get_filter('user_username',input.username,function (err,result){
+                    user_module.user_get_filter_equal('user_username',input.username,function (err,result){
 
                         if (result.length > 0) {
                             
@@ -304,6 +304,99 @@ const logout = function (req, res) {
 }
 
 
+
+
+const account_edit = function (req,res) {
+
+    wilaya_module.wilaya_get_all(function (err,result){
+
+        if (err) console.log('Error : ',err);
+
+        res.render("account",{
+            
+            wilaya : result,
+            session : req.session,
+            err : req.query.err       
+        
+       })
+    
+    })    
+
+}
+
+
+const account_edit_save = function (req,res) {
+
+    const input = req.body;
+    const user_id = req.session.userid
+
+    console.log("body : ",input)
+
+    let values_check = [input.username,input.password,input.password_c]
+
+    form_check_module.form_check(values_check,function (resultCheck) {
+
+        console.log("form check result : ",resultCheck)
+        if (resultCheck.statusNumber == 1) {console.log("informations missed");res.redirect("/account?err=1")}
+        else if (resultCheck.statusNumber == 0) {
+
+            if (input.password != input.password_c) {
+                
+                console.log("confirmation incorrect");
+                res.redirect("/account?err=2")
+
+            } else {
+
+
+                if (input.password.length < 6) {
+                
+                    console.log("password length error");
+                    res.redirect("/account?err=3")
+    
+                } else {
+
+                    user_module.user_get_filter_equal('user_username',input.username,function (err,result){
+
+                        if (result.length > 0 && result[0].user_id != req.session.userid) {
+                            
+                            console.log("username exists");
+                            res.redirect("/account?err=4")
+                            
+                        }
+                        else {
+
+                            let data_user = {
+         
+                                user_username   : input.username.trim(),
+                                user_password   : input.password.trim()
+            
+                            };
+
+                            user_default_module.user_update(user_id,data_user,function (err,result1) {
+
+                                if (err) console.log(err)
+
+                                req.session.username = input.username.trim();
+
+                                res.redirect("/account?err=0")
+                                                               
+                            })
+
+                        }
+                    
+                    })
+
+                }
+
+            }
+
+        }
+    
+    })
+
+}
+
+
 module.exports = {
 
     signup,
@@ -312,6 +405,8 @@ module.exports = {
     confirm_email_valid,
     login,
     login_check,
-    logout
+    logout,
+    account_edit,
+    account_edit_save
 
 }

@@ -90,6 +90,20 @@ const user_get_filter = function (filter_field,filter_data,callback) {
 exports.user_get_filter = user_get_filter;
 
 
+const user_get_filter_equal = function (filter_field,filter_data,callback) {
+  let sql = "SELECT * from user where "+filter_field+ " = '"+filter_data+"'";
+  database_module.db.query(sql,[], function (error, results, fields) {
+   if (error) console.log('error : ',error);
+ //console.log('results: ', results);
+   if (callback){callback(error,results)};
+   return results;
+  });
+ };
+ 
+ 
+ exports.user_get_filter_equal = user_get_filter_equal;
+
+
 const user_get_filter_multi = function (filter_field,callback) {
  let fields = Object.keys(filter_field);
  let filter = '';
