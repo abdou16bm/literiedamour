@@ -183,3 +183,28 @@ return results;
 exports.order_p_get_all_limit = order_p_get_all_limit;
 
 
+let order_p_get_stats = function (callback){
+
+    let sql ="SELECT p.product_name,op.product_price_o,SUM(op.product_qt_o) AS product_qt,SUM(op.product_price_o*op.product_qt_o) AS product_price FROM order_p op\n" +
+    "INNER JOIN product p ON p.product_id = op.product_id\n" +
+    "INNER JOIN order_stat os ON os.order_id = op.order_id\n" +
+    "WHERE os.stat_id = 4\n" +
+    "GROUP BY op.product_id\n" +
+    "ORDER BY product_qt DESC\n" +
+    "LIMIT 10";
+
+    database_module.db.query(sql, function (error, results, fields) {
+
+    if (error) console.log('error : ',error);
+
+    // console.log('results: ', results);
+    console.log('fields: ', fields);
+
+    if (callback){callback(error,results)};
+
+    return results;
+
+    });
+};
+
+exports.order_p_get_stats = order_p_get_stats;

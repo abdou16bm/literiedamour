@@ -20,6 +20,9 @@ user_default_router.get('/profil',authentication_controller.isAuthenticated,user
 user_default_router.post('/profil',authentication_controller.isAuthenticated,user_default_controller.user_profil_edit_save);
 
 
+user_default_router.get('/stats',authentication_controller.isAuthenticated,user_default_controller.stats)
+
+
 
 module.exports = user_default_router;
 

@@ -1,0 +1,61 @@
+<%- include ("layouts/header.ejs") %>
+<div id="top" class="sa-app__body">
+    <div class="mx-xxl-3 px-4 px-sm-5">
+        <div class="py-5">
+            <div class="row g-4 align-items-center">
+                <div class="col">
+                    <h1 class="h3 m-0">Les 10 meilleurs produits vendus</h1>
+                </div>
+            </div>
+    </div>
+    <div class="mx-xxl-3 px-4 px-sm-5 pb-6">
+        <div class="sa-layout">
+
+            <div class="sa-layout__content">
+                <div class="card">
+                    <div class="p-4">
+                        <div class="row g-4">
+                            <div class="col"><input type="text" placeholder="Commencez à taper pour rechercher des produits"
+                                    class="form-control form-control--search mx-auto" id="table-search" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sa-divider"></div>
+                    <table class="sa-datatables-init" data-order="[[ 1, &quot;asc&quot; ]]"
+                        data-sa-search-input="#table-search">
+                        <thead>
+                            <tr>                 
+                                <th class="min-w-20x">Produits</th>
+                                <th>Prix de vente</th>
+                                <th>Qte Vendu</th>
+                                <th>Encaissement</th>                                                        
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% if (typeof(product) !== 'undefined' && product != null && product.length > 0) { 
+             
+                                for (var i = 0; i < product.length; i++)
+                                
+                                {
+                              
+                              %>
+                            <tr>
+                                <td><%= product[i].product_name %></td>
+                                <td>
+                                    <% let formating=Intl.NumberFormat('en-US') %>
+                                    <%= formating.format(product[i].product_price_o)+" DA" %>
+                                </td>
+                                <td><%= product[i].product_qt %></td>
+                                <td>
+                                    <%= formating.format(product[i].product_price)+" DA" %>
+                                </td>
+                            </tr>
+                            <% }} %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- sa-app__body / end --><!-- sa-app__footer -->
+<%- include ("layouts/footer.ejs") %>

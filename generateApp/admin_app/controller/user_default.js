@@ -1,5 +1,6 @@
 const user_module = require('../lib/user_default');
 const session_module = require('../lib/session');
+const order_p_module = require("../lib/order_p")
 
 const formidable = require('formidable');
 
@@ -261,10 +262,27 @@ const user_profil_edit_save = (req,res) => {
 
 
 
+const stats = function (req,res) {
+
+
+    order_p_module.order_p_get_stats(function (err,result1) {
+
+        if (err) console.log(err)
+
+        res.render("stats",{product : result1, err : err, session : req.session})
+        
+    })
+    
+}
+
+
+
+
 exports.user_login = user_login;
 exports.user_login_check = user_login_check;
 exports.user_logout = user_logout;
 exports.user_edit = user_edit;
 exports.user_edit_save = user_edit_save;
-exports.user_profil_edit = user_profil_edit
-exports.user_profil_edit_save = user_profil_edit_save
+exports.user_profil_edit = user_profil_edit;
+exports.user_profil_edit_save = user_profil_edit_save;
+exports.stats = stats
