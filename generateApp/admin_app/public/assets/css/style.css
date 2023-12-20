@@ -8981,3 +8981,34 @@ input:checked+.sa-color-checkbox__box {
 .sa-roller-stripes {
     fill: #333a40
 }
+
+
+
+
+.card_a4 {
+    width: 21cm;
+    height: 29.7cm;
+    background-color: white;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+.card_a42 {
+    width: 21cm;
+    height: 29.7cm;
+    background-color: white;
+    margin-left: 0;
+    margin-right: auto;
+
+}
+
+
+.footer_a4 {
+    position: fixed;
+    top: 90%;
+    margin: auto;
+    width: 20cm;
+    height: auto;
+
+}
