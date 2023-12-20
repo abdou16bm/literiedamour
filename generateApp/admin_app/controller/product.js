@@ -457,3 +457,27 @@ const product_data_sheet = function (req,res) {
 
 
 exports.product_data_sheet = product_data_sheet
+
+
+
+
+const product_qt_edit = function (req,res) {
+
+     const product_id = req.params.id
+
+     const input = req.body
+
+     console.log(input)
+
+     product_module.product_stock_update(product_id,input.quantity,function (err,result1) {
+
+          if (err)console.log(err)
+               
+          res.redirect("/stock")
+          
+     })
+     
+}
+
+
+exports.product_qt_edit = product_qt_edit

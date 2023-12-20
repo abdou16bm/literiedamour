@@ -22,11 +22,9 @@ const confirmmodal = function(id,type){
 
 const set_info = function (info,type){
 
-    console.log(info)
-
     let edit_info = JSON.parse(info);
 
-    //console.log(edit_info)
+    console.log(edit_info)
 
     let modal_inputs,modal_form,checkbox_inputs,services_counter,edit_counters_block,edit_doctors_block;
 
@@ -51,6 +49,14 @@ const set_info = function (info,type){
 
         modal_inputs[0].value = edit_info.product_id;
         modal_inputs[1].value = edit_info.detail_desig;
+
+    }
+    else if (type=='quantity') {
+
+        modal_inputs = document.querySelector('#quantity_edit').querySelectorAll('input,textarea,select');
+        modal_form = document.querySelector('#quantity_edit').querySelector('form');
+
+        modal_form.setAttribute('action','/quantity/'+edit_info.product_id+'/edit')
 
     }
 

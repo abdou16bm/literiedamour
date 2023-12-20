@@ -1,6 +1,7 @@
 const user_module = require('../lib/user_default');
 const session_module = require('../lib/session');
-const order_p_module = require("../lib/order_p")
+const order_p_module = require("../lib/order_p");
+const product_module = require("../lib/product")
 
 const formidable = require('formidable');
 
@@ -277,6 +278,20 @@ const stats = function (req,res) {
 
 
 
+const stock = function (req,res) {
+
+
+    product_module.product_get_all_stock(function (err,result1) {
+
+        if (err) console.log(err)
+
+        res.render("stock",{product : result1, err : err, session : req.session})
+        
+    })
+    
+}
+
+
 
 exports.user_login = user_login;
 exports.user_login_check = user_login_check;
@@ -285,4 +300,5 @@ exports.user_edit = user_edit;
 exports.user_edit_save = user_edit_save;
 exports.user_profil_edit = user_profil_edit;
 exports.user_profil_edit_save = user_profil_edit_save;
-exports.stats = stats
+exports.stats = stats;
+exports.stock  = stock

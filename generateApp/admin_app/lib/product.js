@@ -205,6 +205,51 @@ return results;
 exports.product_get_all_limit = product_get_all_limit;
 
 
+let product_get_all_stock = function (callback){
+
+    let sql ="SELECT p1.product_id,p1.product_name,p1.product_qt AS qt_stock,IFNULL(qt_out,0) AS qt_out,IFNULL(qt_order,0) AS qt_order FROM product p1\n" +
+    "LEFT JOIN (\n" +
+    "SELECT op.product_id,SUM(op.product_qt_o) AS qt_out FROM order_p op\n" +
+    "INNER JOIN product p ON p.product_id = op.product_id\n" +
+    "INNER JOIN order_stat os ON os.order_id = op.order_id\n" +
+    "WHERE os.stat_id = 4\n" +
+    "GROUP BY op.product_id\n" +
+    ") p2 ON p2.product_id = p1.product_id\n" +
+    "LEFT JOIN (\n" +
+    "SELECT op.product_id,SUM(op.product_qt_o) AS qt_order FROM order_p op\n" +
+    "INNER JOIN product p ON p.product_id = op.product_id\n" +
+    "INNER JOIN order_stat os ON os.order_id = op.order_id\n" +
+    "WHERE os.stat_id <> 4 AND os.stat_id <> 2\n" +
+    "GROUP BY op.product_id\n" +
+    ") p3 ON p3.product_id = p1.product_id";
+    
+    database_module.db.query(sql, function (error, results, fields) {
+    
+    if (error) console.log('error : ',error);
+
+    if (callback){callback(error,results)};
+    
+    return results;
+    
+    });
+
+};
+    
+exports.product_get_all_stock = product_get_all_stock;
+
+
+const product_stock_update = function(id,quantity,callback){
+    let sql = 'update product set product_qt = product_qt + ? where product_id =?';
+    database_module.db.query(sql,[quantity,id], function (error, results, fields) {
+        if (error) console.log('error : ',error);
+//console.log('results: ', results);
+        if (callback){callback(error,results)};
+        return results;
+    });
+};
+
+
+exports.product_stock_update = product_stock_update;
 
 
 //------------- module client

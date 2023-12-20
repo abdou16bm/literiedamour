@@ -185,7 +185,7 @@ exports.order_p_get_all_limit = order_p_get_all_limit;
 
 let order_p_get_stats = function (callback){
 
-    let sql ="SELECT p.product_name,op.product_price_o,SUM(op.product_qt_o) AS product_qt,SUM(op.product_price_o*op.product_qt_o) AS product_price FROM order_p op\n" +
+    let sql ="SELECT p.product_id,p.product_name,op.product_price_o,SUM(op.product_qt_o) AS product_qt,SUM(op.product_price_o*op.product_qt_o) AS product_price FROM order_p op\n" +
     "INNER JOIN product p ON p.product_id = op.product_id\n" +
     "INNER JOIN order_stat os ON os.order_id = op.order_id\n" +
     "WHERE os.stat_id = 4\n" +
