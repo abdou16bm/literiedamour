@@ -1,0 +1,92 @@
+<%- include ("layouts/header.ejs") %>
+<div id="top" class="sa-app__body">
+    <div class="mx-sm-2 px-2 px-sm-3 px-xxl-4 pb-6">
+        <div class="container">
+            <div class="py-5">
+                <div class="row g-4 align-items-center">
+                    <div class="col">
+                        <h1 class="h3 m-0">Page d'accueil</h1>
+                    </div>
+                    <!-- <div class="col-auto d-flex"><a href="/" class="btn btn-danger me-3">Annuler</a><a href="/"
+                            class="btn btn-primary">Sauvegarder</a></div> -->
+                </div>
+            </div>
+            <form action="/banner/edit" enctype="multipart/form-data" method="post">
+            <div class="card mt-5">
+                <div class="card-body p-5">
+                    <div class="mb-5" style="display: flex; justify-content: space-between; align-items: center;">
+                        <h2 class="mb-0 fs-exact-18">Choissisez l'image principal</h2>
+                        <button type="submit" class="btn btn-warning">Sauvegarder</button>
+                    </div>
+                </div>
+                <div class="mt-n5">
+                    <div class="sa-divider"></div>
+                    <div class="table-responsive">
+                        <table class="sa-table">
+                            <thead>
+                                <tr>
+                                    <th class="col-3" >Image</th>
+                                    <th class="w-10x"></th>
+                                    <th class="w-10x">Text</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class=" sa-symbol--size--lg">
+                                            <img src="/img/banner/main.jpg"  height="100" alt="image"/>
+                                        </div>
+                                    </td>
+                                    <td><input type="file" accept="image/*" class="form-control form-control-sm" id="formFile-2-sm" name="main" /></td>
+                                    <td><input type="text" name="textBanner" 
+                                     value="<%= !(banner.text) ? '' : banner.text %>"  
+                                    class="form-control form-control-lg"/></td>                               
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="sa-divider"></div>
+                    <!-- <div class="px-5 py-4 my-2"><a href="#">Upload new image</a></div> -->
+                </div>
+            </div>
+            </form>
+            <form action="/video/edit" enctype="multipart/form-data" method="post">
+            <div class="card mt-5">
+                <div class="card-body p-5">
+                    <div class="mb-5" style="display: flex; justify-content: space-between; align-items: center;">
+                        <h2 class="mb-0 fs-exact-18">Choissisez la vidéo principal</h2>
+                        <button type="submit" class="btn btn-warning">Sauvegarder</button>
+                    </div>
+                </div>
+                <div class="mt-n5">
+                    <div class="sa-divider"></div>
+                    <div class="table-responsive">
+                        <table class="sa-table">
+                            <thead>
+                                <tr>
+                                    <th class="w-min">Vidéo</th>
+                                    <th class="min-w-10x"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class=" sa-symbol--size--lg">
+                                            <video src="/img/video/main.mp4" height="100" alt="video" autoplay muted></video>
+                                        </div>
+                                    </td>
+                                    <td><input type="file" accept="video/*" name="main" class="form-control form-control-sm" id="formFile-2-sm" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="sa-divider"></div>
+                    <!-- <div class="px-5 py-4 my-2"><a href="#">Upload new image</a></div> -->
+                </div>
+            </div>
+           </form>
+        </div>
+    </div>
+</div><!-- sa-app__body / end --><!-- sa-app__footer -->
+<%- include ("layouts/footer.ejs") %>

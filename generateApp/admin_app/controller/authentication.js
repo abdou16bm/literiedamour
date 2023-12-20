@@ -3,7 +3,7 @@ const user_module = require('../lib/user');
 
 let isAuthenticated = function (req,res,next) {
 
-    console.log("loggedin : ",req.session.loggedin)
+   // console.log("loggedin : ",req.session.loggedin)
 
     if (req.session.loggedin) {
 

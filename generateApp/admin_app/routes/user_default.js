@@ -22,6 +22,11 @@ user_default_router.post('/profil',authentication_controller.isAuthenticated,use
 
 user_default_router.get('/stats',authentication_controller.isAuthenticated,user_default_controller.stats)
 user_default_router.get('/stock',authentication_controller.isAuthenticated,user_default_controller.stock)
+user_default_router.get('/home/page/edit',authentication_controller.isAuthenticated,user_default_controller.home_page_edit)
+
+user_default_router.post('/banner/edit',authentication_controller.isAuthenticated,user_default_controller.banner_edit_save)
+user_default_router.post('/video/edit',authentication_controller.isAuthenticated,user_default_controller.video_edit_save)
+
 
 
 
