@@ -3,9 +3,25 @@ const brand_module = require ("../../admin_app/lib/brand")
 const sub_category_module = require ("../../admin_app/lib/sub_category")
 const product_module = require ("../../admin_app/lib/product")
 
+const fs = require("fs")
+
 
 
 const home = function (req, res) {
+
+
+    let dataBanner = {}
+
+    if (fs.existsSync('./admin_app/public/img/banner/data.ini')) {
+        
+        file_content = fs.readFileSync('./admin_app/public/img/banner/data.ini',{encoding : 'utf-8'})
+        file_content = JSON.parse(file_content);
+
+        console.log("file banner content : ",file_content)
+
+        if (typeof(file_content.text) != 'undefined') dataBanner = file_content
+    
+    }
 
 
     sub_category_module.sub_category_get_all_client(function (err,result1) {
@@ -28,7 +44,7 @@ const home = function (req, res) {
 
             if (err) console.log(err)
             //console.log(result1)
-            res.render('home',{product_top : result2, sub_category : result1, err : err, session : req.session});
+            res.render('home',{product_top : result2, sub_category : result1, banner : dataBanner, err : err, session : req.session});
             
     
         })
