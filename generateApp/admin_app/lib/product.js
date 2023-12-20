@@ -374,3 +374,25 @@ const product_get_all_sub_category_brand = function(subcat,brand,callback){
 
 
 exports.product_get_all_sub_category_brand = product_get_all_sub_category_brand;
+
+
+
+
+
+const product_update_qt_order = function(order_id,callback){
+   
+    let sql='UPDATE product p JOIN order_p op\n' +
+    'ON p.product_id = op.product_id\n' +
+    'SET product_qt = (product_qt-product_qt_o)\n' +
+    'WHERE op.order_id = ?';
+   
+    database_module.db.query(sql,[order_id], function (error, results, fields) {
+        if (error) console.log('error : ',error);
+        //console.log('results: ', results);
+        if (callback){callback(error,results)};
+        return results;
+    });
+};
+
+
+exports.product_update_qt_order = product_update_qt_order;

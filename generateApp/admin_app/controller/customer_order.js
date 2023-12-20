@@ -6,6 +6,7 @@ const formidable = require('formidable');
  const customer_order_module = require('../lib/customer_order');
  const order_p_module = require('../lib/order_p');
  const order_stat_module = require('../lib/order_stat');
+ const product_module = require("../lib/product")
 
 
 const customer_order_list_page = function (req,res) {
@@ -318,6 +319,8 @@ const order_status_update = function (req,res) {
                console.log(err)
 
           } else {
+
+               if (status == 4) {product_module.product_update_qt_order(order_id,(err,qtUpdate)=>{if (err) console.log(err)})}
 
                res.redirect("/order/"+order_id+"/details")
 
