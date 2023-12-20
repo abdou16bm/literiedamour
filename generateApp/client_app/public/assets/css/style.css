@@ -2203,3 +2203,16 @@ textarea.input {
   max-height: 1.3em;
   line-height: 1.8em;
 }
+
+
+
+.product-detail ul li 
+{
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+.product-detail ul li h5
+{
+  font-size: 22px;
+  margin-bottom: 10px;
+}
