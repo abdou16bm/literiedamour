@@ -2,8 +2,10 @@ const user_module = require('../lib/user_default');
 const session_module = require('../lib/session');
 const order_p_module = require("../lib/order_p");
 const product_module = require("../lib/product")
+const doc_module = require("../lib/doc")
 
 const formidable = require('formidable');
+const fs = require("fs")
 
 let user_login = function (req,res) {
 
@@ -292,6 +294,81 @@ const stock = function (req,res) {
 }
 
 
+const home_page_edit = function (req,res) {
+
+    let dataBanner = {}
+
+    if (fs.existsSync('./admin_app/public/img/banner/data.ini')) {
+        
+        file_content = fs.readFileSync('./admin_app/public/img/banner/data.ini',{encoding : 'utf-8'})
+        file_content = JSON.parse(file_content);
+
+        console.log("file banner content : ",file_content)
+
+        if (typeof(file_content.text) != 'undefined') dataBanner = file_content
+    
+    }
+
+    res.render("home_page_edit",{banner : dataBanner, session : req.session})
+    
+}
+
+
+const banner_edit_save = function (req,res) {
+
+    const options = {
+        multiples : true,
+        uploadDir: './admin_app/uploads'
+    };
+
+    var form = new formidable.IncomingForm(options);
+
+    form.parse(req, function (err, fields, files) {     
+
+        let input = fields
+        let DataBanner = '{"text" : "'+input.textBanner+'"}'
+
+        // banner img & data
+        doc_module.uploadFile('./admin_app/public/img/',"banner",files,'main','main','jpg', function (err,count1){
+
+            if (err) console.log(err)
+
+        });
+        fs.writeFile('./admin_app/public/img/banner/data.ini', DataBanner , function (err) {
+            if (err) console.log(err);
+            console.log('Saved file 1 !');
+        });
+
+        res.redirect("/home/page/edit")
+
+    })
+    
+}
+
+
+const video_edit_save = function (req,res) {
+
+    const options = {
+        multiples : true,
+        uploadDir: './admin_app/uploads'
+    };
+
+    var form = new formidable.IncomingForm(options);
+
+    form.parse(req, function (err, fields, files) {     
+
+        // video
+        doc_module.uploadFile('./admin_app/public/img/',"video",files,'main','main','mp4', function (err,count1){
+
+            if (err) console.log(err)
+
+        });
+
+        res.redirect("/home/page/edit")
+
+    })
+    
+}
 
 exports.user_login = user_login;
 exports.user_login_check = user_login_check;
@@ -301,4 +378,7 @@ exports.user_edit_save = user_edit_save;
 exports.user_profil_edit = user_profil_edit;
 exports.user_profil_edit_save = user_profil_edit_save;
 exports.stats = stats;
-exports.stock  = stock
+exports.stock  = stock;
+exports.home_page_edit = home_page_edit;
+exports.banner_edit_save = banner_edit_save;
+exports.video_edit_save = video_edit_save

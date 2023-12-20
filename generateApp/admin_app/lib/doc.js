@@ -7,6 +7,7 @@ const uploadFile=function(path,dir,files,filename,newname,filetype,callback){
     if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir);
     }
+    //console.log(files)
     console.log('dir',dir);
     let sizeFile = ((files[filename]).size/1048576).toFixed(2)
     console.log("sizeFile : ",sizeFile," MB")
@@ -20,7 +21,7 @@ const uploadFile=function(path,dir,files,filename,newname,filetype,callback){
         fs.rename(oldpath,newpath, function (err){
            if (err) console.log('error : ',err);
 
-            if (sizeFile > 1) {
+            if (sizeFile > 1 && files[filename].mimetype.search("image") != -1) {
 
                 sharp(newpath)
                 .resize({
@@ -33,8 +34,10 @@ const uploadFile=function(path,dir,files,filename,newname,filetype,callback){
                     
                     if (err) { console.log(err)}
         
-                    fs.writeFileSync(newpath,buffer)
-        
+                    if (typeof(buffer) != 'undefined' && buffer != null) {fs.writeFileSync(newpath,buffer); console.log("file resized.")}
+
+                     
+                          
                 })
             
             }         
@@ -124,7 +127,7 @@ const uploadMultiFile=function(path,dir,files,filetype,callback){
 
                         if (err) console.log('error : ',err);
 
-                        if (sizeFile_u > 1) {
+                        if (sizeFile_u > 1 && files.file_u[j].mimetype.search("image") != -1) {
 
                             sharp(newpath)
                             .resize({
@@ -137,7 +140,7 @@ const uploadMultiFile=function(path,dir,files,filetype,callback){
                                 
                                 if (err) { console.log(err)}
                     
-                                fs.writeFileSync(newpath,buffer)
+                                if (typeof(buffer) != 'undefined' && buffer != null) {fs.writeFileSync(newpath,buffer); console.log("file resized.")}                          
                     
                             })
                         
