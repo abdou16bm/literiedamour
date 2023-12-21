@@ -24,6 +24,32 @@ const order_list = function (req,res) {
 }
 
 
+const order_details = function (req,res) {
+     
+    const id = req.params.id;
+    
+    order_module.customer_order_get_one(id,function (err,result1) {
+    
+        if (err) console.log('error',err);
+
+        order_p_module.order_p_get_all_order(id,function (err,result2) {
+            
+            if (err) console.log('error',err); 
+
+            if(req.baseUrl == "/api") {
+            res.send({order : result1, order_p : result2, err : err, session : req.session});
+            } else {
+            res.render('order_details',{order : result1, order_p : result2, err : err, session : req.session});
+            }
+
+        })
+
+    });
+
+};
+
+
+
 
 const checkout = function (req, res) {
     
@@ -171,6 +197,7 @@ module.exports = {
 
     checkout,
     checkout_valid,
-    order_list
+    order_list,
+    order_details
 
 }
