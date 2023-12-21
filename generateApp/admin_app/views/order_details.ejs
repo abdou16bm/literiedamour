@@ -28,7 +28,7 @@
             <div class="sa-page-meta mb-5">
                 <div class="sa-page-meta__body">
                     <div class="sa-page-meta__list">
-                        <div class="sa-page-meta__item"><%= order[0].order_date.toLocaleDateString() %></div>
+                        <div class="sa-page-meta__item"><%= order[0].order_date.toISOString().substr(0,10) %></div>
                         <div class="sa-page-meta__item"><%= order[0].products_count %> Produits</div>
                         <div class="sa-page-meta__item"><% let formating=Intl.NumberFormat('en-US') %><%= formating.format(order[0].order_total_price + order[0].delivery_price)+" DA" %></div>
                         <% 

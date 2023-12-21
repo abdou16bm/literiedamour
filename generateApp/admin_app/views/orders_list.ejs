@@ -37,7 +37,7 @@
                     %>
                         <tr>
                             <td><a href="/order/<%= orders[i].order_id %>/details" class="text-reset">#<%= orders[i].order_id %></a></td>
-                            <td><%=orders[i].order_date.toLocaleDateString()%></td>
+                            <td><%=orders[i].order_date.toISOString().substr(0,10)%></td>
                             <td class="text-reset"><%= orders[i].user_lastname +" "+ orders[i].user_name %></td>
                             <% 
         
@@ -70,7 +70,7 @@
                                         <li>
                                             <hr class="dropdown-divider" />
                                         </li>
-                                        <li><a class="dropdown-item text-info" href="/invoice">Imprimer</a></li>
+                                        <li><a class="dropdown-item text-info" href="/order/<%= orders[i].order_id %>/print">Imprimer</a></li>
                                     </ul>
                                 </div>
                             </td>

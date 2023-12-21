@@ -31,7 +31,7 @@
 </head>
 
 <body style="background-color: #fff;">
-
+<% if (typeof(order) !== 'undefined' && order != null && order.length > 0) { let formating=Intl.NumberFormat('en-US')  %>
 <div id="top" class="sa-app__body card_a4">
     <div class="sa-invoice">
       <div class="sa-invoice__card">
@@ -39,8 +39,9 @@
           <div class="sa-invoice__meta">
             <div class="sa-invoice__title">Bon de sortie</div>
             <div class="sa-invoice__meta-items">
-              <span>Date:</span> 20-12-2023
-             
+              <strong>Date : </strong> <%= order[0].order_date.toISOString().substr(0,10) %>
+              <br>
+              <strong>Référence : </strong> <%= order[0].order_ref %>
             </div>
           </div>
           <div class="sa-invoice__logo">
@@ -58,9 +59,9 @@
         <div class="sa-invoice__sides">
           <div class="sa-invoice__side">
             <div class="sa-invoice__side-title">Bon pour</div>
-            <div class="sa-invoice__side-name">ZINE EDDINE </div>
+            <div class="sa-invoice__side-name"><%= order[0].user_name +" "+ order[0].user_lastname %></div>
             <div class="sa-invoice__side-meta">
-              Alger<br />0 559 76 42 80
+              <%= order[0].user_address +" - "+ order[0].wilaya_name %><br /><%= order[0].user_phone %>
             </div>
           </div>
           <div class="sa-invoice__side">
@@ -94,42 +95,26 @@
               </tr>
             </thead>
             <tbody class="sa-invoice__table-body">
+              <% if (typeof(order_p) !== 'undefined' && order_p != null && order_p.length > 0) { %>
+              <% for (var i = 0; i < order_p.length; i++) { %>
               <tr>
                 <td class="sa-invoice__table-column--type--product">
-                  AUTUM
+                  <%= order_p[i].product_name %>
                 </td>
                 <td class="sa-invoice__table-column--type--price">
-                  5 000,00
+                  <%= formating.format(order_p[i].product_price_o)+" DA" %>
                 </td>
                 <td class="sa-invoice__table-column--type--unit">
                  
                 </td>
                 <td class="sa-invoice__table-column--type--quantity">
-                  5
+                  <%= order_p[i].product_qt_o %>
                 </td>
                 <td class="sa-invoice__table-column--type--total">
-                 25 000,00
+                  <%= formating.format(order_p[i].product_qt_o * order_p[i].product_price_o)+" DA" %>
                 </td>
               </tr>
-             <!--  <tr>
-                <td class="sa-invoice__table-column--type--product">
-                  Water Hose 40cm
-                </td>
-                <td class="sa-invoice__table-column--type--unit">
-                  Pieces
-                </td>
-                <td class="sa-invoice__table-column--type--price">
-                  $54.00
-                </td>
-                <td class="sa-invoice__table-column--type--quantity">
-                  2
-                </td>
-                <td class="sa-invoice__table-column--type--total">
-                  $108.00
-                </td>
-              </tr> -->
-
-
+              <% }} %>
             </tbody>
             <tbody class="sa-invoice__table-totals">
               <tr>
@@ -140,7 +125,7 @@
                   Livraison
                 </th>
                 <td class="sa-invoice__table-column--type--total">
-                  500,00 
+                  <%= formating.format(order[0].delivery_price)+" DA" %> 
                 </td>
               </tr>
               <!-- <tr>
@@ -170,7 +155,7 @@
         </div>
         <div class="sa-invoice__total">
           <div class="sa-invoice__total-title">Total :</div>
-          <div class="sa-invoice__total-value">25 500.00</div>
+          <div class="sa-invoice__total-value"><%= formating.format(order[0].order_total_price + order[0].delivery_price)+" DA" %></div>
         </div>
         
       </div>
@@ -182,6 +167,15 @@
       </div>
     </div>
   </div>
+  <% } else { %>
+
+    <div class="alert alert-danger m-5" role="alert">
+     
+      Aucune commande correspondante !
+ 
+    </div>
+
+  <% } %>
 
 
 

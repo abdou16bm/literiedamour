@@ -26,6 +26,8 @@ const express = require('express');
 
  customer_order_router.get('/order/:order/status/:status',authentication_controller.isAuthenticated,customer_order_controller.order_status_update);
 
+ customer_order_router.get("/order/:id/print",authentication_controller.isAuthenticated,customer_order_controller.customer_order_print)
+
 
  module.exports = customer_order_router;
 
