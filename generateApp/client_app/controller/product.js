@@ -22,9 +22,12 @@ const product_details = function (req, res) {
 
             if (err) console.log(err)
 
+            product_module.product_get_all_limit_filter({cat : result1[0].sub_cat_id},1,6,'table_pk','DESC',function (err,result3){
 
-            res.render('product_details',{product : result1, product_details : result2, session : req.session, err : err});
+                if (err) console.log(err)
 
+                res.render('product_details',{product : result1, product_details : result2, product_similar : result3, session : req.session, err : err});
+            })
 
         })
 
