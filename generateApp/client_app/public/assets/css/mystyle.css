@@ -5,7 +5,7 @@ Author: yaminncco
 Colors:
 	Body 		: #333
 	Headers 	: #2B2D42
-	Primary 	: #1d7d1c 
+	Primary 	: #1d7d1c
 	Dark 		: #15161D ##1E1F29
 	Grey 		: #E4E7ED #FBFBFC #8D99AE #B9BABC
 
@@ -319,7 +319,7 @@ textarea.input {
 .section-tab-nav li {
   display: inline-block;
   margin-right: 15px;
- 
+
 }
 
 .section-tab-nav li:last-child {
@@ -2224,7 +2224,7 @@ textarea.input {
 }
 
 
-.product-detail ul li 
+.product-detail ul li
 {
   font-size: 15px;
   margin-bottom: 155px;
