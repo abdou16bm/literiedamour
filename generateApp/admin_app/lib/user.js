@@ -16,8 +16,9 @@ exports.user_get_all = user_get_all;
 
 const user_get_one = function(user_id,callback){
  let sql='SELECT * from  user\n' +
- 'left join cart on cart.user_id = user.user_id\n' +
- 'where user.user_id =?';
+     'left join wilaya on wilaya.wilaya_id = user.wilaya_id\n' +
+     'left join cart on cart.user_id = user.user_id\n' +
+     'where user.user_id =?';
  database_module.db.query(sql,[user_id], function (error, results, fields) {
   if (error) console.log('error : ',error);
 //console.log('results: ', results);
@@ -34,7 +35,6 @@ const user_add = function(data,callback){
  let fields = '('+Object.keys(data).toString()+')';
 
 let values = Object.values(data);
-
 let sql = 'insert into user '+fields+' values ? ';
  database_module.db.query(sql,[[values]], function (error, results, fields) {
   if (error) console.log('error : ',error);
@@ -91,17 +91,17 @@ exports.user_get_filter = user_get_filter;
 
 
 const user_get_filter_equal = function (filter_field,filter_data,callback) {
-  let sql = "SELECT * from user where "+filter_field+ " = '"+filter_data+"'";
-  database_module.db.query(sql,[], function (error, results, fields) {
-   if (error) console.log('error : ',error);
- //console.log('results: ', results);
-   if (callback){callback(error,results)};
-   return results;
-  });
- };
- 
- 
- exports.user_get_filter_equal = user_get_filter_equal;
+ let sql = "SELECT * from user where "+filter_field+ " = '"+filter_data+"'";
+ database_module.db.query(sql,[], function (error, results, fields) {
+  if (error) console.log('error : ',error);
+  //console.log('results: ', results);
+  if (callback){callback(error,results)};
+  return results;
+ });
+};
+
+
+exports.user_get_filter_equal = user_get_filter_equal;
 
 
 const user_get_filter_multi = function (filter_field,callback) {
@@ -187,19 +187,44 @@ exports.user_get_all_limit = user_get_all_limit;
 
 const user_client_add = (data,callback) =>{
 
+
+ console.log('data: ',data)
+ console.log('data.user_id ',data.user_id)
+ if (data.user_id != null && typeof data.user_id != 'undefined' && data.user_id != '')
+ {
+  console.log('update user')
+  user_update( data.user_id , data, function (error, results) {
+
+   if (error) console.log('error : ',error);
+
+   results.insertId = data.user_id
+   console.log('results: ', results);
+
+   if (callback){callback(error,results)};
+
+   return results;
+  });
+ }
+ else {
+  console.log('add user')
+
   let sql = 'insert into user set ?';
 
   database_module.db.query(sql,[data],function (error, results){
-      
-      if (error) console.log('error : ', error);
 
-      // console.log('results: ', results);
+   if (error) console.log('error : ', error);
 
-      if (callback) {callback(error, results)};
+   // console.log('results: ', results);
 
-      return results;
+   if (callback) {callback(error, results)};
+
+   return results;
 
   });
+
+ }
+
+
 
 }
 

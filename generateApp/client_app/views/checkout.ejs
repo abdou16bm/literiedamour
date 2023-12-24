@@ -1,112 +1,122 @@
 <%- include ("layout/header") %>
 
-		<!-- BREADCRUMB -->
-		<div id="breadcrumb" class="section">
-			<!-- container -->
-			<div class="container">
-				<!-- row -->
-				<div class="row">
-					<div class="col-md-12">
-						<h3 class="breadcrumb-header">Commande</h3>
-						<ul class="breadcrumb-tree">
-							<li><a href="/">ACCUEIL</a></li>
-							<li class="active">Commande</li>
-						</ul>
-					</div>
-				</div>
-				<!-- /row -->
+<!-- BREADCRUMB -->
+<div id="breadcrumb" class="section">
+	<!-- container -->
+	<div class="container">
+		<!-- row -->
+		<div class="row">
+			<div class="col-md-12">
+				<h3 class="breadcrumb-header">Commande</h3>
+				<ul class="breadcrumb-tree">
+					<li><a href="/">ACCUEIL</a></li>
+					<li class="active">Commande</li>
+				</ul>
 			</div>
-			<!-- /container -->
 		</div>
-		<!-- /BREADCRUMB -->
-		<% if (typeof(product) !== 'undefined' && product != null && product.length > 0) { %>
-		<!-- SECTION -->
-		<div class="section">
-			<!-- container -->
-			<div class="container">
-				<!-- row -->
-				<div class="row">
+		<!-- /row -->
+	</div>
+	<!-- /container -->
+</div>
+<!-- /BREADCRUMB -->
+<% if (typeof(product) !== 'undefined' && product != null && product.length > 0) { %>
+	<!-- SECTION -->
+	<div class="section">
+		<!-- container -->
+		<div class="container">
+			<!-- row -->
+			<div class="row">
 
-					<form class="col-md-7" method="post">
-						<!-- Billing Details -->
-						<div class="billing-details">
-							<div class="section-title">
-								<h3 class="title">Informations</h3>
-							</div>
-							<% if (typeof(err) != "undefined" && err != null && err == 1) { %>
-                                <div class="alert alert-danger" role="alert">Remplissez les champs* obligatoire !</div>
-                            <% } %>
-							<div class="form-group">
-								<input class="input" type="text" name="lastname" placeholder="Prénom*" required>
-							</div>
-							<div class="form-group">
-								<input class="input" type="text" name="name" placeholder="Nom*" required>
-							</div>
-							<div class="form-group">
-								<input class="input" type="tel" name="phone" placeholder="Téléphone*" required>
-							</div>
-							
-							<div class="form-group">
-								<input class="input" type="text" name="address" placeholder="Adresse*" required>
-							</div>
-							<div class="form-group">
-								<select class="selectpicker form-control border-0 mb-1 px-4  rounded shadow" id="wilaya_checkout" name="wilaya" required>
-									<% if (typeof(wilaya) !== 'undefined' && wilaya != null && wilaya.length > 0) { %>
-									<% for (var i = 0; i < wilaya.length; i++) { %>
-									<option value="<%= wilaya[i].wilaya_id %>"><%= wilaya[i].wilaya_num + " - " + wilaya[i].wilaya_name %></option>
-									<% }} %>
-								</select>
-							</div>
-							<div class="form-group">
-								<input class="input" type="email" name="email" placeholder="Email">
-							</div>
+				<form class="col-md-7" method="post">
+					<!-- Billing Details -->
+					<div class="billing-details">
+						<div class="section-title">
+							<h3 class="title">Informations</h3>
 						</div>
-						<!-- /Billing Details -->
-						<button type="submit" class="primary-btn order-submit" style="width: 100%;">Commander</button>
-						<!-- Shiping Details -->
+						<% if (typeof(err) != "undefined" && err != null && err == 1) { %>
+							<div class="alert alert-danger" role="alert">Remplissez les champs* obligatoire !</div>
+						<% } %>
+
+						<div class="form-group">
+							<input class="input" type="text" name="name" placeholder="Nom*" <% if (user.length > 0) {%> value="<%= user[0].user_lastname %>" <%}%> required>
+						</div>
+						<div class="form-group">
+							<input class="input" type="text" name="lastname" placeholder="Prénom*" <% if (user.length > 0) {%> value="<%= user[0].user_name %>" <%}%> required>
+						</div>
+						<div class="form-group">
+							<input class="input" type="tel" name="phone" placeholder="Téléphone*" <% if (user.length > 0) {%> value="<%= user[0].user_phone %>" <%}%> required>
+						</div>
+
+						<div class="form-group">
+							<input class="input" type="text" name="address" placeholder="Adresse*" <% if (user.length > 0) {%> value="<%= user[0].user_address %>" <%}%> required>
+						</div>
+						<div class="form-group">
+							<select class="selectpicker form-control border-0 mb-1 px-4  rounded shadow" id="wilaya_checkout" name="wilaya" required>
+								<% if (typeof(wilaya) !== 'undefined' && wilaya != null && wilaya.length > 0) {
+									let selected = "";
+								for (var i = 0; i < wilaya.length; i++) {
+
+									if (typeof(user) !== 'undefined' && user != null && user.length > 0) {
+										selected = "";
+										if (wilaya[i].wilaya_id == user[0].wilaya_id) {
+											selected = "selected"
+										}
+									}
+								%>
+								<option <%= selected %> value="<%= wilaya[i].wilaya_id %>"><%= wilaya[i].wilaya_num + " - " + wilaya[i].wilaya_name %></option>
+								<% }} %>
+							</select>
+						</div>
+						<div class="form-group">
+							<input class="input" type="email" name="email" placeholder="Email" <% if (user.length > 0) {%> value="<%= user[0].user_email %>" <%}%> >
+						</div>
+					</div>
+					<!-- /Billing Details -->
+					<button type="submit" class="primary-btn order-submit" style="width: 100%;">Commander</button>
+					<!-- Shiping Details -->
 
 
-						<!-- Order notes -->
-						<!-- <div class="order-notes">
+					<!-- Order notes -->
+					<!-- <div class="order-notes">
 							<textarea class="input" placeholder="Order Notes"></textarea>
 						</div> -->
-						<!-- /Order notes -->
-					</form>
+					<!-- /Order notes -->
+				</form>
 
-					<!-- Order Details -->
-					<div class="col-md-5 order-details">
-						<div class="section-title text-center">
-							<h3 class="title">Votre Commande</h3>
+				<!-- Order Details -->
+				<div class="col-md-5 order-details">
+					<div class="section-title text-center">
+						<h3 class="title">Votre Commande</h3>
+					</div>
+					<div class="product-img text-center">
+						<img src="/img/product/<%= product[0].product_id %>/main.jpg" alt=""
+							 style="width: 250px; padding: 10px;">
+					</div>
+					<div class="order-summary">
+						<div class="order-col">
+							<div><strong>PRODUIT</strong></div>
+							<div><%= product[0].product_name %></div>
 						</div>
-						<div class="product-img text-center">
-							<img src="/img/product/<%= product[0].product_id %>/main.jpg" alt=""
-								style="width: 250px; padding: 10px;">
-						</div>
-						<div class="order-summary">
-							<div class="order-col">
-								<div><strong>PRODUIT</strong></div>
-								<div><%= product[0].product_name %></div>
-							</div>
-							<div class="order-products">
-								<div class="order-col">
-									<div><strong>TOTAL</strong></div>
-									<div>
-										<% let formating=Intl.NumberFormat('en-US') %>
-										<%= formating.format(product[0].product_price)+" DA" %>
-									</div>
-								</div>
-							</div>
-							<div class="order-col">
-								<div>Livraison</div>
-								<div><strong id="delivery_price"></strong></div>
-							</div>
+						<div class="order-products">
 							<div class="order-col">
 								<div><strong>TOTAL</strong></div>
-								<div><strong class="order-total" id="order_total">
-								</strong></div>
+								<div>
+									<% let formating=Intl.NumberFormat('en-US') %>
+									<%= formating.format(product[0].product_price)+" DA" %>
+								</div>
 							</div>
 						</div>
-						<!-- <div class="payment-method">
+						<div class="order-col">
+							<div>Livraison</div>
+							<div><strong id="delivery_price"></strong></div>
+						</div>
+						<div class="order-col">
+							<div><strong>TOTAL</strong></div>
+							<div><strong class="order-total" id="order_total">
+								</strong></div>
+						</div>
+					</div>
+					<!-- <div class="payment-method">
 							<div class="input-radio">
 								<input type="radio" name="payment" id="payment-1">
 								<label for="payment-1">
@@ -145,32 +155,32 @@
 								I've read and accept the <a href="#">terms & conditions</a>
 							</label>
 						</div> -->
-					</div>
-					<!-- /Order Details -->
 				</div>
-				<!-- /row -->
+				<!-- /Order Details -->
 			</div>
-			<!-- /container -->
+			<!-- /row -->
 		</div>
-		<!-- /SECTION -->
-		<% } else { %>
+		<!-- /container -->
+	</div>
+	<!-- /SECTION -->
+<% } else { %>
 
-			<div class="alert alert-danger mt-5" role="alert">
-				
-				Aucun produit correspondant !
-			
-			</div>
-	
-		<% } %>
+	<div class="alert alert-danger mt-5" role="alert">
 
-		<script>
+		Aucun produit correspondant !
 
-           <% if (typeof(product) !== 'undefined' && product != null && product.length > 0) { %> 
-           
-			    let productPrice = <%= product[0].product_price %>
-		   
-		   <%}%>
+	</div>
 
-		</script>
+<% } %>
 
-		<%- include ("layout/footer") %>
+<script>
+
+	<% if (typeof(product) !== 'undefined' && product != null && product.length > 0) { %>
+
+	let productPrice = <%= product[0].product_price %>
+
+	<%}%>
+
+</script>
+
+<%- include ("layout/footer") %>
