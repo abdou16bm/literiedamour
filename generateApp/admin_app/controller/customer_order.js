@@ -43,7 +43,7 @@ exports.customer_order_list_page = customer_order_list_page
 
 
 const customer_order_list = function (req,res) {
-     
+
      customer_order_module.customer_order_get_all(function (err,result1) {
      if (err) console.log('error',err);
      console.log(result1)
@@ -110,16 +110,16 @@ exports.customer_order_list_admin = customer_order_list_admin
 
 
 const customer_order_details = function (req,res) {
-     
+
      const id = req.params.id;
-     
+
      customer_order_module.customer_order_get_one(id,function (err,result1) {
-     
+
           if (err) console.log('error',err);
 
           order_p_module.order_p_get_all_order(id,function (err,result2) {
-              
-               if (err) console.log('error',err); 
+
+               if (err) console.log('error',err);
 
                if(req.baseUrl == "/api") {
                res.send({order : result1, order_p : result2, err : err, session : req.session});
@@ -326,10 +326,10 @@ const order_status_update = function (req,res) {
 
           }
 
-          
-          
+
+
      })
-     
+
 }
 
 
@@ -340,16 +340,16 @@ exports.order_status_update = order_status_update
 
 
 const customer_order_print = function (req,res) {
-     
+
      const id = req.params.id;
-     
+
      customer_order_module.customer_order_get_one(id,function (err,result1) {
-     
+
           if (err) console.log('error',err);
 
           order_p_module.order_p_get_all_order(id,function (err,result2) {
-              
-               if (err) console.log('error',err); 
+
+               if (err) console.log('error',err);
 
                if(req.baseUrl == "/api") {
                res.send({order : result1, order_p : result2, err : err, session : req.session});

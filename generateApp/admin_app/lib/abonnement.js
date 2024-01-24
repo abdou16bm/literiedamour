@@ -1,6 +1,6 @@
 const database_module=require('./database');
 
-const abonnement_get_all = function(callback){ 
+const abonnement_get_all = function(callback){
  let sql='SELECT * from abonnement order by abonnement_id DESC ';
 database_module.db.query(sql,[], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -14,7 +14,7 @@ return results;
 exports.abonnement_get_all = abonnement_get_all;
 
 
-const abonnement_get_one = function(abonnement_id,callback){ 
+const abonnement_get_one = function(abonnement_id,callback){
  let sql='SELECT * from  abonnement where abonnement_id =?';
 database_module.db.query(sql,[abonnement_id], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -28,7 +28,7 @@ return results;
 exports.abonnement_get_one = abonnement_get_one;
 
 
-const abonnement_add = function(data,callback){ 
+const abonnement_add = function(data,callback){
 let fields = '('+Object.keys(data).toString()+')';
 
 let values = Object.values(data);
@@ -46,7 +46,7 @@ return results;
 exports.abonnement_add = abonnement_add;
 
 
-const abonnement_update = function(id,data,callback){ 
+const abonnement_update = function(id,data,callback){
 let sql = 'update abonnement set ? where abonnement_id =?';
 database_module.db.query(sql,[data,id], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -60,7 +60,7 @@ return results;
 exports.abonnement_update = abonnement_update;
 
 
-const abonnement_delete = function(id,callback){ 
+const abonnement_delete = function(id,callback){
 let sql = 'delete from abonnement where abonnement_id =?';
 database_module.db.query(sql,[id], function (error, results, fields) {
 if (error) console.log('error : ',error);

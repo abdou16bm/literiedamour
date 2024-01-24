@@ -1,6 +1,6 @@
 const database_module=require('./database');
 
-const delivery_price_get_all = function(callback){ 
+const delivery_price_get_all = function(callback){
  let sql='SELECT * from delivery_price order by wilaya_id DESC ';
 database_module.db.query(sql,[], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -17,7 +17,7 @@ exports.delivery_price_get_all = delivery_price_get_all;
 
 
 
-const delivery_price_get_all_wilaya = function(shop_id,callback){ 
+const delivery_price_get_all_wilaya = function(shop_id,callback){
     let sql='SELECT w1.wilaya_id,w1.wilaya_name,delivery_price FROM wilaya w1\n' +
     'LEFT JOIN (\n' +
     'SELECT w2.wilaya_id,delivery_price FROM wilaya w2\n' +
@@ -31,12 +31,12 @@ const delivery_price_get_all_wilaya = function(shop_id,callback){
    return results;
    });
    };
-   
-   
+
+
    exports.delivery_price_get_all_wilaya = delivery_price_get_all_wilaya;
 
 
-const delivery_price_get_one = function(wilaya_id,callback){ 
+const delivery_price_get_one = function(wilaya_id,callback){
  let sql='SELECT * from  delivery_price where wilaya_id =?';
 database_module.db.query(sql,[wilaya_id], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -50,7 +50,7 @@ return results;
 exports.delivery_price_get_one = delivery_price_get_one;
 
 
-const delivery_price_add = function(data,callback){ 
+const delivery_price_add = function(data,callback){
 let fields = '('+Object.keys(data).toString()+')';
 
 let values = Object.values(data);
@@ -85,7 +85,7 @@ const delivery_add_one = function (wilaya,shop,data,callback) {
 
 exports.delivery_add_one = delivery_add_one
 
-const delivery_price_update = function(id,data,callback){ 
+const delivery_price_update = function(id,data,callback){
 let sql = 'update delivery_price set ? where wilaya_id =?';
 database_module.db.query(sql,[data,id], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -99,7 +99,7 @@ return results;
 exports.delivery_price_update = delivery_price_update;
 
 
-const delivery_price_delete = function(id,callback){ 
+const delivery_price_delete = function(id,callback){
 let sql = 'delete from delivery_price where wilaya_id =?';
 database_module.db.query(sql,[id], function (error, results, fields) {
 if (error) console.log('error : ',error);

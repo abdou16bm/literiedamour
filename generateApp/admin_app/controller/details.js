@@ -41,7 +41,7 @@ exports.details_list_page = details_list_page
 
 
 const details_list = function (req,res) {
-     
+
      const sub_cat = req.query.cat
 
      sub_cateogry_module.sub_category_get_one(sub_cat,function (err,result) {
@@ -51,16 +51,16 @@ const details_list = function (req,res) {
           if (result.length > 0) {
 
                details_module.details_get_all_sub_category(result[0].sub_cat_id,function (err,result1) {
-         
+
                     if (err) console.log('error',err);
                     if(req.baseUrl == "/api") {
                     res.send({details : result1, sub_category : result, err : req.query.err, session : req.session});
                     } else {
                     res.render('details_list',{details : result1, sub_category : result, err : req.query.err, session : req.session});
                     }
-            
+
                });
-               
+
           } else {
 
                if(req.baseUrl == "/api") {
@@ -188,9 +188,9 @@ form.parse(req, function (err, fields, files) {
                detail_name : body.detail_name.trim()
 
           };
-          
+
           details_module.details_update(id,data_update,function (err,result1) {
-               
+
                if (err) console.log('error',err)
 
                if(req.baseUrl == "/api") {
@@ -198,7 +198,7 @@ form.parse(req, function (err, fields, files) {
                } else {
                res.redirect("/details/list?cat="+body.sub_cat+"&err=0")
                }
-                         
+
           });
 
      } else {res.redirect("/details/list?cat="+body.sub_cat+"&err=2")}
@@ -228,15 +228,15 @@ const details_add_save = function (req,res) {
           multiples : true,
           uploadDir: './admin_app/uploads'
      };
-  
+
      var form = new formidable.IncomingForm(options);
-  
+
      form.parse(req, function (err, fields, files) {
-  
+
           let body = fields;
 
           //console.log(body)
-  
+
           if (body.detail_name != undefined && body.detail_name != null && body.detail_name != "") {
 
                let data_insert = {
@@ -245,9 +245,9 @@ const details_add_save = function (req,res) {
                     sub_cat_id : body.sub_cat
 
                };
-               
+
                details_module.details_add(data_insert,function (err,result1) {
-                    
+
                     if (err) console.log('error',err)
 
                     if(req.baseUrl == "/api") {
@@ -255,11 +255,11 @@ const details_add_save = function (req,res) {
                     } else {
                     res.redirect("/details/list?cat="+body.sub_cat+"&err=0")
                     }
-                              
+
                });
-  
+
           } else {res.redirect("/details/list?cat="+body.sub_cat+"&err=2")}
-     
+
      })
 };
 
@@ -278,25 +278,25 @@ const id = req.params.id;
           let sub_cat_id = result[0].sub_cat_id
 
           details_module.details_delete(id,function (err,result1) {
-     
+
                if (err) {
-          
+
                     console.log('error',err)
                     res.redirect("/details/list?cat="+sub_cat_id+"&err=1")
-               
+
                } else {
-          
+
                     if(req.baseUrl == "/api") {
                     res.send({delete_result : result1, err : err, session : req.session});
                     } else {
                     res.redirect('/details/list?cat='+sub_cat_id+"&err=0");
                     }
-          
+
                }
-          
-          
+
+
           });
-          
+
      })
 
 };

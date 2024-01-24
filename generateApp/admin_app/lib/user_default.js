@@ -27,7 +27,7 @@ let user_get_all = function (callback) {
 
 let user_get_one = function (id,callback) {
 
-    let sql ='SELECT user.user_id, user_id_s, user_name, user_lastname, user_email, user_phone, user_username, priv_id,us.shop_id from user\n' + 
+    let sql ='SELECT user.user_id, user_id_s, user_name, user_lastname, user_email, user_phone, user_username, priv_id,us.shop_id from user\n' +
     'LEFT JOIN user_shop us ON us.user_id = user.user_id\n' +
     'where user.user_id= ?';
 
@@ -207,7 +207,7 @@ let user_update = function (id,data,callback) {
             return results;
 
         });
-    
+
     }
 
 

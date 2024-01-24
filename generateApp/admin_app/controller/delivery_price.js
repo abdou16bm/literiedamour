@@ -40,19 +40,19 @@ exports.delivery_price_list_page = delivery_price_list_page
 
 
 const delivery_price_list = function (req,res) {
-     
+
      let shop_id = req.session.shop_id
 
      delivery_price_module.delivery_price_get_all_wilaya(shop_id,function (err,result1) {
-        
+
           if (err) console.log('error',err);
-        
+
           if(req.baseUrl == "/api") {
           res.send({delivery_price : result1, err : req.query.err, session : req.session});
           } else {
           res.render('delivery_price_list',{delivery_price : result1, err : req.query.err, session : req.session});
           }
-    
+
      });
 
 };
@@ -294,17 +294,17 @@ const delivery_price_update = (req,res) => {
      let shop = req.session.shop_id
      let wilaya = req.params.wilaya
      let price = req.params.price
- 
+
      let data_delivery = {shop_id : shop,wilaya_id : wilaya, delivery_price: price}
-     
+
      delivery_price_module.delivery_add_one(wilaya,shop,data_delivery,(err,result)=>{
- 
-         if (err) {console.log(err)} 
-         
+
+         if (err) {console.log(err)}
+
          res.send({resultInsert : result, session : req.session, err : err})
- 
+
      })
- 
+
  }
 
  exports.delivery_price_update = delivery_price_update

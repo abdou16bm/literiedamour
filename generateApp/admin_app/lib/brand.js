@@ -1,6 +1,6 @@
 const database_module=require('./database');
 
-const brand_get_all = function(callback){ 
+const brand_get_all = function(callback){
  let sql='SELECT b.*, COUNT(p.product_id) AS product_count from brand b\n' +
  'LEFT JOIN product p ON p.brand_id = b.brand_id\n' +
  'GROUP BY b.brand_id\n' +
@@ -17,7 +17,7 @@ return results;
 exports.brand_get_all = brand_get_all;
 
 
-const brand_get_all_count = function(callback){ 
+const brand_get_all_count = function(callback){
     let sql = 'select count(*) as brand_count from brand';
     database_module.db.query(sql,[], function (error, results, fields) {
     if (error) console.log('error : ',error);
@@ -26,12 +26,12 @@ const brand_get_all_count = function(callback){
     return results;
     });
     };
-    
-    
+
+
 exports.brand_get_all_count = brand_get_all_count;
 
 
-const brand_get_one = function(brand_id,callback){ 
+const brand_get_one = function(brand_id,callback){
  let sql='SELECT * from  brand where brand_id =?';
 database_module.db.query(sql,[brand_id], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -45,7 +45,7 @@ return results;
 exports.brand_get_one = brand_get_one;
 
 
-const brand_add = function(data,callback){ 
+const brand_add = function(data,callback){
 let fields = '('+Object.keys(data).toString()+')';
 
 let values = Object.values(data);
@@ -63,7 +63,7 @@ return results;
 exports.brand_add = brand_add;
 
 
-const brand_update = function(id,data,callback){ 
+const brand_update = function(id,data,callback){
 let sql = 'update brand set ? where brand_id =?';
 database_module.db.query(sql,[data,id], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -77,7 +77,7 @@ return results;
 exports.brand_update = brand_update;
 
 
-const brand_delete = function(id,callback){ 
+const brand_delete = function(id,callback){
 let sql = 'delete from brand where brand_id =?';
 database_module.db.query(sql,[id], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -187,8 +187,8 @@ exports.brand_get_all_limit = brand_get_all_limit;
 // --------------- module client
 
 
-const brand_get_all_client = function(callback){ 
-    
+const brand_get_all_client = function(callback){
+
     let sql='SELECT b.*,COUNT(p.product_id) AS product_count from brand b\n' +
     'LEFT JOIN product p ON p.brand_id = b.brand_id\n' +
     'GROUP BY b.brand_id';
@@ -199,8 +199,8 @@ const brand_get_all_client = function(callback){
    return results;
    });
 };
-   
-   
+
+
 exports.brand_get_all_client = brand_get_all_client;
 
 

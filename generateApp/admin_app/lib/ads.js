@@ -1,6 +1,6 @@
 const database_module=require('./database');
 
-const ads_get_all = function(callback){ 
+const ads_get_all = function(callback){
  let sql='SELECT * from ads order by ads_id DESC ';
 database_module.db.query(sql,[], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -14,7 +14,7 @@ return results;
 exports.ads_get_all = ads_get_all;
 
 
-const ads_get_one = function(ads_id,callback){ 
+const ads_get_one = function(ads_id,callback){
  let sql='SELECT * from  ads where ads_id =?';
 database_module.db.query(sql,[ads_id], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -28,7 +28,7 @@ return results;
 exports.ads_get_one = ads_get_one;
 
 
-const ads_add = function(data,callback){ 
+const ads_add = function(data,callback){
 let fields = '('+Object.keys(data).toString()+')';
 
 let values = Object.values(data);
@@ -46,7 +46,7 @@ return results;
 exports.ads_add = ads_add;
 
 
-const ads_update = function(id,data,callback){ 
+const ads_update = function(id,data,callback){
 let sql = 'update ads set ? where ads_id =?';
 database_module.db.query(sql,[data,id], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -60,7 +60,7 @@ return results;
 exports.ads_update = ads_update;
 
 
-const ads_delete = function(id,callback){ 
+const ads_delete = function(id,callback){
 let sql = 'delete from ads where ads_id =?';
 database_module.db.query(sql,[id], function (error, results, fields) {
 if (error) console.log('error : ',error);

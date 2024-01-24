@@ -1,6 +1,6 @@
 const database_module=require('./database');
 
-const product_details_get_all = function(callback){ 
+const product_details_get_all = function(callback){
  let sql='SELECT * from product_details order by product_id DESC ';
 database_module.db.query(sql,[], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -14,7 +14,7 @@ return results;
 exports.product_details_get_all = product_details_get_all;
 
 
-const product_details_get_all_product = function(id,callback){ 
+const product_details_get_all_product = function(id,callback){
     let sql='SELECT * FROM product_details pd\n' +
     'left join details d on d.detail_id = pd.detail_id \n' +
     'WHERE pd.product_id = ?\n' +
@@ -26,12 +26,12 @@ const product_details_get_all_product = function(id,callback){
    return results;
    });
    };
-   
-   
+
+
 exports.product_details_get_all_product = product_details_get_all_product;
 
 
-const product_details_get_one = function(product_id,detail_id,callback){ 
+const product_details_get_one = function(product_id,detail_id,callback){
  let sql='SELECT * from  product_details where product_id =? and detail_id = ?';
 database_module.db.query(sql,[product_id,detail_id], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -45,7 +45,7 @@ return results;
 exports.product_details_get_one = product_details_get_one;
 
 
-const product_details_add = function(data,callback){ 
+const product_details_add = function(data,callback){
 let fields = '('+Object.keys(data).toString()+')';
 
 let values = Object.values(data);
@@ -63,7 +63,7 @@ return results;
 exports.product_details_add = product_details_add;
 
 
-const product_details_update = function(product_id,detail_id,data,callback){ 
+const product_details_update = function(product_id,detail_id,data,callback){
 let sql = 'update product_details set ? where product_id =? and detail_id = ?';
 database_module.db.query(sql,[data,product_id,detail_id], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -77,7 +77,7 @@ return results;
 exports.product_details_update = product_details_update;
 
 
-const product_details_delete = function(product_id,detail_id,callback){ 
+const product_details_delete = function(product_id,detail_id,callback){
 let sql = 'delete from product_details where product_id =? and detail_id = ?';
 database_module.db.query(sql,[product_id,detail_id], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -188,7 +188,7 @@ exports.product_details_get_all_limit = product_details_get_all_limit;
 //------------ product details client-------
 
 
-const product_details_get_all_product_client = function(id,callback){ 
+const product_details_get_all_product_client = function(id,callback){
     let sql='SELECT * FROM product_details pd\n' +
     'left join details d on d.detail_id = pd.detail_id \n' +
     'WHERE pd.product_id = ?\n' +
@@ -200,7 +200,7 @@ const product_details_get_all_product_client = function(id,callback){
    return results;
    });
    };
-   
-   
+
+
 exports.product_details_get_all_product_client = product_details_get_all_product_client;
 

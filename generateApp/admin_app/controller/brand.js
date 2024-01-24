@@ -40,7 +40,7 @@ exports.brand_list_page = brand_list_page
 
 
 const brand_list = function (req,res) {
-     
+
      brand_module.brand_get_all(function (err,result1) {
          if (err) console.log('error',err);
          if(req.baseUrl == "/api") {
@@ -145,43 +145,43 @@ const brand_edit_save = function (req,res) {
              multiples : true,
              uploadDir: './admin_app/uploads'
          };
-     
+
          var form = new formidable.IncomingForm(options);
-     
+
           form.parse(req, function (err, fields, files) {
-     
+
                let body = fields;
-     
+
                if (body.brand_name != undefined && body.brand_name != null && body.brand_name != "") {
-     
+
                     let data_update = {
-     
+
                          brand_name : body.brand_name.trim()
-     
+
                     };
-                    
+
                     brand_module.brand_update(id,data_update,function (err,result1) {
-                         
+
                          if (err) console.log('error',err);
                          doc_module.uploadFile('./admin_app/public/img/brand/',id,files,'main','main','jpg', function (err,count1){
-               
+
                               if (err) console.log(err)
                               console.log('count1 : ',count1)
-     
+
                               //brand_module.brand_update(id,{brand_pic:count1})
-                         
+
                          });
-     
+
                          if(req.baseUrl == "/api") {
                          res.send({update_result : result1, err : err, session : req.session});
                          } else {
                          res.redirect('/brands/list?err=0');
                          }
-                                   
+
                     });
-     
+
                } else {res.redirect('/brand/'+id+'/edit?err=1');}
-     
+
           })
      };
 
@@ -207,46 +207,46 @@ const brand_add_save = function (req,res) {
          multiples : true,
          uploadDir: './admin_app/uploads'
      };
- 
+
      var form = new formidable.IncomingForm(options);
- 
+
       form.parse(req, function (err, fields, files) {
- 
+
            let body = fields;
- 
+
            if (body.brand_name != undefined && body.brand_name != null && body.brand_name != "") {
- 
+
                 let data_insert = {
- 
+
                     brand_name : body.brand_name.trim()
- 
+
                 };
-                
+
                 brand_module.brand_add(data_insert,function (err,result1) {
-                     
+
                      if (err) console.log('error',err);
                      doc_module.uploadFile('./admin_app/public/img/brand/',result1.insertId,files,'main','main','jpg', function (err,count1){
-           
+
                           if (err) console.log(err)
                           console.log('count1 : ',count1)
- 
+
                           //brand_module.brand_update(result1.insertId,{brand_pic:count1})
-                     
+
                      });
- 
+
                      if(req.baseUrl == "/api") {
                      res.send({insert_result : result1, err : err, session : req.session});
                      } else {
                      res.redirect('/brands/list?err=0');
                      }
-                                  
+
                 });
- 
+
            } else {res.redirect('/brand/add?err=1');}
-    
+
       })
 };
- 
+
 
 
 
@@ -261,7 +261,7 @@ brand_module.brand_delete(id,function (err,result1) {
 
           console.log('error',err)
           res.redirect("/brands/list?err=1")
-     
+
      } else {
 
 

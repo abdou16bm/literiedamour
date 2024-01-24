@@ -1,6 +1,6 @@
 const database_module=require('./database');
 
-const sub_category_get_all = function(callback){ 
+const sub_category_get_all = function(callback){
  let sql='SELECT sc.*, COUNT(p.product_id) AS product_count from sub_category sc\n' +
  'LEFT JOIN product p ON p.sub_cat_id = sc.sub_cat_id\n' +
  'GROUP BY sc.sub_cat_id\n' +
@@ -17,7 +17,7 @@ return results;
 exports.sub_category_get_all = sub_category_get_all;
 
 
-const sub_category_get_all_count = function(callback){ 
+const sub_category_get_all_count = function(callback){
     let sql = 'select count(*) as sub_category_count from sub_category';
     database_module.db.query(sql,[], function (error, results, fields) {
     if (error) console.log('error : ',error);
@@ -26,12 +26,12 @@ const sub_category_get_all_count = function(callback){
     return results;
     });
     };
-    
-    
+
+
 exports.sub_category_get_all_count = sub_category_get_all_count;
 
 
-const sub_category_get_one = function(sub_cat_id,callback){ 
+const sub_category_get_one = function(sub_cat_id,callback){
  let sql='SELECT * from  sub_category where sub_cat_id =?';
 database_module.db.query(sql,[sub_cat_id], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -45,7 +45,7 @@ return results;
 exports.sub_category_get_one = sub_category_get_one;
 
 
-const sub_category_add = function(data,callback){ 
+const sub_category_add = function(data,callback){
 let fields = '('+Object.keys(data).toString()+')';
 
 let values = Object.values(data);
@@ -63,7 +63,7 @@ return results;
 exports.sub_category_add = sub_category_add;
 
 
-const sub_category_update = function(id,data,callback){ 
+const sub_category_update = function(id,data,callback){
 let sql = 'update sub_category set ? where sub_cat_id =?';
 database_module.db.query(sql,[data,id], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -77,7 +77,7 @@ return results;
 exports.sub_category_update = sub_category_update;
 
 
-const sub_category_delete = function(id,callback){ 
+const sub_category_delete = function(id,callback){
 let sql = 'delete from sub_category where sub_cat_id =?';
 database_module.db.query(sql,[id], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -189,7 +189,7 @@ exports.sub_category_get_all_limit = sub_category_get_all_limit;
 //---------- module client
 
 
-const sub_category_get_all_client = function(callback){ 
+const sub_category_get_all_client = function(callback){
     let sql='SELECT sc.*,COUNT(p.product_id) AS product_count from sub_category sc\n' +
     'LEFT JOIN product p ON p.sub_cat_id = sc.sub_cat_id\n' +
     'GROUP BY sc.sub_cat_id';
@@ -200,6 +200,6 @@ const sub_category_get_all_client = function(callback){
    return results;
    });
    };
-   
-   
+
+
 exports.sub_category_get_all_client = sub_category_get_all_client;

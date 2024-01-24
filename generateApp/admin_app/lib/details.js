@@ -1,6 +1,6 @@
 const database_module=require('./database');
 
-const details_get_all = function(callback){ 
+const details_get_all = function(callback){
  let sql='SELECT * from details order by detail_id DESC ';
 database_module.db.query(sql,[], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -14,8 +14,8 @@ return results;
 exports.details_get_all = details_get_all;
 
 
-const details_get_all_sub_category = function(sub_cat,callback){ 
-    let sql='SELECT * from details\n' + 
+const details_get_all_sub_category = function(sub_cat,callback){
+    let sql='SELECT * from details\n' +
     'WHERE sub_cat_id = ?\n' +
     'order by detail_id DESC ';
    database_module.db.query(sql,[sub_cat], function (error, results, fields) {
@@ -25,12 +25,12 @@ const details_get_all_sub_category = function(sub_cat,callback){
    return results;
    });
    };
-   
-   
+
+
    exports.details_get_all_sub_category = details_get_all_sub_category;
 
 
-const details_get_one = function(detail_id,callback){ 
+const details_get_one = function(detail_id,callback){
  let sql='SELECT * from  details where detail_id =?';
 database_module.db.query(sql,[detail_id], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -44,7 +44,7 @@ return results;
 exports.details_get_one = details_get_one;
 
 
-const details_add = function(data,callback){ 
+const details_add = function(data,callback){
 let fields = '('+Object.keys(data).toString()+')';
 
 let values = Object.values(data);
@@ -62,7 +62,7 @@ return results;
 exports.details_add = details_add;
 
 
-const details_update = function(id,data,callback){ 
+const details_update = function(id,data,callback){
 let sql = 'update details set ? where detail_id =?';
 database_module.db.query(sql,[data,id], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -76,7 +76,7 @@ return results;
 exports.details_update = details_update;
 
 
-const details_delete = function(id,callback){ 
+const details_delete = function(id,callback){
 let sql = 'delete from details where detail_id =?';
 database_module.db.query(sql,[id], function (error, results, fields) {
 if (error) console.log('error : ',error);

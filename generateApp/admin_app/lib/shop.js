@@ -1,6 +1,6 @@
 const database_module=require('./database');
 
-const shop_get_all = function(callback){ 
+const shop_get_all = function(callback){
  let sql='SELECT * from shop order by shop_id DESC ';
 database_module.db.query(sql,[], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -14,7 +14,7 @@ return results;
 exports.shop_get_all = shop_get_all;
 
 
-const shop_get_one = function(shop_id,callback){ 
+const shop_get_one = function(shop_id,callback){
  let sql='SELECT * from  shop where shop_id =?';
 database_module.db.query(sql,[shop_id], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -28,7 +28,7 @@ return results;
 exports.shop_get_one = shop_get_one;
 
 
-const shop_add = function(data,callback){ 
+const shop_add = function(data,callback){
 let fields = '('+Object.keys(data).toString()+')';
 
 let values = Object.values(data);
@@ -46,7 +46,7 @@ return results;
 exports.shop_add = shop_add;
 
 
-const shop_update = function(id,data,callback){ 
+const shop_update = function(id,data,callback){
 let sql = 'update shop set ? where shop_id =?';
 database_module.db.query(sql,[data,id], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -60,7 +60,7 @@ return results;
 exports.shop_update = shop_update;
 
 
-const shop_delete = function(id,callback){ 
+const shop_delete = function(id,callback){
 let sql = 'delete from shop where shop_id =?';
 database_module.db.query(sql,[id], function (error, results, fields) {
 if (error) console.log('error : ',error);

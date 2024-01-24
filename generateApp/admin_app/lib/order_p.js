@@ -1,6 +1,6 @@
 const database_module=require('./database');
 
-const order_p_get_all = function(callback){ 
+const order_p_get_all = function(callback){
  let sql='SELECT * from order_p order by product_id DESC ';
 database_module.db.query(sql,[], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -14,7 +14,7 @@ return results;
 exports.order_p_get_all = order_p_get_all;
 
 
-const order_p_get_all_order = function(order_id,callback){ 
+const order_p_get_all_order = function(order_id,callback){
     let sql='SELECT * from order_p op\n' +
     'LEFT JOIN product p ON p.product_id = op.product_id\n' +
     'WHERE order_id = ?\n' +
@@ -26,12 +26,12 @@ const order_p_get_all_order = function(order_id,callback){
    return results;
    });
    };
-   
-   
+
+
    exports.order_p_get_all_order = order_p_get_all_order;
 
 
-const order_p_get_one = function(product_id,callback){ 
+const order_p_get_one = function(product_id,callback){
  let sql='SELECT * from  order_p where product_id =?';
 database_module.db.query(sql,[product_id], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -45,7 +45,7 @@ return results;
 exports.order_p_get_one = order_p_get_one;
 
 
-const order_p_add = function(data,callback){ 
+const order_p_add = function(data,callback){
 let fields = '('+Object.keys(data).toString()+')';
 
 let values = Object.values(data);
@@ -63,7 +63,7 @@ return results;
 exports.order_p_add = order_p_add;
 
 
-const order_p_update = function(id,data,callback){ 
+const order_p_update = function(id,data,callback){
 let sql = 'update order_p set ? where product_id =?';
 database_module.db.query(sql,[data,id], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -77,7 +77,7 @@ return results;
 exports.order_p_update = order_p_update;
 
 
-const order_p_delete = function(id,callback){ 
+const order_p_delete = function(id,callback){
 let sql = 'delete from order_p where product_id =?';
 database_module.db.query(sql,[id], function (error, results, fields) {
 if (error) console.log('error : ',error);

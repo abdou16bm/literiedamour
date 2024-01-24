@@ -1,6 +1,6 @@
 const database_module=require('./database');
 
-const property_get_all = function(callback){ 
+const property_get_all = function(callback){
  let sql='SELECT * from property order by property_id DESC ';
 database_module.db.query(sql,[], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -14,7 +14,7 @@ return results;
 exports.property_get_all = property_get_all;
 
 
-const property_get_all_color = function(callback){ 
+const property_get_all_color = function(callback){
 let sql='SELECT * from property where property_type_id = 2 order by property_id DESC ';
 database_module.db.query(sql,[], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -23,11 +23,11 @@ if (callback){callback(error,results)};
 return results;
 });
 };
-   
+
 exports.property_get_all_color = property_get_all_color;
 
 
-const property_get_one = function(property_id,callback){ 
+const property_get_one = function(property_id,callback){
  let sql='SELECT * from  property where property_id =?';
 database_module.db.query(sql,[property_id], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -41,7 +41,7 @@ return results;
 exports.property_get_one = property_get_one;
 
 
-const property_add = function(data,callback){ 
+const property_add = function(data,callback){
 let fields = '('+Object.keys(data).toString()+')';
 
 let values = Object.values(data);
@@ -59,7 +59,7 @@ return results;
 exports.property_add = property_add;
 
 
-const property_update = function(id,data,callback){ 
+const property_update = function(id,data,callback){
 let sql = 'update property set ? where property_id =?';
 database_module.db.query(sql,[data,id], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -73,7 +73,7 @@ return results;
 exports.property_update = property_update;
 
 
-const property_delete = function(id,callback){ 
+const property_delete = function(id,callback){
 let sql = 'delete from property where property_id =?';
 database_module.db.query(sql,[id], function (error, results, fields) {
 if (error) console.log('error : ',error);

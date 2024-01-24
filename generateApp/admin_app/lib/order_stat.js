@@ -1,6 +1,6 @@
 const database_module=require('./database');
 
-const order_stat_get_all = function(callback){ 
+const order_stat_get_all = function(callback){
  let sql='SELECT * from order_stat order by stat_id DESC ';
 database_module.db.query(sql,[], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -14,7 +14,7 @@ return results;
 exports.order_stat_get_all = order_stat_get_all;
 
 
-const order_stat_get_one = function(stat_id,callback){ 
+const order_stat_get_one = function(stat_id,callback){
  let sql='SELECT * from  order_stat where stat_id =?';
 database_module.db.query(sql,[stat_id], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -28,7 +28,7 @@ return results;
 exports.order_stat_get_one = order_stat_get_one;
 
 
-const order_stat_add = function(data,callback){ 
+const order_stat_add = function(data,callback){
 let fields = '('+Object.keys(data).toString()+')';
 
 let values = Object.values(data);
@@ -46,7 +46,7 @@ return results;
 exports.order_stat_add = order_stat_add;
 
 
-const order_stat_update = function(order_id,data,callback){ 
+const order_stat_update = function(order_id,data,callback){
 let sql = 'update order_stat set ? where order_id =?';
 database_module.db.query(sql,[data,order_id], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -60,7 +60,7 @@ return results;
 exports.order_stat_update = order_stat_update;
 
 
-const order_stat_delete = function(id,callback){ 
+const order_stat_delete = function(id,callback){
 let sql = 'delete from order_stat where stat_id =?';
 database_module.db.query(sql,[id], function (error, results, fields) {
 if (error) console.log('error : ',error);

@@ -1,6 +1,6 @@
 const database_module=require('./database');
 
-const opinion_get_all = function(callback){ 
+const opinion_get_all = function(callback){
  let sql='SELECT * from opinion order by opinion_id DESC ';
 database_module.db.query(sql,[], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -14,7 +14,7 @@ return results;
 exports.opinion_get_all = opinion_get_all;
 
 
-const opinion_get_one = function(opinion_id,callback){ 
+const opinion_get_one = function(opinion_id,callback){
  let sql='SELECT * from  opinion where opinion_id =?';
 database_module.db.query(sql,[opinion_id], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -28,7 +28,7 @@ return results;
 exports.opinion_get_one = opinion_get_one;
 
 
-const opinion_add = function(data,callback){ 
+const opinion_add = function(data,callback){
 let fields = '('+Object.keys(data).toString()+')';
 
 let values = Object.values(data);
@@ -46,7 +46,7 @@ return results;
 exports.opinion_add = opinion_add;
 
 
-const opinion_update = function(id,data,callback){ 
+const opinion_update = function(id,data,callback){
 let sql = 'update opinion set ? where opinion_id =?';
 database_module.db.query(sql,[data,id], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -60,7 +60,7 @@ return results;
 exports.opinion_update = opinion_update;
 
 
-const opinion_delete = function(id,callback){ 
+const opinion_delete = function(id,callback){
 let sql = 'delete from opinion where opinion_id =?';
 database_module.db.query(sql,[id], function (error, results, fields) {
 if (error) console.log('error : ',error);

@@ -1,6 +1,6 @@
 const database_module=require('./database');
 
-const status_get_all = function(callback){ 
+const status_get_all = function(callback){
  let sql='SELECT * from status order by stat_id DESC ';
 database_module.db.query(sql,[], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -14,7 +14,7 @@ return results;
 exports.status_get_all = status_get_all;
 
 
-const status_get_one = function(stat_id,callback){ 
+const status_get_one = function(stat_id,callback){
  let sql='SELECT * from  status where stat_id =?';
 database_module.db.query(sql,[stat_id], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -28,7 +28,7 @@ return results;
 exports.status_get_one = status_get_one;
 
 
-const status_add = function(data,callback){ 
+const status_add = function(data,callback){
 let fields = '('+Object.keys(data).toString()+')';
 
 let values = Object.values(data);
@@ -46,7 +46,7 @@ return results;
 exports.status_add = status_add;
 
 
-const status_update = function(id,data,callback){ 
+const status_update = function(id,data,callback){
 let sql = 'update status set ? where stat_id =?';
 database_module.db.query(sql,[data,id], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -60,7 +60,7 @@ return results;
 exports.status_update = status_update;
 
 
-const status_delete = function(id,callback){ 
+const status_delete = function(id,callback){
 let sql = 'delete from status where stat_id =?';
 database_module.db.query(sql,[id], function (error, results, fields) {
 if (error) console.log('error : ',error);

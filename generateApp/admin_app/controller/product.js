@@ -131,7 +131,7 @@ const product_edit = function (req,res) {
      const id = req.params.id;
 
      product_module.product_get_one(id,function (err,result1) {
-       
+
         if (err) console.log('error',err);
 
           brand_module.brand_get_all(function (err,result2) {
@@ -151,11 +151,11 @@ const product_edit = function (req,res) {
                          } else {
                          res.render('product_edit',{product : result1, brands : result2, property : result3, sub_category : result4, err : req.query.err, session : req.session});
                          }
-                         
+
                     })
-     
+
                })
-               
+
           })
 
      });
@@ -174,22 +174,22 @@ const product_edit_save = function (req,res) {
          multiples : true,
          uploadDir: './admin_app/uploads'
      };
- 
+
      let form = new formidable.IncomingForm(options);
- 
+
      form.parse(req, function (err, fields, files) {
- 
+
          let body = fields;
 
          if (
-          
+
           typeof(body.product_ref) != 'undefined' && body.product_ref != null && body.product_ref != ""
           && typeof(body.product_name) != 'undefined' && body.product_name != null && body.product_name != ""
           && typeof(body.product_category) != 'undefined' && body.product_category != null && body.product_category != ""
           && typeof(body.product_brand) != 'undefined' && body.product_brand != null && body.product_brand != ""
           && typeof(body.product_price) != 'undefined' && body.product_price != null && body.product_price != ""
           && typeof(body.product_quantity) != 'undefined' && body.product_quantity != null && body.product_quantity != ""
-          
+
           ) {
 
 
@@ -212,35 +212,35 @@ const product_edit_save = function (req,res) {
                     doc_module.uploadFile('./admin_app/public/img/product/',id,files,'main','main','jpg', function (err,count1){
 
                          if (err) console.log(err)
- 
+
                          console.log('count1 : ',count1)
- 
+
                          product_module.product_update(id,{product_imgcount:count1})
- 
- 
+
+
                     })
 
                     doc_module.uploadMultiFile('./admin_app/public/img/product/',id,files,'jpg', function (err,count2){
 
                          if (err) console.log(err)
- 
+
                          console.log('count2 : ',count2)
- 
+
                          product_module.product_update(id,{product_imgcount:count2})
- 
+
                     })
 
-                    
+
                     res.redirect("/products/list?err=0")
 
-                    
+
                })
 
 
-          
+
           } else {res.redirect("/product/"+id+"/edit?err=1")}
-          
- 
+
+
      })
  }
 
@@ -265,13 +265,13 @@ const product_add = function (req,res) {
                     if (err) {console.log(err)}
 
                     res.render("product_add",{brands : result1, property : result2, sub_category : result3, session : req.session, err : req.query.err})
-                    
+
                })
-    
+
           })
-          
+
      })
-     
+
 };
 
 
@@ -285,22 +285,22 @@ const product_add_save = function (req,res) {
          multiples : true,
          uploadDir: './admin_app/uploads'
      };
- 
+
      let form = new formidable.IncomingForm(options);
- 
+
      form.parse(req, function (err, fields, files) {
- 
+
          let body = fields;
 
          if (
-          
+
           typeof(body.product_ref) != 'undefined' && body.product_ref != null && body.product_ref != ""
           && typeof(body.product_name) != 'undefined' && body.product_name != null && body.product_name != ""
           && typeof(body.product_category) != 'undefined' && body.product_category != null && body.product_category != ""
           && typeof(body.product_brand) != 'undefined' && body.product_brand != null && body.product_brand != ""
           && typeof(body.product_price) != 'undefined' && body.product_price != null && body.product_price != ""
           && typeof(body.product_quantity) != 'undefined' && body.product_quantity != null && body.product_quantity != ""
-          
+
           ) {
 
 
@@ -324,35 +324,35 @@ const product_add_save = function (req,res) {
                     doc_module.uploadFile('./admin_app/public/img/product/',result1.insertId,files,'main','main','jpg', function (err,count1){
 
                          if (err) console.log(err)
- 
+
                          console.log('count1 : ',count1)
- 
+
                          product_module.product_update(result1.insertId,{product_imgcount:count1})
- 
- 
+
+
                     })
 
                     doc_module.uploadMultiFile('./admin_app/public/img/product/',result1.insertId,files,'jpg', function (err,count2){
 
                          if (err) console.log(err)
- 
+
                          console.log('count2 : ',count2)
- 
+
                          product_module.product_update(result1.insertId,{product_imgcount:count2})
- 
+
                     })
 
-                    
+
                     res.redirect("/products/list?err=0")
 
-                    
+
                })
 
 
-          
+
           } else {res.redirect("/product/add?err=1")}
-          
- 
+
+
      })
  }
 
@@ -364,12 +364,12 @@ exports.product_add_save = product_add_save
 const product_delete = function (req,res) {
 const id = req.params.id;
 product_module.product_delete(id,function (err,result1) {
-     
+
      if (err) {
 
           console.log('error',err)
           res.redirect("/products/list?err=1")
-     
+
      } else {
 
           if(req.baseUrl == "/api") {
@@ -409,9 +409,9 @@ exports.product_filter = product_filter
 
 
 const product_data_sheet = function (req,res) {
-     
+
      const product_id = req.params.id
-     
+
      product_module.product_get_one(product_id,function (err,result1) {
 
           if (err) {console.log(err)}
@@ -421,26 +421,26 @@ const product_data_sheet = function (req,res) {
                let sub_cat = result1[0].sub_cat_id
 
                //console.log("product : ",result1)
-     
+
                product_details_module.product_details_get_all_product(product_id,function (err,result2) {
-     
+
                     if (err) {console.log(err)}
-     
+
                     details_module.details_get_all_sub_category(sub_cat,function (err,result3) {
-     
+
                          if (err) {console.log(err)}
-     
+
                          if(req.baseUrl == "/api") {
                          res.send({product : result1, product_details : result2, details : result3, err : req.query.err, session : req.session});
                          } else {
                          res.render('product_data_sheet',{product : result1, product_details : result2, details : result3, err : req.query.err, session : req.session});
                          }
-                    
-                    
+
+
                     })
-                    
+
                })
-               
+
           } else {
 
                if(req.baseUrl == "/api") {
@@ -450,7 +450,7 @@ const product_data_sheet = function (req,res) {
                }
 
           }
-     
+
      })
 
 }
@@ -472,11 +472,11 @@ const product_qt_edit = function (req,res) {
      product_module.product_stock_update(product_id,input.quantity,function (err,result1) {
 
           if (err)console.log(err)
-               
+
           res.redirect("/stock")
-          
+
      })
-     
+
 }
 
 

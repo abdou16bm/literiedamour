@@ -149,19 +149,19 @@ const product_details_edit_save = function (req,res) {
           multiples : true,
           uploadDir: './admin_app/uploads'
      };
-  
+
      var form = new formidable.IncomingForm(options);
-  
+
      form.parse(req, function (err, fields, files) {
-  
+
           let body = fields;
 
           console.log(body)
-  
+
           if (
-              
+
                typeof(body.detail_desig) != "undefined" && body.detail_desig != null && body.detail_desig != ""
-               
+
           ) {
 
                let data_update = {
@@ -169,9 +169,9 @@ const product_details_edit_save = function (req,res) {
                     detail_desig : body.detail_desig.trim()
 
                };
-               
+
                product_details_module.product_details_update(product_id,detail_id,data_update,function (err,result1) {
-                    
+
                     if (err)   console.log('error',err)
 
                     if(req.baseUrl == "/api") {
@@ -180,11 +180,11 @@ const product_details_edit_save = function (req,res) {
                     res.redirect("/product/"+product_id+"/sheet?err=0")
                     }
 
-        
+
                });
-  
+
           } else {res.redirect("/product/"+product_id+"/sheet?err=2")}
-     
+
      })
 };
 
@@ -210,20 +210,20 @@ const product_details_add_save = function (req,res) {
           multiples : true,
           uploadDir: './admin_app/uploads'
      };
-  
+
      var form = new formidable.IncomingForm(options);
-  
+
      form.parse(req, function (err, fields, files) {
-  
+
           let body = fields;
 
           console.log(body)
-  
+
           if (
-              
+
                typeof(body.detail_desig) != "undefined" && body.detail_desig != null && body.detail_desig != ""
                && typeof(body.detail_id) != "undefined" && body.detail_id != null && body.detail_id != ""
-               
+
           ) {
 
                let data_insert = {
@@ -233,9 +233,9 @@ const product_details_add_save = function (req,res) {
                     detail_desig : body.detail_desig.trim()
 
                };
-               
+
                product_details_module.product_details_add(data_insert,function (err,result1) {
-                    
+
                     if (err) {
 
                          res.redirect("/product/"+body.product_id+"/sheet?err=3")
@@ -250,11 +250,11 @@ const product_details_add_save = function (req,res) {
                          }
 
                     }
-        
+
                });
-  
+
           } else {res.redirect("/product/"+body.product_id+"/sheet?err=2")}
-     
+
      })
 };
 
@@ -272,10 +272,10 @@ const product_details_delete = function (req,res) {
      product_details_module.product_details_delete(product_id,detail_id,function (err,result1) {
 
           if (err) {
-               
+
                res.redirect('/product/'+product_id+'/sheet?err=1');
                console.log('error',err);
-          
+
           } else {
 
                if(req.baseUrl == "/api") {

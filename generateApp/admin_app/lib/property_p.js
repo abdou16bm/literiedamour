@@ -1,6 +1,6 @@
 const database_module=require('./database');
 
-const property_p_get_all = function(callback){ 
+const property_p_get_all = function(callback){
  let sql='SELECT * from property_p order by property_id DESC ';
 database_module.db.query(sql,[], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -14,7 +14,7 @@ return results;
 exports.property_p_get_all = property_p_get_all;
 
 
-const property_p_get_one = function(property_id,callback){ 
+const property_p_get_one = function(property_id,callback){
  let sql='SELECT * from  property_p where property_id =?';
 database_module.db.query(sql,[property_id], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -28,7 +28,7 @@ return results;
 exports.property_p_get_one = property_p_get_one;
 
 
-const property_p_add = function(data,callback){ 
+const property_p_add = function(data,callback){
 let fields = '('+Object.keys(data).toString()+')';
 
 let values = Object.values(data);
@@ -46,7 +46,7 @@ return results;
 exports.property_p_add = property_p_add;
 
 
-const property_p_update = function(id,data,callback){ 
+const property_p_update = function(id,data,callback){
 let sql = 'update property_p set ? where property_id =?';
 database_module.db.query(sql,[data,id], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -60,7 +60,7 @@ return results;
 exports.property_p_update = property_p_update;
 
 
-const property_p_delete = function(id,callback){ 
+const property_p_delete = function(id,callback){
 let sql = 'delete from property_p where property_id =?';
 database_module.db.query(sql,[id], function (error, results, fields) {
 if (error) console.log('error : ',error);

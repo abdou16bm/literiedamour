@@ -19,13 +19,13 @@ exports.product_get_all = product_get_all;
 
 
 const product_get_all_top = function(top,callback){
-   
+
     let sql='SELECT * from product\n' +
     'LEFT JOIN brand ON brand.brand_id = product.brand_id\n' +
     'LEFT JOIN shop ON shop.shop_id = product.shop_id\n' +
     'LEFT JOIN sub_category sc ON sc.sub_cat_id = product.sub_cat_id\n' +
     'order by product_id DESC limit ?';
-   
+
     database_module.db.query(sql,[top], function (error, results, fields) {
     if (error) console.log('error : ',error);
     if (callback){callback(error,results)};
@@ -222,19 +222,19 @@ let product_get_all_stock = function (callback){
     "WHERE os.stat_id <> 4 AND os.stat_id <> 2\n" +
     "GROUP BY op.product_id\n" +
     ") p3 ON p3.product_id = p1.product_id";
-    
+
     database_module.db.query(sql, function (error, results, fields) {
-    
+
     if (error) console.log('error : ',error);
 
     if (callback){callback(error,results)};
-    
+
     return results;
-    
+
     });
 
 };
-    
+
 exports.product_get_all_stock = product_get_all_stock;
 
 
@@ -425,12 +425,12 @@ exports.product_get_all_sub_category_brand = product_get_all_sub_category_brand;
 
 
 const product_update_qt_order = function(order_id,callback){
-   
+
     let sql='UPDATE product p JOIN order_p op\n' +
     'ON p.product_id = op.product_id\n' +
     'SET product_qt = (product_qt-product_qt_o)\n' +
     'WHERE op.order_id = ?';
-   
+
     database_module.db.query(sql,[order_id], function (error, results, fields) {
         if (error) console.log('error : ',error);
         //console.log('results: ', results);

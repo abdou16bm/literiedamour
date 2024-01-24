@@ -1,6 +1,6 @@
 const database_module=require('./database');
 
-const privilege_get_all = function(callback){ 
+const privilege_get_all = function(callback){
  let sql='SELECT * from privilege order by priv_id DESC ';
 database_module.db.query(sql,[], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -14,7 +14,7 @@ return results;
 exports.privilege_get_all = privilege_get_all;
 
 
-const privilege_get_one = function(priv_id,callback){ 
+const privilege_get_one = function(priv_id,callback){
  let sql='SELECT * from  privilege where priv_id =?';
 database_module.db.query(sql,[priv_id], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -28,7 +28,7 @@ return results;
 exports.privilege_get_one = privilege_get_one;
 
 
-const privilege_add = function(data,callback){ 
+const privilege_add = function(data,callback){
 let fields = '('+Object.keys(data).toString()+')';
 
 let values = Object.values(data);
@@ -46,7 +46,7 @@ return results;
 exports.privilege_add = privilege_add;
 
 
-const privilege_update = function(id,data,callback){ 
+const privilege_update = function(id,data,callback){
 let sql = 'update privilege set ? where priv_id =?';
 database_module.db.query(sql,[data,id], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -60,7 +60,7 @@ return results;
 exports.privilege_update = privilege_update;
 
 
-const privilege_delete = function(id,callback){ 
+const privilege_delete = function(id,callback){
 let sql = 'delete from privilege where priv_id =?';
 database_module.db.query(sql,[id], function (error, results, fields) {
 if (error) console.log('error : ',error);

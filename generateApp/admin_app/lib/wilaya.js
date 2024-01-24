@@ -1,6 +1,6 @@
 const database_module=require('./database');
 
-const wilaya_get_all = function(callback){ 
+const wilaya_get_all = function(callback){
  let sql='SELECT * from wilaya order by wilaya_id';
 database_module.db.query(sql,[], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -14,7 +14,7 @@ return results;
 exports.wilaya_get_all = wilaya_get_all;
 
 
-const wilaya_get_one = function(wilaya_id,callback){ 
+const wilaya_get_one = function(wilaya_id,callback){
  let sql='SELECT * from  wilaya where wilaya_id =?';
 database_module.db.query(sql,[wilaya_id], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -28,7 +28,7 @@ return results;
 exports.wilaya_get_one = wilaya_get_one;
 
 
-const wilaya_add = function(data,callback){ 
+const wilaya_add = function(data,callback){
 let fields = '('+Object.keys(data).toString()+')';
 
 let values = Object.values(data);
@@ -46,7 +46,7 @@ return results;
 exports.wilaya_add = wilaya_add;
 
 
-const wilaya_update = function(id,data,callback){ 
+const wilaya_update = function(id,data,callback){
 let sql = 'update wilaya set ? where wilaya_id =?';
 database_module.db.query(sql,[data,id], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -60,7 +60,7 @@ return results;
 exports.wilaya_update = wilaya_update;
 
 
-const wilaya_delete = function(id,callback){ 
+const wilaya_delete = function(id,callback){
 let sql = 'delete from wilaya where wilaya_id =?';
 database_module.db.query(sql,[id], function (error, results, fields) {
 if (error) console.log('error : ',error);

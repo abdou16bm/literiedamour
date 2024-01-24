@@ -1,6 +1,6 @@
 const database_module=require('./database');
 
-const category_get_all = function(callback){ 
+const category_get_all = function(callback){
  let sql='SELECT * from category order by cat_id ASC ';
 database_module.db.query(sql,[], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -14,7 +14,7 @@ return results;
 exports.category_get_all = category_get_all;
 
 
-const category_get_all_top = function(top,callback){ 
+const category_get_all_top = function(top,callback){
 let sql='SELECT * from category order by cat_id ASC limit ?';
 database_module.db.query(sql,[top], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -23,12 +23,12 @@ if (callback){callback(error,results)};
 return results;
 });
 };
-   
-   
+
+
 exports.category_get_all_top = category_get_all_top;
 
 
-const category_get_one = function(cat_id,callback){ 
+const category_get_one = function(cat_id,callback){
  let sql='SELECT * from  category where cat_id =?';
 database_module.db.query(sql,[cat_id], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -42,7 +42,7 @@ return results;
 exports.category_get_one = category_get_one;
 
 
-const category_add = function(data,callback){ 
+const category_add = function(data,callback){
 let fields = '('+Object.keys(data).toString()+')';
 
 let values = Object.values(data);
@@ -60,7 +60,7 @@ return results;
 exports.category_add = category_add;
 
 
-const category_update = function(id,data,callback){ 
+const category_update = function(id,data,callback){
 let sql = 'update category set ? where cat_id =?';
 database_module.db.query(sql,[data,id], function (error, results, fields) {
 if (error) console.log('error : ',error);
@@ -74,7 +74,7 @@ return results;
 exports.category_update = category_update;
 
 
-const category_delete = function(id,callback){ 
+const category_delete = function(id,callback){
 let sql = 'delete from category where cat_id =?';
 database_module.db.query(sql,[id], function (error, results, fields) {
 if (error) console.log('error : ',error);
