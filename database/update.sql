@@ -1,3 +1,4 @@
+use ecom_literiedamour;
 ALTER TABLE `status`
 ADD COLUMN stat_color VARCHAR(200);
 
