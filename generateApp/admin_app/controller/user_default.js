@@ -362,6 +362,8 @@ const banner_edit_save = function (req,res) {
 
 const video_edit_save = function (req,res) {
 
+    const number = req.params.number
+
     const options = {
         multiples : true,
         uploadDir: './admin_app/uploads'
@@ -372,7 +374,7 @@ const video_edit_save = function (req,res) {
     form.parse(req, function (err, fields, files) {     
 
         // video
-        doc_module.uploadFile('./admin_app/public/img/',"video",files,'main','main','mp4', function (err,count1){
+        doc_module.uploadFile('./admin_app/public/img/',"video",files,'main',number,'mp4', function (err,count1){
 
             if (err) console.log(err)
 
