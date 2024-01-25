@@ -39,18 +39,9 @@
                             <td><a href="/order/<%= orders[i].order_id %>/details" class="text-reset">#<%= orders[i].order_ref %></a></td>
                             <td><%=orders[i].order_date.toISOString().substr(0,10)%></td>
                             <td class="text-reset"><%= orders[i].user_lastname +" "+ orders[i].user_name %></td>
-                            <% 
-        
-                                let color = ""
-                                if (orders[i].stat_id == 1) color = "warning"
-                                else if (orders[i].stat_id == 2) color = "danger"
-                                else if (orders[i].stat_id == 3) color = "info"
-                                else if (orders[i].stat_id == 4) color = "success"
-
-                            %>
                             <td>
                                 <div class="d-flex fs-6">
-                                    <div class="badge badge-sa-<%= color %>"><%= orders[i].stat_name %></div>
+                                    <div class="badge badge-sa-<%= orders[i].stat_color %>"><%= orders[i].stat_name %></div>
                                 </div>
                             </td>
                             <td><%= orders[i].products_count +" Produits" %></td>

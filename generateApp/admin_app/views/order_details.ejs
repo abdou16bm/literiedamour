@@ -13,7 +13,6 @@
 
                         <a href="/order/<%= order[0].order_id %>/print" target="_blank" class="btn btn-secondary me-3">Imprimer</a>
 
-                        <a href="/orders/list" class="btn btn-warning me-3">Retour</a>
                         <% if (order[0].stat_id == 1) { %>
                         <a href="/order/<%= order[0].order_id %>/status/2" class="btn btn-danger me-3">Annuler</a>
                         <a href="/order/<%= order[0].order_id %>/status/3" class="btn btn-info">Valider</a>
@@ -21,6 +20,7 @@
                         <a href="/order/<%= order[0].order_id %>/status/3" class="btn btn-info">Valider</a>
                         <% } else if (order[0].stat_id == 3) { %>
                             <a href="/order/<%= order[0].order_id %>/status/2" class="btn btn-danger me-3">Annuler</a>
+                            <a href="/order/<%= order[0].order_id %>/status/5" class="btn btn-dark me-3">Retour</a>
                             <a href="/order/<%= order[0].order_id %>/status/4" class="btn btn-success me-3">Récéptionnée</a>
                         <% } %>
                     </div>
@@ -33,17 +33,8 @@
                         <div class="sa-page-meta__item"><%= order[0].order_date.toISOString().substr(0,10) %></div>
                         <div class="sa-page-meta__item"><%= order[0].products_count %> Produits</div>
                         <div class="sa-page-meta__item"><% let formating=Intl.NumberFormat('en-US') %><%= formating.format(order[0].order_total_price + order[0].delivery_price)+" DA" %></div>
-                        <%
-
-                            let color = ""
-                            if (order[0].stat_id == 1) color = "warning"
-                            else if (order[0].stat_id == 2) color = "danger"
-                            else if (order[0].stat_id == 3) color = "info"
-                            else if (order[0].stat_id == 4) color = "success"
-
-                         %>
                         <div class="sa-page-meta__item d-flex align-items-center fs-6">
-                            <span class="badge badge-sa-<%= color %> me-2"><%= order[0].stat_name %></span></div>
+                            <span class="badge badge-sa-<%= order[0].stat_color %> me-2"><%= order[0].stat_name %></span></div>
                     </div>
                 </div>
             </div>

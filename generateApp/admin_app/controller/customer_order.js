@@ -320,13 +320,12 @@ const order_status_update = function (req,res) {
 
           } else {
 
-               if (status == 4) {product_module.product_update_qt_order(order_id,(err,qtUpdate)=>{if (err) console.log(err)})}
+               if (status == 4) product_module.product_update_qt_order(order_id,"-")
+               //else if (status == 5) product_module.product_update_qt_order(order_id,"+")
 
                res.redirect("/order/"+order_id+"/details")
 
           }
-
-
 
      })
 
