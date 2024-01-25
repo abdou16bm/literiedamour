@@ -20,7 +20,8 @@ user_default_router.get('/profil',authentication_controller.isAuthenticated,user
 user_default_router.post('/profil',authentication_controller.isAuthenticated,user_default_controller.user_profil_edit_save);
 
 
-user_default_router.get('/stats',authentication_controller.isAuthenticated,user_default_controller.stats)
+user_default_router.get('/stats/product',authentication_controller.isAuthenticated,user_default_controller.stats_product)
+user_default_router.get('/stats/month',authentication_controller.isAuthenticated,user_default_controller.stats_month)
 user_default_router.get('/stock',authentication_controller.isAuthenticated,user_default_controller.stock)
 user_default_router.get('/home/page/edit',authentication_controller.isAuthenticated,user_default_controller.home_page_edit)
 

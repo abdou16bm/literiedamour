@@ -1,0 +1,81 @@
+<%- include ("layouts/header.ejs") %>
+<div id="top" class="sa-app__body">
+    <div class="mx-xxl-3 px-4 px-sm-5">
+        <div class="py-5">
+            <div class="row g-4 align-items-center">
+                <div class="col">
+                    <h1 class="h3 m-0">Statistique des mois</h1>
+                    <h6 class="text-muted">Pour l'Année <%= year %></h6>
+                </div>
+            </div>
+       </div>
+    <div class="mx-xxl-3 px-4 px-sm-5 pb-6">
+        <div class="sa-layout">
+            <div class="sa-layout__content">
+                <div class="card">
+                    <div class="p-4">
+                        <div class="row g-4">
+                            <div class="col d-flex justify-content-start align-items-center gap-5">
+                                <label>Saisissez l'année ici : </label>
+                                <input 
+                                class="form-control year-search" 
+                                type="number" value="<%= year %>"
+                                style="width: 200px;" 
+                                onkeydown="if (event.key === 'Enter') yearFilter(this.value)"/>
+                                <button class="btn btn-dark" onclick="yearFilter(document.querySelector('.year-search').value)">Recherche</button>
+                            </div>
+                        </div>
+                        <div class="row g-4 mt-2">
+                            <div class="col"><input type="text" placeholder="Commencez à taper pour rechercher des produits"
+                                    class="form-control form-control--search mx-auto" id="table-search" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sa-divider"></div>
+                    <table class="sa-datatables-init" data-order="[]"
+                        data-sa-search-input="#table-search">
+                        <thead>
+                            <tr>   
+                    
+                                <th class="min-w-20x">Mois</th>
+                                <th>Produits vendu</th>
+                                <th>Total Encaissement</th>
+                                <th class="bg-light">Commandes en attente</th>
+                                <th class="bg-light">Commandes récéptionnée</th>   
+                                <th class="bg-light">Commandes retour</th>
+                                <th class="bg-light">Total de commandes</th>
+                                                                               
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% if (typeof(month) !== 'undefined' && month != null && month.length > 0) { 
+             
+                                let formating=Intl.NumberFormat('en-US')
+                                for (var i = 0; i < month.length; i++)
+                                
+                                {
+                              
+                            %>
+                            <tr>
+
+                                <td><%= month[i].monthId + " - " + month[i].monthName %></td>
+                                <td><%= month[i].productQte %></td>
+                                <td><%= formating.format(month[i].totalPrice)+" DA" %></td>
+                                <td class="bg-light"><%= month[i].orderAtt_count %></td>
+                                <td class="bg-light"><%= month[i].orderRec_count %></td>
+                                <td class="bg-light"><%= month[i].orderRet_count %></td>
+                                <td class="bg-light"><%= month[i].orderTotal %></td>
+
+                            </tr>
+                            <% }} %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- sa-app__body / end --><!-- sa-app__footer -->
+<script>
+function yearFilter(value) {location.href = '/stats/month?y=' + value}
+</script>
+<%- include ("layouts/footer.ejs") %>

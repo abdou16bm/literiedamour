@@ -265,20 +265,34 @@ const user_profil_edit_save = (req,res) => {
 
 
 
-const stats = function (req,res) {
+const stats_product = function (req,res) {
 
 
-    order_p_module.order_p_get_stats(function (err,result1) {
+    order_p_module.order_p_get_stats_product(function (err,result1) {
 
         if (err) console.log(err)
 
-        res.render("stats",{product : result1, err : err, session : req.session})
+        res.render("stats_product",{product : result1, err : err, session : req.session})
         
     })
     
 }
 
+const stats_month = function (req,res) {
 
+    let yearFilter = new Date().getFullYear()
+
+    if (typeof(req.query.y) != 'undefined' && req.query.y != null && req.query.y != "") yearFilter = req.query.y
+
+    order_p_module.order_p_get_stats_month(yearFilter,function (err,result1) {
+
+        if (err) console.log(err)
+
+        res.render("stats_month",{month : result1, year : yearFilter, err : err, session : req.session})
+        
+    })
+    
+}
 
 const stock = function (req,res) {
 
@@ -377,8 +391,9 @@ exports.user_edit = user_edit;
 exports.user_edit_save = user_edit_save;
 exports.user_profil_edit = user_profil_edit;
 exports.user_profil_edit_save = user_profil_edit_save;
-exports.stats = stats;
+exports.stats_product = stats_product;
 exports.stock  = stock;
 exports.home_page_edit = home_page_edit;
 exports.banner_edit_save = banner_edit_save;
-exports.video_edit_save = video_edit_save
+exports.video_edit_save = video_edit_save;
+exports.stats_month = stats_month

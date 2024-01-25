@@ -66,14 +66,21 @@
                   <span class="sa-nav__title">Livraison</span>
                   </a>
                 </li>
-                <li class="sa-nav__menu-item sa-nav__menu-item--has-icon">
-                  <a href="/stats" class="sa-nav__link">
-                    <span class="sa-nav__icon">
-                      <i class="fas fa-square"></i>
-                    </span>
-                  <span class="sa-nav__title">Statistique</span>
-                  </a>
-                </li>
+                <li class="sa-nav__menu-item sa-nav__menu-item--has-icon" data-sa-collapse-item="sa-nav__menu-item--open"><a
+                  href="#" class="sa-nav__link" data-sa-collapse-trigger=""><span class="sa-nav__icon">
+                    <i class="fas fa-chart-pie"></i>
+                  </span><span class="sa-nav__title">Statistique</span><span class="sa-nav__arrow">
+                    <i class="fas fa-chevron-left"></i>
+                  </span></a>
+                    <ul class="sa-nav__menu sa-nav__menu--sub" data-sa-collapse-content="">
+                      <li class="sa-nav__menu-item"><a href="/stats/product" class="sa-nav__link"><span
+                            class="sa-nav__menu-item-padding"></span><span class="sa-nav__title">Par produit</span></a>
+                      </li>   
+                      <li class="sa-nav__menu-item"><a href="/stats/month" class="sa-nav__link"><span
+                        class="sa-nav__menu-item-padding"></span><span class="sa-nav__title">Par mois</span></a>
+                  </li>   
+                    </ul>
+                  </li>
                 <li class="sa-nav__menu-item sa-nav__menu-item--has-icon">
                   <a href="/home/page/edit" class="sa-nav__link">
                     <span class="sa-nav__icon">
