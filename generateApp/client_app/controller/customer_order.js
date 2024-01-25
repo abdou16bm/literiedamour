@@ -6,6 +6,9 @@ const user_module = require ("../../admin_app/lib/user")
 const order_module = require ("../../admin_app/lib/customer_order")
 const order_p_module = require ("../../admin_app/lib/order_p")
 const order_stat_module = require ("../../admin_app/lib/order_stat")
+const session_module = require("../../admin_app/lib/session")
+const cart_module = require("../../admin_app/lib/cart")
+const cart_p_module = require("../../admin_app/lib/cart_p")
 
 
 
@@ -55,20 +58,60 @@ const checkout = function (req, res) {
 
     const product = req.params.product
 
-    user_module.user_get_one(req.session.userid,function (err,result3){
-        if (err) console.log(err)
+    if(req.session.privid != 5) {
 
-        product_module.product_get_one_client(product,function (err,result1) {
+        user_module.user_get_one(req.session.userid,function (err,result3){
+            if (err) console.log(err)
+
+            product_module.product_get_one_client(product,function (err,result1) {
+
+                if (err) console.log(err)
+
+                wilaya_module.wilaya_get_all(function (err,result2) {
+
+                    res.render('checkout',{product : result1, wilaya : result2, user: result3 , session : req.session, err : req.query.err});
+
+                })
+            })
+        })
+
+    }
+    else {
+
+        const cart_id = req.session.cart_id
+
+        console.log("productId : ",product)
+        console.log("cartId : ",cart_id)
+
+        product_module.product_get_one(product,function (err,result) {
 
             if (err) console.log(err)
 
-            wilaya_module.wilaya_get_all(function (err,result2) {
+            if (result.length > 0) {
 
-                res.render('checkout',{product : result1, wilaya : result2, user: result3 , session : req.session, err : req.query.err});
+                console.log("productPrice : ",result[0].product_price)
 
-            })
+                let data_insert = {
+
+                    product_id : product,
+                    cart_id : cart_id,
+                    product_qt_c : 1,
+                    product_price_c : result[0].product_price
+
+                };
+
+                cart_p_module.cart_p_add(data_insert,function (err,result1) {
+
+                    if (err) console.log('error',err);
+
+                    res.redirect('/');
+
+                });
+
+            }
+
         })
-    })
+    }
 }
 
 
@@ -78,6 +121,10 @@ const checkout_valid = function (req, res) {
     const input = req.body
 
     console.log("checkoutValid")
+    console.log("input others : ", input)
+
+
+
 
     if (
 
@@ -137,43 +184,93 @@ const checkout_valid = function (req, res) {
 
                         };
 
-                        order_module.customer_order_add(data_order, function (err, result3) {
 
-                            if (err) console.log(err)
+                        if (input.othersCheckout == 1){
 
-                            let data_order_product = {
+                            let data_cart = {cart_date : new Date(), cart_status : 1, user_id : result1.insertId}
 
-                                product_id: product,
-                                order_id: result3.insertId,
-                                product_qt_o: 1,
-                                product_price_o: productPrice,
-                                product_order_status: 1
-
-                            }
-
-                            order_p_module.order_p_add(data_order_product, function (err, result4) {
+                            cart_module.cart_add(data_cart,function (err,cartUserAdd) {
 
                                 if (err) console.log(err)
 
-                                let data_status = {
 
-                                    stat_id: 1,
+                                let data_cart_p = {
+                                    product_id : product,
+                                    cart_id : cartUserAdd.insertId,
+                                    product_qt_c : 1,
+                                    product_price_c : productPrice
+
+                                };
+
+                                cart_p_module.cart_p_add(data_cart_p,function (err,cartpInsert) {
+
+                                    if (err) console.log('error',err);
+
+
+                                    console.log('othersCheckout .....')
+
+                                    let session_data = {
+
+                                        loggedin: true,
+                                        username: input.name.trim(),
+                                        name: input.name.trim(),
+                                        lname: input.lastname.trim(),
+                                        user_id: result1.insertId,
+                                        privid: 5,
+                                        cart_id: cartUserAdd.insertId,
+                                        timeout: 3600000,
+                                        location: '/'
+                                    };
+
+                                    session_module.session_create(req, res, session_data);
+
+                                    console.log('connected')
+
+                                    res.redirect("/checkout/products/list/1")
+                                })
+                            })
+
+                        }
+                        else {
+
+                            order_module.customer_order_add(data_order, function (err, result3) {
+
+                                if (err) console.log(err)
+
+                                let data_order_product = {
+
+                                    product_id: product,
                                     order_id: result3.insertId,
-                                    order_stat_date: new Date()
+                                    product_qt_o: 1,
+                                    product_price_o: productPrice,
+                                    product_order_status: 1
 
                                 }
 
-                                order_stat_module.order_stat_add(data_status, function (err, result5) {
+                                order_p_module.order_p_add(data_order_product, function (err, result4) {
 
                                     if (err) console.log(err)
 
-                                    res.redirect("/success/checkout")
+                                    let data_status = {
+
+                                        stat_id: 1,
+                                        order_id: result3.insertId,
+                                        order_stat_date: new Date()
+
+                                    }
+
+                                    order_stat_module.order_stat_add(data_status, function (err, result5) {
+
+                                        if (err) console.log(err)
+
+                                        res.redirect("/success/checkout")
+
+                                    })
 
                                 })
 
                             })
-
-                        })
+                        }
 
                     })
 
@@ -194,6 +291,8 @@ const checkout_valid = function (req, res) {
 
 
     }
+
+
 
 }
 

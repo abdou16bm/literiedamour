@@ -164,7 +164,7 @@ if (document.getElementById('btn-filter')) {
         if (cat.length > 0 || sub_cat.length > 0 || brands.length > 0 || price.length > 0 ) {
 
 
-            location.href = "/products/list/1?catP="+cat+"&cat="+sub_cat+"&bprice="+bprice+"&eprice="+eprice+"&brand="+brands
+            location.href = "1?catP="+cat+"&cat="+sub_cat+"&bprice="+bprice+"&eprice="+eprice+"&brand="+brands
 
 
         } else {

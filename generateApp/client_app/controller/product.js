@@ -107,7 +107,8 @@ const product_list_page = function (req,res) {
                             if(req.baseUrl == "/api") {
                                 res.send({products : result4, brands : result1, category : result5, sub_category : result2, urlQuery: urlQuery, info:{count_page : count_page, limit_page:limit_page, current_page : parseInt(current_page)+1}, err : err, session : req.session});
                             } else {
-                                res.render('products_list',{products : result4, brands : result1, category : result5, sub_category : result2, urlQuery: urlQuery, info:{count_page : count_page, limit_page:limit_page, current_page : parseInt(current_page)+1}, err : err, session : req.session});
+                                if (req.baseUrl == "/checkout") res.render('products_list_checkout',{products : result4, brands : result1, category : result5, sub_category : result2, urlQuery: urlQuery, info:{count_page : count_page, limit_page:limit_page, current_page : parseInt(current_page)+1}, err : err, session : req.session})
+                                else res.render('products_list',{products : result4, brands : result1, category : result5, sub_category : result2, urlQuery: urlQuery, info:{count_page : count_page, limit_page:limit_page, current_page : parseInt(current_page)+1}, err : err, session : req.session});
                             }
 
                         })
@@ -116,7 +117,8 @@ const product_list_page = function (req,res) {
                         if(req.baseUrl == "/api") {
                             res.send({products:[], brands : result1, category : result5, sub_category : result2, urlQuery: urlQuery, info:{count_page : 0, limit_page:limit_page, current_page : parseInt(current_page)+1}, err : err, session : req.session})
                         } else {
-                            res.render('products_list',{products : [], brands : result1, category : result5, sub_category : result2, urlQuery: urlQuery, info:{count_page : count_page, limit_page:limit_page, current_page : parseInt(current_page)+1}, err : err, session : req.session});
+                            if (req.baseUrl == "/checkout") res.render('products_list_checkout',{products : [], brands : result1, category : result5, sub_category : result2, urlQuery: urlQuery, info:{count_page : count_page, limit_page:limit_page, current_page : parseInt(current_page)+1}, err : err, session : req.session});
+                            else res.render('products_list',{products : [], brands : result1, category : result5, sub_category : result2, urlQuery: urlQuery, info:{count_page : count_page, limit_page:limit_page, current_page : parseInt(current_page)+1}, err : err, session : req.session});
                         }
                     }
                 })
