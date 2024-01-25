@@ -30,17 +30,8 @@
                                     </strong></h4>
                                 </div>
                                 
-                                <div class="col-md-8 col-xs-8 text-right">
-                                    <% if (orders[i].stat_id == 1) { %>
-                                        <h6 class="text-warning"><strong><%= orders[i].stat_name %></strong></h6>
-                                    <% } else if (orders[i].stat_id == 2) { %>
-                                        <h6 class="text-danger"><strong><%= orders[i].stat_name %></strong></h6>
-                                    <% } else if (orders[i].stat_id == 3) { %>
-                                        <h6 class="text-info"><strong><%= orders[i].stat_name %></strong></h6>
-                                    <% } else if (orders[i].stat_id == 4) { %>
-                                        <h6 class="text-success"><strong><%= orders[i].stat_name %></strong></h6>
-                                    <% } %>
-                                    
+                                <div class="col-md-8 col-xs-8 text-center">
+                                    <h6 class="text-<%= orders[i].stat_color %>"><strong><%= orders[i].stat_name %></strong></h6>                    
                                 </div>
                             </div>
                         </div>
