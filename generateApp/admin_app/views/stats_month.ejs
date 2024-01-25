@@ -41,9 +41,11 @@
                                 <th>Produits vendu</th>
                                 <th>Total Encaissement</th>
                                 <th class="bg-light">Commandes en attente</th>
+                                <th class="bg-light">Commandes annulée</th>
+                                <th class="bg-light">Commandes validée</th>
                                 <th class="bg-light">Commandes récéptionnée</th>   
                                 <th class="bg-light">Commandes retour</th>
-                                <th class="bg-light">Total de commandes</th>
+                                <th class="bg-light">Total des commandes</th>
                                                                                
                             </tr>
                         </thead>
@@ -62,6 +64,8 @@
                                 <td><%= month[i].productQte %></td>
                                 <td><%= formating.format(month[i].totalPrice)+" DA" %></td>
                                 <td class="bg-light"><%= month[i].orderAtt_count %></td>
+                                <td class="bg-light"><%= month[i].orderAnn_count %></td>
+                                <td class="bg-light"><%= month[i].orderVal_count %></td>
                                 <td class="bg-light"><%= month[i].orderRec_count %></td>
                                 <td class="bg-light"><%= month[i].orderRet_count %></td>
                                 <td class="bg-light"><%= month[i].orderTotal %></td>
