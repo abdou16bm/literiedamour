@@ -1,9 +1,9 @@
 <%- include ("layout/header") %>
 
 <!-- HOT DEAL SECTION -->
-<div id="hot-deal" class="section" style=" background: url('./img/banner/main.jpg') center no-repeat">
+<div id="hot-deal" class="section" style="background: url('./img/banner/main.jpg') center no-repeat">
 	<!-- container -->
-	<div class="container">
+	<div class="container-fluid">
 		<!-- row -->
 		<div class="row">
 			<div class="col-md-12">
@@ -56,8 +56,8 @@
 
 			<!-- section title -->
 			<div class="col-md-12">
-				<div class="section-title">
-					<h3 class="title">NOUVELLES COLLECTION</h3>
+				<div class="section-title" style="background-color: #223f3a; border-radius: 50px;">
+					<h3 class="title" style="padding: 1%;  margin-bottom: 0; color: #fff; margin-left: 15px;">NOUVELLES COLLECTION</h3>
 				</div>
 			</div>
 			<!-- /section title -->
@@ -70,40 +70,50 @@
 						<div id="tab2" class="tab-pane fade in active">
 							<div class="products-slick" data-nav="#slick-nav-2">
 								<% if (typeof(product_top) !== 'undefined' && product_top != null && product_top.length > 0) { %>
-									<% for (var i = 0; i < product_top.length; i++) { %>
-										<!-- product -->
-										<div class="product">
-											<div class="product-img">
-												<img src="/img/product/<%= product_top[i].product_id %>/main.jpg" alt="" style="max-height: 280px;">
-												<div class="product-label">
-													<!-- 	<span class="sale">-30%</span> -->
-													<span class="new">NEW</span>
-												</div>
-											</div>
-											<div class="product-body">
-												<p class="product-category"><%= product_top[i].sub_cat_name %></p>
-												<h3 class="product-name"><a href="/product/<%= product_top[i].product_id %>/details"><%= product_top[i].product_name %></a></h3>
-												<h4 class="product-price">
-													<% let formating=Intl.NumberFormat('en-US') %>
-													<%= formating.format(product_top[i].product_price)+" DA" %></h4>
-												<!-- <div class="product-rating">
+								<% for (var i = 0; i < product_top.length; i++) { %>
+								<!-- product -->
+								<div class="product" style="border-radius: 50px;">
+									<div class="product-img" style="border-radius: 50px;">
+										<img src="/img/product/<%= product_top[i].product_id %>/main.jpg" alt=""
+											style="max-height: 320px; border-radius: 50px; ">
+										<div class="product-label">
+											<!-- 	<span class="sale">-30%</span> -->
+											<span class="new">NEW</span>
+										</div>
+									</div>
+									<div class="product-body">
+										<p class="product-category"><%= product_top[i].sub_cat_name %></p>
+										<h3 class="product-name"><a
+												href="/product/<%= product_top[i].product_id %>/details"><%= product_top[i].product_name %></a>
+										</h3>
+										<h4 class="product-price">
+											<% let formating=Intl.NumberFormat('en-US') %>
+											<%= formating.format(product_top[i].product_price)+" DA" %></h4>
+										<!-- <div class="product-rating">
 													<i class="fa fa-star"></i>
 													<i class="fa fa-star"></i>
 													<i class="fa fa-star"></i>
 													<i class="fa fa-star"></i>
 													<i class="fa fa-star"></i>
 												</div> -->
-												<div class="product-btns">
-													<button class="add-to-wishlist productToCart_btn" idp = "<%= product_top[i].product_id %>"><i class="fa fa-shopping-cart"></i><span class="tooltipp">Ajouter au panier</span></button>
-													<!-- <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button> -->
-													<button class="quick-view" onclick="location.href='/product/<%= product_top[i].product_id %>/details'"><i class="fa fa-eye"></i><span class="tooltipp">Détail</span></button>
-												</div>
-											</div>
-											<div class="add-to-cart">
-												<button class="add-to-cart-btn" onclick="location.href='/checkout/<%= product_top[i].product_id %>'"><i class="fa fa-shopping-cart"></i> Commander</button>
-											</div>
+										<div class="product-btns">
+											<button class="add-to-wishlist productToCart_btn"
+												idp="<%= product_top[i].product_id %>"><i
+													class="fa fa-shopping-cart"></i><span class="tooltipp">Ajouter au
+													panier</span></button>
+											<!-- <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button> -->
+											<button class="quick-view"
+												onclick="location.href='/product/<%= product_top[i].product_id %>/details'"><i
+													class="fa fa-eye"></i><span class="tooltipp">Détail</span></button>
 										</div>
-										<!-- /product -->
+									</div>
+									<div class="add-to-cart">
+										<button class="add-to-cart-btn"
+											onclick="location.href='/checkout/<%= product_top[i].product_id %>'"><i
+												class="fa fa-shopping-cart"></i> Commander</button>
+									</div>
+								</div>
+								<!-- /product -->
 								<% }} %>
 							</div>
 							<div id="slick-nav-2" class="products-slick-nav"></div>
@@ -126,100 +136,137 @@
 	<div class="container-fluid">
 		<!-- row -->
 		<% if (typeof(sub_category) !== 'undefined' && sub_category != null && sub_category.length > 0) { %>
-			<div class="row">
+		<div class="row">
 
-				<!-- section title -->
-				<div class="col-md-12">
-					<div class="section-title">
-						<h3 class="title">Nos Produits</h3>
-						<div class="section-nav">
-							<ul class="section-tab-nav tab-nav">
+			<!-- section title -->
+			<div class="col-md-12">
+				<div class="section-title" style="background-color: #223f3a; border-radius: 50px;">
+					<h3 class="title" style="padding: 1%;  margin-bottom: 0; color: #fff; margin-left: 15px;">Nos Produits</h3>
 
-								<% for (var i = 0; i < sub_category.length; i++){ let active = ""; if (i==0) {active = "active"} %>
-								<li class="<%= active %>"><a data-toggle="tab" href="#cat<%= sub_category[i].sub_cat_id %>"><%= sub_category[i].sub_cat_name %></a></li>
-								<% } %>
-
-							</ul>
-						</div>
-					</div>
 				</div>
-				<!-- /section title -->
+				<div class="section-nav">
+					<ul class="section-tab-nav tab-nav">
 
-				<!-- Products tab & slick -->
-				<div class="col-md-12">
-					<div class="row">
-						<div class="products-tabs">
-							<!-- tab -->
-							<% for (var i = 0; i < sub_category.length; i++){ let active = ""; if (i==0) {active = "active"}  %>
-							<div id="cat<%= sub_category[i].sub_cat_id %>" class="tab-pane <%= active  %>">
-								<div id="store" class="col-md-12">
+						<% for (var i = 0; i < sub_category.length; i++){ let active = ""; if (i==0) {active = "active"} %>
+						<li class="<%= active %>"><a data-toggle="tab"
+								href="#cat<%= sub_category[i].sub_cat_id %>"><%= sub_category[i].sub_cat_name %></a>
+						</li>
+						<% } %>
 
-									<!-- store products -->
-									<div class="row">
+					</ul>
+				</div>
+			</div>
+			<!-- /section title -->
+
+			<!-- Products tab & slick -->
+			<div class="col-md-12">
+				<div class="row">
+					<div class="products-tabs">
+						<!-- tab -->
+						<% for (var i = 0; i < sub_category.length; i++){ let active = ""; if (i==0) {active = "active"}  %>
+						<div id="cat<%= sub_category[i].sub_cat_id %>" class="tab-pane <%= active  %>">
+							<div id="store" class="col-md-12">
+
+								<!-- store products -->
+								<div class="row">
+
+									<div class="col-8 col-md-8 col-sm-8 col-lg-8 col-xs-12">
 										<!-- product -->
 										<% for (var j = 0; j < sub_category[i].products.length; j++) { %>
 
-											<!-- product -->
-											<div class="col-md-2 col-xs-6 col-2 col-lg-2">
-												<div class="product">
-													<div class="product-img text-center" >
-														<img src="/img/product/<%= sub_category[i].products[j].product_id %>/main.jpg" alt=""
-															 style=" min-height: 250px; padding: 5px;">
-														<!-- <div class="product-label">
+										<!-- product -->
+										<div class="col-md-3 col-xs-6 col-3 col-lg-3">
+											<div class="product">
+												<div class="product-img text-center">
+													<img src="/img/product/<%= sub_category[i].products[j].product_id %>/main.jpg"
+														alt="" style=" height: 250px; padding: 5px;">
+													<!-- <div class="product-label">
 											<span class="sale">-30%</span>
 											<span class="new">NEW</span>
 										</div> -->
-													</div>
-													<div class="product-body">
-														<p class="product-category"><%= sub_category[i].products[j].sub_cat_name %></p>
-														<!-- <a href="#"><p class="product-marque"><%= sub_category[i].products[j].brand_name %></p></a>  -->
-														<h3 class="product-name max-lines" ><a href="/product/<%= sub_category[i].products[j].product_id %>/details" ><%= sub_category[i].products[j].product_name %></a>
-														</h3>
-														<h4 class="product-price">
-															<% let formating=Intl.NumberFormat('en-US') %>
-															<%= formating.format(sub_category[i].products[j].product_price)+" DA" %>
-														</h4>
-														<!-- <div class="product-rating">
+												</div>
+												<div class="product-body">
+													<p class="product-category">
+														<%= sub_category[i].products[j].sub_cat_name %></p>
+													<!-- <a href="#"><p class="product-marque"><%= sub_category[i].products[j].brand_name %></p></a>  -->
+													<h3 class="product-name max-lines"><a
+															href="/product/<%= sub_category[i].products[j].product_id %>/details"><%= sub_category[i].products[j].product_name %></a>
+													</h3>
+													<h4 class="product-price">
+														<% let formating=Intl.NumberFormat('en-US') %>
+														<%= formating.format(sub_category[i].products[j].product_price)+" DA" %>
+													</h4>
+													<!-- <div class="product-rating">
 											<i class="fa fa-star"></i>
 											<i class="fa fa-star"></i>
 											<i class="fa fa-star"></i>
 											<i class="fa fa-star"></i>
 											<i class="fa fa-star"></i>
 										</div> -->
-														<div class="product-btns">
-															<button class="add-to-wishlist productToCart_btn" idp = "<%= sub_category[i].products[j].product_id %>"><i
-																		class="fa fa-shopping-cart"></i><span
-																		class="tooltipp">Ajouter au panier</span></button>
-															<!-- <button class="add-to-compare" onclick="location.href='/compare/<%= sub_category[i].products[j].product_id %>'"><i
+													<div class="product-btns">
+														<button class="add-to-wishlist productToCart_btn"
+															idp="<%= sub_category[i].products[j].product_id %>"><i
+																class="fa fa-shopping-cart"></i><span
+																class="tooltipp">Ajouter au panier</span></button>
+														<!-- <button class="add-to-compare" onclick="location.href='/compare/<%= sub_category[i].products[j].product_id %>'"><i
                                                     class="fa fa-exchange"></i><span
                                                     class="tooltipp">comparer</span></button> -->
-															<button class="quick-view" onclick="location.href='/product/<%= sub_category[i].products[j].product_id %>/details'"><i class="fa fa-eye"></i><span
-																		class="tooltipp">Détail</span></button>
-														</div>
-													</div>
-													<div class="add-to-cart">
-														<button class="add-to-cart-btn" onclick="location.href='/checkout/<%= sub_category[i].products[j].product_id %>'"><i class="fa fa-shopping-cart"></i> Commander</button>
+														<button class="quick-view"
+															onclick="location.href='/product/<%= sub_category[i].products[j].product_id %>/details'"><i
+																class="fa fa-eye"></i><span
+																class="tooltipp">Détail</span></button>
 													</div>
 												</div>
+												<div class="add-to-cart">
+													<button class="add-to-cart-btn"
+														onclick="location.href='/checkout/<%= sub_category[i].products[j].product_id %>'"><i
+															class="fa fa-shopping-cart"></i> Commander</button>
+												</div>
 											</div>
+										</div>
 										<% } %>
 										<!-- /product -->
-
-
-
-
 									</div>
-									<!-- /store products -->
+
+
+									<div class="col-4 col-lg-4 col-sm-4 col-md-4 col-xs-12">
+										<div class="product">
+											<div class="product-img text-center">
+												<video src="./img/video/1.mp4" style="width: 100%;padding: 1%;"
+													alt="video" autoplay muted></video>
+											</div>
+										</div>
+										<div class="product">
+											<div class="product-img text-center">
+												<video src="./img/video/2.mp4" style="width: 100%;padding: 1%;"
+													alt="video" autoplay muted></video>
+											</div>
+										</div>
+									
+									<div class="product">
+										<div class="product-img text-center">
+											<video src="./img/video/3.mp4" style="width: 100%;padding: 1%;"
+												alt="video" autoplay muted></video>
+										</div>
+									</div>
 
 								</div>
+
+
+
+
+								</div>
+								<!-- /store products -->
+
 							</div>
-							<% } %>
-							<!-- /tab -->
 						</div>
+						<% } %>
+						<!-- /tab -->
 					</div>
 				</div>
-				<!-- Products tab & slick -->
 			</div>
+			<!-- Products tab & slick -->
+		</div>
 		<% } %>
 		<!-- /row -->
 	</div>
