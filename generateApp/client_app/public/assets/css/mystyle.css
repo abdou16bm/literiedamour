@@ -2203,6 +2203,14 @@ textarea.input {
   }
 }
 
+
+@media only screen and (min-width: 780px) {
+  .display-none
+  {
+    display: none !important;
+  }
+}
+
 @media only screen and (max-width: 480px) {
   [class*='col-xs'] {
     width: 100%;
@@ -2215,6 +2223,7 @@ textarea.input {
     float: none;
     margin-top: 10px;
   }
+
 }
 
 

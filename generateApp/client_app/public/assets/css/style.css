@@ -2217,3 +2217,9 @@ textarea.input {
   margin-bottom: 10px;
 }
 
+@media only screen and (min-width: 780px) {
+  .display-none
+  {
+    display: none !important;
+  }
+}

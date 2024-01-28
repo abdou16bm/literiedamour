@@ -52,6 +52,12 @@
 								<% } %>
 							</ul>
 							
+							<div class="menu-toggle pull-right display-none" >
+								<a href="#" style="color: #d3a04f;">
+									<i class="fa fa-bars"></i>
+									<span>Menu</span>
+								</a>
+							</div>
 						</div>
 					</div>
 					<!-- /TOP HEADER -->
@@ -87,11 +93,11 @@
 									</div>
 								</div>
 								<!-- /SEARCH BAR -->
-								<% if (typeof(session) != "undefined" && session.loggedin == true) {%>
+				
 								<!-- ACCOUNT -->
 								<div class="col-md-3 clearfix">
 									<div class="header-ctn">
-										
+										<% if (typeof(session) != "undefined" && session.loggedin == true) {%>
 										<div class="dropdown">
 											<a class="dropdown-toggle" href="" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 												<i class="fa fa-user"></i>
@@ -128,17 +134,16 @@
 										<!-- /Cart -->
 		
 										<!-- Menu Toogle -->
-										<div class="menu-toggle">
-											<a href="#">
-												<i class="fa fa-bars"></i>
-												<span>Menu</span>
-											</a>
-										</div>
+
+
+										<% } %>
+
+									
 										<!-- /Menu Toogle -->
 									</div>
 								</div>
 								<!-- /ACCOUNT -->
-								<% } %>
+						
 							</div>
 							<!-- row -->
 						</div>
