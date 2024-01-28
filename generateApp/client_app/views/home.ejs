@@ -108,9 +108,9 @@
 										</div>
 									</div>
 									<div class="add-to-cart">
-										<button class="add-to-cart-btn"
-											onclick="location.href='/checkout/<%= product_top[i].product_id %>'"><i
-												class="fa fa-shopping-cart"></i> Commander</button>
+										<button class="add-to-cart-btn btn-ToCheckout" 
+										idp = "<%= product_top[i].product_id %>"><i
+										class="fa fa-shopping-cart"></i> Commander</button>
 									</div>
 								</div>
 								<!-- /product -->
@@ -218,9 +218,9 @@
 													</div>
 												</div>
 												<div class="add-to-cart">
-													<button class="add-to-cart-btn"
-														onclick="location.href='/checkout/<%= sub_category[i].products[j].product_id %>'"><i
-															class="fa fa-shopping-cart"></i> Commander</button>
+													<button class="add-to-cart-btn btn-ToCheckout" 
+													idp = "<%= sub_category[i].products[j].product_id %>"><i
+													class="fa fa-shopping-cart"></i> Commander</button>
 												</div>
 											</div>
 										</div>
