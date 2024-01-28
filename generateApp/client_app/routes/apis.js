@@ -15,9 +15,11 @@ const order_module = require("../../admin_app/lib/customer_order")
 //MY CONTROLLER
 const authentication_controller = require('../../admin_app/controller/authentication');
 const cart_controller = require('../controller/cart');
+const order_controller = require("../controller/customer_order")
 
 
 apis.get("/cart",authentication_controller.isAuthenticated,cart_controller.cart_get_one_user)
+apis.get('/checkout/:product',order_controller.checkout);
 
 
 apis.get("/products/:brand/:subcat",function (req,res) {
@@ -171,12 +173,14 @@ apis.get("/cart_p/:product/edit",authentication_controller.isAuthenticated,funct
 apis.get("/cart/valid",authentication_controller.isAuthenticated,function (req,res) {
 
     let user_id = req.session.userid
+    let multi = false
+    if (req.session.privid == 5) multi = true
 
     order_module.customer_order_generate(user_id,function (err,result1) {
 
         if (err) console.log(err)
             
-        res.send({result : result1, err : err})
+        res.send({result : result1, multi : multi, err : err})
         
     })    
 

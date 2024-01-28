@@ -72,7 +72,9 @@
 						</div>
 					</div>
 					<!-- /Billing Details -->
-					<button type="submit" value="1" name="othersCheckout" class="primary-btn order-submit" style="width: 100%;">Ajouter d'autre produit</button>
+					<% if (!session.privid) { %>
+						<button type="submit" value="1" name="othersCheckout" class="primary-btn order-submit" style="width: 100%;">Ajouter d'autre produit</button>	
+					<% } %>
 					<button type="submit" class="primary-btn order-submit" style="width: 100%;">Commander</button>
 					<!-- Shiping Details -->
 

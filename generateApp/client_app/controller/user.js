@@ -296,8 +296,8 @@ const logout = function (req, res) {
         if (err) {
             return err;
         } else {
-
-            return res.redirect('/');
+            if (req.query.buyer) res.redirect('/success/checkout')
+            else res.redirect('/')
         }
     });
 

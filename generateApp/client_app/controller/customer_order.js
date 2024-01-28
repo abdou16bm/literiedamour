@@ -69,8 +69,12 @@ const checkout = function (req, res) {
 
                 wilaya_module.wilaya_get_all(function (err,result2) {
 
+                    if(req.baseUrl == "/api") {
+                    res.send({multi : false, err : err, session : req.session});
+                    } else {
                     res.render('checkout',{product : result1, wilaya : result2, user: result3 , session : req.session, err : req.query.err});
-
+                    }
+                
                 })
             })
         })
@@ -104,7 +108,11 @@ const checkout = function (req, res) {
 
                     if (err) console.log('error',err);
 
+                    if(req.baseUrl == "/api") {
+                    res.send({multi : true, err : err, session : req.session});
+                    } else {
                     res.redirect('/');
+                    }
 
                 });
 
@@ -122,8 +130,6 @@ const checkout_valid = function (req, res) {
 
     console.log("checkoutValid")
     console.log("input others : ", input)
-
-
 
 
     if (
@@ -146,10 +152,11 @@ const checkout_valid = function (req, res) {
             user_phone: input.phone.trim(),
             //order_info : input.order_info.trim()
             wilaya_id: input.wilaya,
-            user_status: 1,
-            priv_id: 5
+            user_status: 1
 
         };
+
+        if (!req.session.privid) data_user_client.priv_id = 5
 
         // if (!req.session.userid) {
         //

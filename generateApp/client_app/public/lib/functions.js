@@ -3,8 +3,63 @@ let myInputQte_list = document.querySelectorAll(".myInputQte")
 let myBtnDelete_list = document.querySelectorAll(".myBtnDelete")
 let cart_wait = localStorage.getItem("cartWait")
 let formating=Intl.NumberFormat('en-US')
+let btn_ToCheckout = document.querySelectorAll(".btn-ToCheckout")
 
 
+function checkout(idp) {
+    
+    fetch("/api/checkout/" + idp)
+    .then(response => response.json())
+    .then(result => {
+
+        console.log("multi product : ",result.multi)
+        if (result.multi == false) location.href = "/checkout/"+idp
+        else if (result.multi == true) {
+            
+            if (typeof(result.err) != "undefined" && result.err != null){
+
+                if (result.err.code == "ER_DUP_ENTRY") {
+
+                    console.log("Product exixts.")
+                    document.getElementById("alert_msg").innerHTML = '<div class="alert alert-info" role="alert">Produit existe déja dans votre panier. <a href="/cart">Voir panier</a></div>'
+                    setTimeout(() => {
+
+                        $('#alert_modal').modal('show');
+
+                    }, 500);
+
+                } else console.log(result.err)
+
+            }
+            else {
+
+                console.log("Product add to cart.");
+                setTimeout(() => {
+
+                    $('#cart_modal').modal('show');
+
+                }, 500);
+
+                loadDropCart()
+
+            }
+
+        }
+            
+    })
+
+}
+
+if (btn_ToCheckout.length > 0) {
+
+    for (let i = 0; i < btn_ToCheckout.length; i++) {
+     
+        let idp = btn_ToCheckout[i].getAttribute("idp")
+        btn_ToCheckout[i].addEventListener("click",()=>checkout(idp))
+        
+    }
+    
+}
 
 if (document.getElementById("select_brand")) {
 
@@ -468,7 +523,12 @@ if (document.querySelector(".myBtnValid")) {
                 } else console.log(result.err)
 
             }
-            else location.href = "/orders"
+            else {
+
+                if (result.multi == false) location.href = "/orders" 
+                else location.href = "/logout?buyer=success" 
+
+            }
                     
         })
 
@@ -503,7 +563,12 @@ if (document.querySelector(".myBtnValid_drop")) {
                     } else console.log(result.err)
 
                 }
-                else location.href = "/orders"
+                else {
+
+                    if (result.multi == false) location.href = "/orders" 
+                    else location.href = "/logout?buyer=success" 
+
+                }
 
             }
                     
