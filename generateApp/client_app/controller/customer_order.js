@@ -137,7 +137,7 @@ const checkout_valid = function (req, res) {
         typeof (input.lastname) != "undefined" && input.lastname != null && input.lastname != ""
         && typeof (input.name) != "undefined" && input.name != null && input.name != ""
         && typeof (input.phone) != "undefined" && input.phone != null && input.phone != ""
-        && typeof (input.address) != "undefined" && input.address != null && input.address != ""
+        // && typeof (input.address) != "undefined" && input.address != null && input.address != ""
         && typeof (input.wilaya) != "undefined" && input.wilaya != null && input.wilaya != ""
 
     ) {
@@ -148,7 +148,7 @@ const checkout_valid = function (req, res) {
             user_id : req.session.userid,
             user_name: input.name.trim(),
             user_lastname: input.lastname.trim(),
-            user_address: input.address.trim(),
+            // user_address: input.address.trim(),
             user_phone: input.phone.trim(),
             //order_info : input.order_info.trim()
             wilaya_id: input.wilaya,
