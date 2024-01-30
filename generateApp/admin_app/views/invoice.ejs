@@ -65,11 +65,16 @@
             </div>
           </div>
           <div class="sa-invoice__side">
-            <div class="sa-invoice__side-title">Fournisseur</div>
-            <div class="sa-invoice__side-name">Literie d'amour</div>
+            <div class="sa-invoice__side-title">Fournisseur :<strong style="color: black !important;"> Literie d'amour</strong></div>
+            <!-- <div class="sa-invoice__side-name">Literie d'amour</div> -->
             <div class="sa-invoice__side-meta">
-              Rue 20 aout commune bordj bahri<br /> 0561 44 64 14 <br />
-              contact@literiedamour.dz
+              <p> Rue 20 aout commune bordj bahri<br /> 0561 44 64 14 <br />
+                contact@literiedamour.dz <br>NIF : 19116060050318704200
+  <br>
+                RC : 42/00-2668329A22
+            <br>    
+                NIS : 199116060050339 </p>
+             
             </div>
           </div>
         </div>
@@ -154,14 +159,14 @@
           </table>
         </div>
         <div class="sa-invoice__total">
-          <div class="sa-invoice__total-title">Total :</div>
-          <div class="sa-invoice__total-value"><%= formating.format(order[0].order_total_price + order[0].delivery_price)+" DA" %></div>
+          <div class="sa-invoice__total-title">Total : <strong style="color: black !important;"><%= formating.format(order[0].order_total_price + order[0].delivery_price)+" DA" %></strong></div>
+          <div class="sa-invoice__total-value"></div>
         </div>
         
       </div>
-      <div class=" footer_a4 d-flex justify-content-between">
-        <h4>Signature Fournisseur</h4>
-        <h4>Signature Client</h4>
+      <div class="footer_a4 d-flex justify-content-around">
+        <h6>Signature Fournisseur</h6>
+        <h6>Signature Client</h6>
       </div>
     </div>
   </div>
