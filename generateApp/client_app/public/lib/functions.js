@@ -545,7 +545,7 @@ if (document.querySelector(".myBtnValid") && document.querySelector(".deliveryTy
 }
 
 
-if (document.querySelector(".myBtnValid_drop") &&  document.querySelector(".deliveryType")) {
+/* if (document.querySelector(".myBtnValid_drop") &&  document.querySelector(".deliveryType")) {
     
     document.querySelector(".myBtnValid_drop").addEventListener("click",function () {
 
@@ -586,7 +586,7 @@ if (document.querySelector(".myBtnValid_drop") &&  document.querySelector(".deli
 
     })
     
-}
+} */
 
 function loadDropCart() {
     

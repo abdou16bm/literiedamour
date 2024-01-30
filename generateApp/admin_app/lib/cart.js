@@ -28,9 +28,11 @@ return results;
 exports.cart_get_one = cart_get_one;
 
 const cart_get_one_user = function(user_id,callback){
-    let sql="SELECT c.*,COUNT(cp.cart_id) AS productCount,IFNULL(SUM(cp.product_price_c * cp.product_qt_c),0) AS totalPrice from  cart c\n" +
+    let sql="SELECT c.*,w.wilaya_num,w.wilaya_num,w.wilaya_name,COUNT(cp.cart_id) AS productCount,IFNULL(SUM(cp.product_price_c * cp.product_qt_c),0) AS totalPrice from  cart c\n" +
     "LEFT JOIN cart_p cp ON cp.cart_id = c.cart_id\n" +
-    "where user_id = ?\n" +
+    "left join user u on u.user_id = c.user_id\n" +
+    "left join wilaya w on w.wilaya_id = u.wilaya_id\n" +
+    "where c.user_id = ?\n" +
     "GROUP BY c.cart_id";
    database_module.db.query(sql,[user_id], function (error, results, fields) {
    if (error) console.log('error : ',error);
