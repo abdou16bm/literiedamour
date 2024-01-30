@@ -9005,7 +9005,7 @@ input:checked+.sa-color-checkbox__box {
 
 
 .footer_a4 {
-    position: fixed;
+    position: relative;
     top: 90%;
     margin: auto;
     width: 20cm;
