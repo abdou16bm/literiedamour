@@ -47,6 +47,12 @@
 							<input class="input" type="tel" name="phone" placeholder="Téléphone*" <% if (user.length > 0) {%> value="<%= user[0].user_phone %>" <%}%> required>
 						</div>
 						<div class="form-group">
+							<select class="selectpicker form-control border-0 mb-1 px-4 rounded shadow deliveryType" name="delivery_type" required>
+							<option value="1">A domicile</option>
+							<option value="2">Point de relais</option>
+							</select>
+						</div>
+						<div class="form-group">
 							<select class="selectpicker form-control border-0 mb-1 px-4  rounded shadow" id="wilaya_checkout" name="wilaya" required>
 								<% if (typeof(wilaya) !== 'undefined' && wilaya != null && wilaya.length > 0) {
 									let selected = "";

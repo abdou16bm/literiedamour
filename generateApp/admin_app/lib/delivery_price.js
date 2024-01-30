@@ -213,12 +213,12 @@ exports.delivery_price_get_all_limit = delivery_price_get_all_limit;
 //------- modules client---------
 
 
-const delivery_price_get_one_client = function (wilaya,callback) {
+const delivery_price_get_one_client = function (wilaya,type,callback) {
 
     let sql = "SELECT * FROM delivery_price\n" +
-    "WHERE shop_id = 1 AND wilaya_id = ?";
+    "WHERE shop_id = 1 AND wilaya_id = ? AND delivery_type_id = ?";
 
-    database_module.db.query(sql,[wilaya], function (error, results, fields) {
+    database_module.db.query(sql,[wilaya,type], function (error, results, fields) {
         if (error) console.log('error : ',error);
 
         if (callback){callback(error,results)};

@@ -43,11 +43,12 @@ apis.get("/products/:brand/:subcat",function (req,res) {
 
 
 
-apis.get("/delivery/price/:wilaya",function (req,res) {
+apis.get("/delivery_price/:wilaya/:type",function (req,res) {
   
     let wilaya = req.params.wilaya
+    let type = req.params.type
 
-    delivery_module.delivery_price_get_one_client(wilaya,function (err,result) {
+    delivery_module.delivery_price_get_one_client(wilaya,type,function (err,result) {
         
         if (err) console.log('Error : ',err);
         res.send({delivery_price : result, err : err})
@@ -170,13 +171,14 @@ apis.get("/cart_p/:product/edit",authentication_controller.isAuthenticated,funct
 
 
 
-apis.get("/cart/valid",authentication_controller.isAuthenticated,function (req,res) {
+apis.get("/cart/:type/valid",authentication_controller.isAuthenticated,function (req,res) {
 
     let user_id = req.session.userid
+    let delivery_type = req.params.type
     let multi = false
     if (req.session.privid == 5) multi = true
 
-    order_module.customer_order_generate(user_id,function (err,result1) {
+    order_module.customer_order_generate(user_id,delivery_type,function (err,result1) {
 
         if (err) console.log(err)
             

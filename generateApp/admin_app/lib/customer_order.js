@@ -214,7 +214,7 @@ exports.customer_order_get_all_limit = customer_order_get_all_limit;
 
 
 
-const customer_order_generate = function(user_id,callback){
+const customer_order_generate = function(user_id,delivery_type,callback){
 
     let sqlCount = "SELECT COUNT(*) AS order_count FROM customer_order co\n" +
     "WHERE YEAR(DATE(co.order_date)) = YEAR(CURDATE())"
@@ -241,8 +241,8 @@ const customer_order_generate = function(user_id,callback){
 
                 let sqlGenerate =
 
-                "insert into customer_order (order_ref,order_date,order_status,order_total_price,user_id)\n" +
-                "values ('"+orderRef+"',NOW(),1,"+result2[0].totalCart+","+user_id+");\n" +
+                "insert into customer_order (order_ref,order_date,order_status,order_total_price,user_id,delivery_type_id)\n" +
+                "values ('"+orderRef+"',NOW(),1,"+result2[0].totalCart+","+user_id+","+delivery_type+");\n" +
 
                 "insert into order_stat (stat_id,order_id,order_stat_date)\n" +
                 "values (1,(SELECT MAX(LAST_INSERT_ID(order_id)) FROM customer_order),NOW());\n" +

@@ -198,15 +198,16 @@ if (document.getElementById("searchInput") && document.getElementById("searchBtn
 
 
 
-if (document.getElementById("wilaya_checkout") && document.getElementById("delivery_price") && document.getElementById("order_total")) {
+if (document.getElementById("wilaya_checkout") && document.querySelector(".deliveryType") && document.getElementById("delivery_price") && document.getElementById("order_total")) {
 
     document.getElementById("wilaya_checkout").oninput = function () {
 
         // price get from view checkout
         const price = productPrice
         const wilaya = document.getElementById("wilaya_checkout").value
+        const type = document.querySelector(".deliveryType").value
 
-        fetch("/api/delivery/price/"+wilaya)
+        fetch("/api/delivery_price/"+wilaya+"/"+type)
         .then((response)=>response.json())
         .then(data=>{
 
@@ -249,7 +250,12 @@ if (document.getElementById("wilaya_checkout") && document.getElementById("deliv
 }
 
 
+if (document.getElementById("wilaya_checkout") && document.querySelector(".deliveryType")){
 
+    document.querySelector(".deliveryType").oninput = () => 
+    document.getElementById("wilaya_checkout").oninput()
+
+}
 
 
 
@@ -500,11 +506,13 @@ if (typeof(myInputQte_list) != "undefined" && myInputQte_list.length > 0) {
 
 
 
-if (document.querySelector(".myBtnValid")) {
+if (document.querySelector(".myBtnValid") && document.querySelector(".deliveryType")) {
     
     document.querySelector(".myBtnValid").addEventListener("click",function () {
+        
+        let type = document.querySelector(".deliveryType").value
 
-        fetch("/api/cart/valid")
+        fetch("/api/cart/"+type+"/valid")
         .then(response => response.json())
         .then(result => {
 
@@ -537,11 +545,13 @@ if (document.querySelector(".myBtnValid")) {
 }
 
 
-if (document.querySelector(".myBtnValid_drop")) {
+if (document.querySelector(".myBtnValid_drop") &&  document.querySelector(".deliveryType")) {
     
     document.querySelector(".myBtnValid_drop").addEventListener("click",function () {
 
-        fetch("/api/cart/valid")
+        let type = document.querySelector(".deliveryType").value
+
+        fetch("/api/cart/"+type+"/valid")
         .then(response => response.json())
         .then(result => {
 

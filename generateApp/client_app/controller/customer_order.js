@@ -139,6 +139,7 @@ const checkout_valid = function (req, res) {
         && typeof (input.phone) != "undefined" && input.phone != null && input.phone != ""
         // && typeof (input.address) != "undefined" && input.address != null && input.address != ""
         && typeof (input.wilaya) != "undefined" && input.wilaya != null && input.wilaya != ""
+        && typeof (input.delivery_type) != "undefined" && input.delivery_type != null && input.delivery_type != ""
 
     ) {
 
@@ -187,6 +188,7 @@ const checkout_valid = function (req, res) {
                             order_date: new Date(),
                             order_status: 1,
                             order_total_price: productPrice,
+                            delivery_type_id : input.delivery_type,
                             user_id: result1.insertId
 
                         };
