@@ -20,7 +20,8 @@
                         <tr>
                             
                             <th>Wilaya</th>
-                            <th>Prix</th>
+                            <th>Prix a domicile</th>
+                            <th>Prix point de relais</th>
                             <th class="w-min" data-orderable="false"></th>
                         
                         </tr>
@@ -36,13 +37,28 @@
                         <tr>
 
                             <td><%= delivery_price[i].wilaya_id +" - "+ delivery_price[i].wilaya_name %></td>
-                            <td class="d-flex justify-content-center align-items-center gap-5"> 
-                                <input type="text" class="form-control"  id="input<%=delivery_price[i].wilaya_id%>" value="<%=delivery_price[i].delivery_price%>" onkeyup="if (event.key === 'Enter'){document.getElementById('btn<%=delivery_price[i].wilaya_id%>').click()}"  required />
-                                <button class="btn btn-primary" id="btn<%=delivery_price[i].wilaya_id%>" onclick="updateDeliveryPrice(<%=delivery_price[i].wilaya_id%>,document.getElementById('input<%=delivery_price[i].wilaya_id%>').value)">modifier</button>
+                            <td>                          
+                                <div class="d-flex justify-content-start align-items-center gap-2">
+                                    
+                                    <input type="text" class="form-control id<%= delivery_price[i].wilaya_id%>" style="width: 200px;"
+                                    value="<%= delivery_price[i].price_home %>">
+                                    <button class="btn btn-success"
+                                    onclick="updateDeliveryPrice(<%= delivery_price[i].wilaya_id%>,document.querySelector('.id<%= delivery_price[i].wilaya_id%>').value,1)">Modifier</button>
+
+                                </div>
                             </td>
-                            <td>
-                                
+                            <td>                          
+                                <div class="d-flex justify-content-start align-items-center gap-2">
+                                    
+                                    <input type="text" class="form-control ir<%= delivery_price[i].wilaya_id%>" style="width: 200px;"
+                                    value="<%= delivery_price[i].price_relay %>">
+                                    <button class="btn btn-success"
+                                    onclick="updateDeliveryPrice(<%= delivery_price[i].wilaya_id%>,document.querySelector('.ir<%= delivery_price[i].wilaya_id%>').value,2)">
+                                    Modifier</button>
+
+                                </div>
                             </td>
+                            <td></td>
                         </tr>
                         <% }} %>
                     </tbody>

@@ -291,13 +291,16 @@ exports.delivery_price_filter = delivery_price_filter
 
 const delivery_price_update = (req,res) => {
 
+     let input = req.body
+     console.log(input)
      let shop = req.session.shop_id
-     let wilaya = req.params.wilaya
-     let price = req.params.price
+     let type =  input.type
+     let wilaya = input.wilaya
+     let price = input.price.replace(",",".")
 
-     let data_delivery = {shop_id : shop,wilaya_id : wilaya, delivery_price: price}
+     let data_delivery = {shop_id : shop,wilaya_id : wilaya, delivery_type_id : type, delivery_price: price}
 
-     delivery_price_module.delivery_add_one(wilaya,shop,data_delivery,(err,result)=>{
+     delivery_price_module.delivery_add_one(wilaya,shop,type,data_delivery,(err,result)=>{
 
          if (err) {console.log(err)}
 

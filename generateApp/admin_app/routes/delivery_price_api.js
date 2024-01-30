@@ -24,7 +24,7 @@ const delivery_price_controller = require('../controller/delivery_price');
  delivery_price_api.get('/delivery/price/list/:filter',authentication_controller.isAuthenticated,delivery_price_controller.delivery_price_filter);
 
 
- delivery_price_api.get("/delivery/price/update/:wilaya/:price",authentication_controller.isAuthenticated,delivery_price_controller.delivery_price_update)
+ delivery_price_api.post("/delivery_price/edit",authentication_controller.isAuthenticated,delivery_price_controller.delivery_price_update)
 
 
  module.exports = delivery_price_api;
