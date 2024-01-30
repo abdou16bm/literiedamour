@@ -22,19 +22,24 @@
                             <% if (typeof(cart_p) !== 'undefined' && cart_p.length > 0) { %>
                             <% for (var i = 0; i < cart_p.length; i++) { %>
                             <div class="row">
-                                <div class="col-md-2 col-xs-12 text-center"><img class="img-responsive" src="/img/product/<%= cart_p[i].product_id %>/main.jpg" width="80">
+                                <div class="col-md-2 col-xs-4 text-center"><img class="img-responsive" src="/img/product/<%= cart_p[i].product_id %>/main.jpg" width="80">
                                 </div>
+<<<<<<< HEAD
+                                <div class="col-md-4 col-xs-8">
+                                    <h4 class="product-name"><strong><%= cart_p[i].product_name %></strong></h4><h4 class="mobile-none"><small><%= cart_p[i].product_desig %></small></h4>
+=======
                                 <div class="col-md-4 col-xs-12">
                                     <h4 class="product-name"><strong><%= cart_p[i].product_name %></strong></h4>
+>>>>>>> 99764137081bc1f798499a259186c164c4aa0ec6
                                 </div>
-                                <div class="col-md-6" style="display: flex; justify-content: space-between;">
-                                    <div class="col-md-8 col-xs-8 text-right">
+                                <div class="col-md-6 col-xs-12" style="display: flex; justify-content: space-between; margin-top: 5px;">
+                                    <div class="col-md-8 col-xs-6 text-right" style="padding-top: 2% ;">
                                         <h4><strong>
                                             <% let formating=Intl.NumberFormat('en-US') %>
                                             <%= formating.format(cart_p[i].product_price_c)+" DA" %>
                                         <span class="text-muted">x</span></strong></h4>
                                     </div>
-                                    <div class="col-md-2 col-xs-2">
+                                    <div class="col-md-2 col-xs-4">
                                         <input type="number" class="form-control input-xs myInputQte" value="<%= cart_p[i].product_qt_c %>" idp = "<%= cart_p[i].product_id %>">
                                     </div>
                                     <div class="col-md-2 col-xs-2">
