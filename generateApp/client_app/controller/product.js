@@ -17,6 +17,7 @@ const product_details = function (req, res) {
     product_module.product_get_one_client(id,function (err,result1) {
 
         if (err) console.log(err)
+        console.log(result1)
 
         product_details_module.product_details_get_all_product_client(id,function (err,result2) {
 

@@ -70,7 +70,7 @@
                             <div class="sa-divider"></div>
                             <div class="px-5 py-3 my-2 d-flex align-items-center justify-content-between">
                                 <div>
-                                    <div class="text-muted fs-exact-14 mt-1"><%= product[0].product_desig %></div>
+                                    <div class="text-muted fs-exact-14 mt-1"><%- product[0].product_desig.replaceAll("\r\n","<br>") %></div>
                                 </div>
                             </div>
                         </div>

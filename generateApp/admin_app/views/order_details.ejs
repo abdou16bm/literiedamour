@@ -20,8 +20,9 @@
                         <a href="/order/<%= order[0].order_id %>/status/3" class="btn btn-info">Valider</a>
                         <% } else if (order[0].stat_id == 3) { %>
                             <a href="/order/<%= order[0].order_id %>/status/2" class="btn btn-danger me-3">Annuler</a>
-                            <a href="/order/<%= order[0].order_id %>/status/5" class="btn btn-dark me-3">Retour</a>
                             <a href="/order/<%= order[0].order_id %>/status/4" class="btn btn-success me-3">Récéptionnée</a>
+                        <% } else  if (order[0].stat_id == 4){ %>
+                            <a href="/order/<%= order[0].order_id %>/status/5" class="btn btn-dark me-3">Retour</a>
                         <% } %>
                     </div>
 

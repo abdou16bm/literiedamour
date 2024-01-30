@@ -87,7 +87,9 @@
 							<%}%>
 
 						</div>
-						<p style="padding-top: 5%;padding-bottom: 5%;"><%= product[0].product_desig %></p>
+						<p style="padding-top: 5%;padding-bottom: 5%;">
+							<%- product[0].product_desig.replaceAll("\r\n","<br>") %>
+						</p>
 
 						<!-- <div class="product-options">
 								<label>
@@ -175,7 +177,7 @@
 							<div id="tab2" class="tab-pane fade in">
 								<div class="row">
 									<div class="col-md-12">
-										<p><%= product[0].product_desig %></p>
+										<p><%- product[0].product_desig.replaceAll("\r\n","<br>") %></p>
 									</div>
 								</div>
 							</div>
