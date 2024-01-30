@@ -39,7 +39,7 @@
 						%>
 
 						<div class="product-preview">
-							<img src="/img/product/<%= product[0].product_id %>/<%= img_name %>.jpg" alt="" style="height: 500px;">
+							<img src="/img/product/<%= product[0].product_id %>/<%= img_name %>.jpg" alt="" style="height: 100%; max-height: 480px; min-height: 320px;">
 						</div>
 
 						<%}%>
@@ -59,7 +59,7 @@
 						%>
 
 						<div class="product-preview">
-							<img src="/img/product/<%= product[0].product_id %>/<%= img_name %>.jpg" alt="" style="height: 180px;">
+							<img src="/img/product/<%= product[0].product_id %>/<%= img_name %>.jpg" alt="" style="max-height: 100px; height: 100%;">
 						</div>
 
 						<%}%>
@@ -113,8 +113,8 @@
 										<span class="qty-down">-</span>
 									</div>
 								</div> -->
-							<button class="add-to-cart-btn productToCart_btn" idp = "<%= product[0].product_id %>"><i class="fa fa-plus"></i>Ajouter au panier</button>
-							<button class="add-to-cart-btn" onclick="location.href='/checkout/<%= product[0].product_id %>'"><i class="fa fa-shopping-cart"></i> Commander</button>
+							<button class="add-to-cart-btn productToCart_btn" idp = "<%= product[0].product_id %>" style="margin-bottom: 5px; width: 100%;"><i class="fa fa-plus"></i>Ajouter au panier</button>
+							<button class="add-to-cart-btn" onclick="location.href='/checkout/<%= product[0].product_id %>'" style="margin-bottom: 5px; width: 100%;"><i class="fa fa-shopping-cart"></i> Commander</button>
 						</div>
 						<ul class="product-links">
 							<li>Categorie :</li>

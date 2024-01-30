@@ -166,8 +166,8 @@
 								<div class="col-md-3 col-xs-6">
 									<div class="product">
 										<div class="product-img text-center">
-											<img src="/img/product/<%= products[i].product_id %>/main.jpg" alt=""
-												style="width: 250px; height: 250px; padding: 10px;">
+											<img src="/img/product/<%= products[i].product_id %>/main.jpg" alt="" class="img-mobile-prod"
+											style="width: 100%; height: 200px; padding: 10px;">
 										</div>
 										<div class="product-body">
 											<p class="product-category"><%= products[i].sub_cat_name %></p>
@@ -190,7 +190,7 @@
 												</div>
 										</div>
 										<div class="add-to-cart">
-											<button class="add-to-cart-btn" onclick="location.href='/checkout/<%= products[i].product_id %>'"><i class="fa fa-shopping-cart"></i> Commander</button>
+											<button class="add-to-cart-btn" onclick="location.href='/checkout/<%= products[i].product_id %>'"><i class="fa fa-shopping-cart mobile-none"></i> <span class="text-mobile"> Commander</span></button>
 										</div>
 									</div>
 								</div>
