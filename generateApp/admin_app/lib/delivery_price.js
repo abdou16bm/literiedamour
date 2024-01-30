@@ -18,13 +18,17 @@ exports.delivery_price_get_all = delivery_price_get_all;
 
 
 const delivery_price_get_all_wilaya = function(shop_id,callback){
-    let sql='SELECT w1.wilaya_id,w1.wilaya_name,delivery_price FROM wilaya w1\n' +
+    let sql='SELECT w1.wilaya_id,w1.wilaya_name,p1.price_home,p2.price_relay FROM wilaya w1\n' +
     'LEFT JOIN (\n' +
-    'SELECT w2.wilaya_id,delivery_price FROM wilaya w2\n' +
+    'SELECT w2.wilaya_id,delivery_price AS price_home FROM wilaya w2\n' +
     'INNER JOIN  delivery_price dp ON dp.wilaya_id = w2.wilaya_id\n' +
-    'WHERE dp.shop_id = ?) w3 ON w1.wilaya_id = w3.wilaya_id\n' +
+    'WHERE dp.shop_id = ? AND dp.delivery_type_id = 1) p1 ON w1.wilaya_id = p1.wilaya_id\n' +
+    'LEFT JOIN (\n' +
+    'SELECT w2.wilaya_id,delivery_price AS price_relay FROM wilaya w2\n' +
+    'INNER JOIN  delivery_price dp ON dp.wilaya_id = w2.wilaya_id\n' +
+    'WHERE dp.shop_id = ? AND dp.delivery_type_id = 2) p2 ON w1.wilaya_id = p2.wilaya_id\n' +
     'order BY w1.wilaya_id';
-   database_module.db.query(sql,[shop_id], function (error, results, fields) {
+   database_module.db.query(sql,[shop_id,shop_id], function (error, results, fields) {
    if (error) console.log('error : ',error);
    //console.log('results: ', results);
    if (callback){callback(error,results)};
@@ -68,12 +72,12 @@ return results;
 exports.delivery_price_add = delivery_price_add;
 
 
-const delivery_add_one = function (wilaya,shop,data,callback) {
+const delivery_add_one = function (wilaya,shop,type,data,callback) {
 
-    let sql = 'delete from delivery_price where wilaya_id = ? AND shop_id = ?;\n'+
+    let sql = 'delete from delivery_price where wilaya_id = ? AND shop_id = ? AND delivery_type_id = ?;\n'+
     'insert into delivery_price set ? ';
 
-    database_module.db.query(sql,[wilaya,shop,data], function (error, results, fields) {
+    database_module.db.query(sql,[wilaya,shop,type,data], function (error, results, fields) {
         if (error) console.log('error : ',error);
 
         if (callback){callback(error,results)};

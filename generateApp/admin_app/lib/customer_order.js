@@ -1,13 +1,14 @@
 const database_module=require('./database');
 
 const customer_order_get_all = function(callback){
- let sql='SELECT co.*,dp.delivery_price,user.user_lastname,user.user_name,w.wilaya_name,os.stat_id,s.stat_name,s.stat_color,COUNT(co.order_id) AS products_count from customer_order co\n' +
+ let sql='SELECT co.*,dt.delivery_type_name,dp.delivery_price,user.user_lastname,user.user_name,w.wilaya_name,os.stat_id,s.stat_name,s.stat_color,COUNT(co.order_id) AS products_count from customer_order co\n' +
  'LEFT JOIN user ON user.user_id = co.user_id\n' +
  'LEFT JOIN order_stat os ON os.order_id = co.order_id\n' +
  'LEFT JOIN status s ON s.stat_id = os.stat_id\n' +
  'LEFT JOIN wilaya w ON w.wilaya_id = user.wilaya_id\n' +
- 'LEFT JOIN delivery_price dp ON dp.wilaya_id = user.wilaya_id\n' +
+ 'LEFT JOIN delivery_price dp ON dp.wilaya_id = user.wilaya_id AND dp.delivery_type_id = co.delivery_type_id\n' +
  'LEFT JOIN order_p op ON op.order_id = co.order_id\n' +
+ 'LEFT JOIN delivery_type dt ON dt.delivery_type_id = co.delivery_type_id\n' +
  'GROUP BY co.order_id\n' +
  'order by co.order_id DESC';
 database_module.db.query(sql,[], function (error, results, fields) {
@@ -52,13 +53,14 @@ exports.customer_order_get_all_count_year = customer_order_get_all_count_year;
 
 
 const customer_order_get_one = function(order_id,callback){
- let sql='SELECT co.*,dp.delivery_price,user.user_lastname,user.user_name,user.user_address,user.user_email,user.user_phone,w.wilaya_name,os.stat_id,s.stat_name,s.stat_color,COUNT(co.order_id) AS products_count from customer_order co\n' +
+ let sql='SELECT co.*,dt.delivery_type_name,dp.delivery_price,user.user_lastname,user.user_name,user.user_address,user.user_email,user.user_phone,w.wilaya_name,os.stat_id,s.stat_name,s.stat_color,COUNT(co.order_id) AS products_count from customer_order co\n' +
  'LEFT JOIN user ON user.user_id = co.user_id\n' +
  'LEFT JOIN order_stat os ON os.order_id = co.order_id\n' +
  'LEFT JOIN status s ON s.stat_id = os.stat_id\n' +
  'LEFT JOIN wilaya w ON w.wilaya_id = user.wilaya_id\n' +
- 'LEFT JOIN delivery_price dp ON dp.wilaya_id = user.wilaya_id\n' +
+ 'LEFT JOIN delivery_price dp ON dp.wilaya_id = user.wilaya_id AND dp.delivery_type_id = co.delivery_type_id\n' +
  'LEFT JOIN order_p op ON op.order_id = co.order_id\n' +
+ 'LEFT JOIN delivery_type dt ON dt.delivery_type_id = co.delivery_type_id\n' +
  'where co.order_id = ?\n' +
  'GROUP BY co.order_id';
 database_module.db.query(sql,[order_id], function (error, results, fields) {

@@ -103,30 +103,68 @@ const delpic = function(id,pic) {
 
 }
 
+function updateDeliveryPrice (w,p,t) {
 
-function updateDeliveryPrice (wilaya,price) {
-    
-    let inputPrice = document.getElementById("input"+wilaya).value
-    if (typeof(inputPrice) != "undefined" && inputPrice != null && inputPrice != "") {
+    if (
+
+        (p != "" && p != null && typeof(p) != "undefined")
+        && (w != "" && w != null && typeof(w) != "undefined")
+        && (t != "" && t != null && typeof(t) != "undefined")
         
-        fetch("/api/delivery/price/update/"+wilaya+"/"+price)
-        .then((response)=>response.json())
-        .then(data=>{
-
-            if (data.err != null) { console.log(data.err) }
-
-            location.reload()
+    ) {
         
+        let data_delivery = {wilaya : w,price : p,type : t}
+        let url = "/api/delivery_price/edit"
+        let option =  {headers: {'Accept': 'application/json','Content-Type': 'application/json'},method : "POST",body : JSON.stringify(data_delivery)}
+        fetchData(url,option,function (result) {
 
+            console.log(result)
+
+            if (result.err != null) {
+                
+                console.log("price edit error.");
+                document.getElementById("alert_msg").innerHTML = '<div class="alert alert-danger" role="alert">Erreur de modification du prix</div>'
+                $('#alert_modal').modal('show');
+
+            } else {
+
+                console.log("price edit success.");
+                document.getElementById("alert_msg").innerHTML = '<div class="alert alert-success" role="alert">Prix modifié avec succès</div>'
+                $('#alert_modal').modal('show');
+            
+            }
+        
         })
 
     } else {
 
-        document.getElementById("alert_msg").innerHTML = '<div class="alert alert-info" role="alert">Veuillez entrez le prix.</div>'
+        console.log("data error.");
+        document.getElementById("alert_msg").innerHTML = '<div class="alert alert-info" role="alert">Données insuffisante.</div>'
         $('#alert_modal').modal('show');
-        //alert("Entrez le prix !")
 
     }
 
+}
 
+
+
+
+
+
+
+function fetchData(url,option,callback) {
+
+    fetch(url,option)
+    .then(response => response.json())
+    .then(result => {
+
+        if (callback) callback(result)
+    
+    })
+    .catch((err)=>{
+
+        if (callback) callback({err : err})
+
+    })
+    
 }
