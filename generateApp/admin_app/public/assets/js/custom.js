@@ -73,9 +73,10 @@
         $('.sa-datatables-init').each(function() {
             const tableSearchSelector = $(this).data('sa-search-input');
             const table = $(this).DataTable({
-                dom: template,
+                dom: "B" + template,
                 paging: true,
                 ordering: true,
+                buttons: [{ extend: 'excel', className: 'btn btn-dark', text : "Exporter en excel"}],
                 drawCallback: function() {
                     $(this.api().table().container()).find('.pagination').addClass('pagination-sm');
                 },
