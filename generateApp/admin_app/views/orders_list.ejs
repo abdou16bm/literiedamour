@@ -22,6 +22,7 @@
                             <th>Client</th>
                             <th>Etat</th>
                             <th>Produits</th>
+                            <th style="display: none;">Liste des Produits</th>
                             <th>Wilaya</th>
                             <th>Total</th>
                             <th class="w-min" data-orderable="false"></th>
@@ -45,6 +46,7 @@
                                 </div>
                             </td>
                             <td><%= orders[i].products_count +" Produits" %></td>
+                            <td style="display: none;"><%= orders[i].product_list.replaceAll(","," | ") %> </td>
                             <td><%= orders[i].wilaya_name %></td>
                             <td><% let formating=Intl.NumberFormat('en-US') %><%= formating.format(orders[i].order_total_price + orders[i].delivery_price)+" DA" %></td>
                             <td>
