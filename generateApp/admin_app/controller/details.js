@@ -170,7 +170,7 @@ const details_edit_save = function (req,res) {
 const id = req.params.id;
 const options = {
      multiples : true,
-     uploadDir: './admin_app/uploads'
+     uploadDir: './uploads'
 };
 
 var form = new formidable.IncomingForm(options);
@@ -226,7 +226,7 @@ exports.details_add = details_add
 const details_add_save = function (req,res) {
      const options = {
           multiples : true,
-          uploadDir: './admin_app/uploads'
+          uploadDir: './uploads'
      };
 
      var form = new formidable.IncomingForm(options);

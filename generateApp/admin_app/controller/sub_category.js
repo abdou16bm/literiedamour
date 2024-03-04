@@ -142,7 +142,7 @@ const sub_category_edit_save = function (req,res) {
     const id = req.params.id;
     const options = {
         multiples : true,
-        uploadDir: './admin_app/uploads'
+        uploadDir: './uploads'
     };
 
     var form = new formidable.IncomingForm(options);
@@ -162,7 +162,7 @@ const sub_category_edit_save = function (req,res) {
             sub_category_module.sub_category_update(id,data_update,function (err,result1) {
 
                 if (err) console.log('error',err);
-                doc_module.uploadFile('./admin_app/public/img/sub_category/',id,files,'main','main','jpg', function (err,count1){
+                doc_module.uploadFile('./public/img/sub_category/',id,files,'main','main','jpg', function (err,count1){
 
                     if (err) console.log(err)
                     console.log('count1 : ',count1)
@@ -203,7 +203,7 @@ const sub_category_add_save = function (req,res) {
 
     const options = {
         multiples : true,
-        uploadDir: './admin_app/uploads'
+        uploadDir: './uploads'
     };
 
     var form = new formidable.IncomingForm(options);
@@ -224,7 +224,7 @@ const sub_category_add_save = function (req,res) {
             sub_category_module.sub_category_add(data_insert,function (err,result1) {
 
                 if (err) console.log('error',err);
-                doc_module.uploadFile('./admin_app/public/img/sub_category/',result1.insertId,files,'main','main','jpg', function (err,count1){
+                doc_module.uploadFile('./public/img/sub_category/',result1.insertId,files,'main','main','jpg', function (err,count1){
 
                     if (err) console.log(err)
                     console.log('count1 : ',count1)

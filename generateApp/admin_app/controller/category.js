@@ -147,7 +147,7 @@ const id = req.params.id;
 //let data_update = input
     const options = {
         multiples : true,
-        uploadDir: './admin_app/uploads'
+        uploadDir: './uploads'
     };
 
     var form = new formidable.IncomingForm(options);
@@ -160,12 +160,12 @@ const id = req.params.id;
         let data_update =input;
       category_module.category_update(id,data_update,function (err,result1) {
       if (err) console.log('error',err);
-        doc_module.uploadFile('./admin_app/public/img/category/',id,files,'main','main','jpg', function (err,count1){
+        doc_module.uploadFile('./public/img/category/',id,files,'main','main','jpg', function (err,count1){
 
         if (err) console.log(err)
 
         console.log('count1 : ',count1)
-         doc_module.uploadMultiFile('./admin_app/public/img/category/',id,files,'jpg', function (err,count2){
+         doc_module.uploadMultiFile('./public/img/category/',id,files,'jpg', function (err,count2){
 
              if (err) console.log(err)
 
@@ -206,7 +206,7 @@ const category_add_save = function (req,res) {
 //let data_insert = input
     const options = {
         multiples : true,
-        uploadDir: './admin_app/uploads'
+        uploadDir: './uploads'
     };
 
     var form = new formidable.IncomingForm(options);
@@ -219,12 +219,12 @@ const category_add_save = function (req,res) {
         let data_insert =input;
 category_module.category_add(data_insert,function (err,result1) {
 if (err) console.log('error',err);
-           doc_module.uploadFile('./admin_app/public/img/category/',result1.insertId,files,'main','main','jpg', function (err,count1){
+           doc_module.uploadFile('./public/img/category/',result1.insertId,files,'main','main','jpg', function (err,count1){
 
            if (err) console.log(err)
 
             console.log('count1 : ',count1)
-                doc_module.uploadMultiFile('./admin_app/public/img/category/',result1.insertId,files,'jpg', function (err,count2){
+                doc_module.uploadMultiFile('./public/img/category/',result1.insertId,files,'jpg', function (err,count2){
 
                     if (err) console.log(err)
 

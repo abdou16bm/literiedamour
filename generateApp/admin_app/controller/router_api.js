@@ -56,7 +56,7 @@ const upload_content = function (req,res){
         console.log('fields',fields)
         console.log('files',files)
 
-        doc_module.uploadFile('./admin_app/public/img/user/', id, files, 'uploadImg', 'profil', 'jpg', function (err, count1) {
+        doc_module.uploadFile('./public/img/user/', id, files, 'uploadImg', 'profil', 'jpg', function (err, count1) {
 
             if (err) console.log(err)
 
@@ -99,7 +99,7 @@ const upload_content = function (req,res){
 
 const remove_content = function (req,res){
     const {id,pic} = req.body;
-    let dir = './admin_app/public/img/product/'+id;
+    let dir = './public/img/product/'+id;
     let file = dir+'/'+pic;
     doc_module.remove_file(dir,file, function (err, files_count) {
         if (err) console.log('error', err);

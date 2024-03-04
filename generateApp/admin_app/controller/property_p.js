@@ -147,7 +147,7 @@ const id = req.params.id;
 //let data_update = input
     const options = {
         multiples : true,
-        uploadDir: './admin_app/uploads'
+        uploadDir: './uploads'
     };
 
     var form = new formidable.IncomingForm(options);
@@ -160,12 +160,12 @@ const id = req.params.id;
         let data_update =input;
       property_p_module.property_p_update(id,data_update,function (err,result1) {
       if (err) console.log('error',err);
-        doc_module.uploadFile('./admin_app/public/img/property_p/',id,files,'main','main','jpg', function (err,count1){
+        doc_module.uploadFile('./public/img/property_p/',id,files,'main','main','jpg', function (err,count1){
 
         if (err) console.log(err)
 
         console.log('count1 : ',count1)
-         doc_module.uploadMultiFile('./admin_app/public/img/property_p/',id,files,'jpg', function (err,count2){
+         doc_module.uploadMultiFile('./public/img/property_p/',id,files,'jpg', function (err,count2){
 
              if (err) console.log(err)
 
@@ -206,7 +206,7 @@ const property_p_add_save = function (req,res) {
 //let data_insert = input
     const options = {
         multiples : true,
-        uploadDir: './admin_app/uploads'
+        uploadDir: './uploads'
     };
 
     var form = new formidable.IncomingForm(options);
@@ -219,12 +219,12 @@ const property_p_add_save = function (req,res) {
         let data_insert =input;
 property_p_module.property_p_add(data_insert,function (err,result1) {
 if (err) console.log('error',err);
-           doc_module.uploadFile('./admin_app/public/img/property_p/',result1.insertId,files,'main','main','jpg', function (err,count1){
+           doc_module.uploadFile('./public/img/property_p/',result1.insertId,files,'main','main','jpg', function (err,count1){
 
            if (err) console.log(err)
 
             console.log('count1 : ',count1)
-                doc_module.uploadMultiFile('./admin_app/public/img/property_p/',result1.insertId,files,'jpg', function (err,count2){
+                doc_module.uploadMultiFile('./public/img/property_p/',result1.insertId,files,'jpg', function (err,count2){
 
                     if (err) console.log(err)
 
