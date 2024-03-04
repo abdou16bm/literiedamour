@@ -143,7 +143,7 @@ const brand_edit_save = function (req,res) {
      const id = req.params.id;
          const options = {
              multiples : true,
-             uploadDir: './admin_app/uploads'
+             uploadDir: './uploads'
          };
 
          var form = new formidable.IncomingForm(options);

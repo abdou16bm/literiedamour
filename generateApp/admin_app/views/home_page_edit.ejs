@@ -27,7 +27,7 @@
                                 <tr>
                                     <th class="col-3" >Image</th>
                                     <th class="w-10x"></th>
-                                    <th class="w-10x">Text</th>
+                               
                                 </tr>
                             </thead>
                             <tbody>
@@ -38,9 +38,13 @@
                                         </div>
                                     </td>
                                     <td><input type="file" accept="image/*" class="form-control form-control-sm" id="formFile-2-sm" name="main" /></td>
+                                         
+                                </tr>
+                                <tr>
+                                    <td>Text</td>
                                     <td><input type="text" name="textBanner" 
-                                     value="<%= !(banner.text) ? '' : banner.text %>"  
-                                    class="form-control form-control-lg"/></td>                               
+                                        value="<%= !(banner.text) ? '' : banner.text %>"  
+                                       class="form-control form-control-lg"/></td>      
                                 </tr>
                             </tbody>
                         </table>
@@ -123,7 +127,7 @@
                 </div>
             </div>
            </form>
-           <form action="/video/edit/3" enctype="multipart/form-data" method="post">
+          <!--  <form action="/video/edit/3" enctype="multipart/form-data" method="post">
             <div class="card mt-5">
                 <div class="card-body p-5">
                     <div class="mb-5" style="display: flex; justify-content: space-between; align-items: center;">
@@ -155,10 +159,10 @@
                         </table>
                     </div>
                     <div class="sa-divider"></div>
-                    <!-- <div class="px-5 py-4 my-2"><a href="#">Upload new image</a></div> -->
+                  
                 </div>
             </div>
-           </form>
+           </form> -->
             
         </div>
     </div>
