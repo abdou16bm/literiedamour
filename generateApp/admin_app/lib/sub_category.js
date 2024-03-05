@@ -1,8 +1,15 @@
 const database_module=require('./database');
 
-const sub_category_get_all = function(callback){
- let sql='SELECT sc.*, COUNT(p.product_id) AS product_count from sub_category sc\n' +
+const sub_category_get_all = function(filterCat,callback){
+
+    let filter = "";
+    if (typeof(filterCat) != 'undefined' && filterCat != null && filterCat != "") 
+    filter = "where sc.cat_id = " + filterCat
+
+ let sql='SELECT sc.*,c.*, COUNT(p.product_id) AS product_count from sub_category sc\n' +
  'LEFT JOIN product p ON p.sub_cat_id = sc.sub_cat_id\n' +
+ 'left join category c on c.cat_id = sc.cat_id\n' +
+ filter + "\n" +
  'GROUP BY sc.sub_cat_id\n' +
  'order by sc.sub_cat_id';
 database_module.db.query(sql,[], function (error, results, fields) {

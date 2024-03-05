@@ -4,7 +4,7 @@ const doc_module = require('../lib/doc');
 const { foreignDatas_GetAll } = require('../lib/default_lib');
 const { db } = require('../lib/database');
 const sub_category_module = require('../lib/sub_category');
-
+const category_module = require('../lib/category');
 
 const sub_category_list_page = function (req,res) {
     let count_page = 0;
@@ -40,7 +40,13 @@ exports.sub_category_list_page = sub_category_list_page
 
 
 const sub_category_list = function (req,res) {
-    sub_category_module.sub_category_get_all(function (err,result1) {
+
+    let filterCat = ""
+    if (typeof(req.query.cat) != 'undefined' && req.query.cat != null && req.query.cat != "") 
+    filterCat = req.query.cat
+
+
+    sub_category_module.sub_category_get_all(filterCat,function (err,result1) {
         if (err) console.log('error',err);
         if(req.baseUrl == "/api") {
             res.send({sub_category : result1, err : err, session : req.session});
@@ -123,14 +129,19 @@ exports.sub_category_details = sub_category_details
 
 const sub_category_edit = function (req,res) {
     const id = req.params.id;
-    sub_category_module.sub_category_get_one(id,function (err,result1) {
-        if (err) console.log('error',err);
-        if(req.baseUrl == "/api") {
-            res.send({sub_category : result1, err : err, session : req.session});
-        } else {
-            res.render('sub_category_edit',{sub_category : result1, err : req.query.err, session : req.session});
-        }
-    });
+    category_module.category_get_all(function (err,result) {
+
+        sub_category_module.sub_category_get_one(id,function (err,result1) {
+            if (err) console.log('error',err);
+            if(req.baseUrl == "/api") {
+                res.send({sub_category : result1, err : err, session : req.session});
+            } else {
+                res.render('sub_category_edit',{sub_category : result1, category : result, err : req.query.err, session : req.session});
+            }
+        });
+
+    })
+
 };
 
 
@@ -151,11 +162,15 @@ const sub_category_edit_save = function (req,res) {
 
         let body = fields;
 
-        if (typeof(body.sub_cat_name) != 'undefined' && body.sub_cat_name != null && body.sub_cat_name != "") {
+        if (
+            typeof(body.sub_cat_name) != 'undefined' && body.sub_cat_name != null && body.sub_cat_name != ""
+            && typeof(body.category) != 'undefined' && body.category != null && body.category != ""
+        ) {
 
             let data_update = {
 
-                sub_cat_name : body.sub_cat_name.trim()
+                sub_cat_name : body.sub_cat_name.trim(),
+                cat_id : body.category
 
             };
 
@@ -191,7 +206,12 @@ exports.sub_category_edit_save = sub_category_edit_save
 
 const sub_category_add = function (req,res) {
 
-    res.render('sub_category_add',{err : req.query.err, session : req.session});
+    category_module.category_get_all(function (err,result1) {
+        
+        res.render('sub_category_add',{category : result1, err : req.query.err, session : req.session});
+
+    })
+
 };
 
 
@@ -212,12 +232,17 @@ const sub_category_add_save = function (req,res) {
 
         let body = fields;
 
-        if (typeof(body.sub_cat_name) != 'undefined' && body.sub_cat_name != null && body.sub_cat_name != "") {
+        if (
+
+            typeof(body.sub_cat_name) != 'undefined' && body.sub_cat_name != null && body.sub_cat_name != ""
+            && typeof(body.category) != 'undefined' && body.category != null && body.category != ""
+
+        ) {
 
             let data_insert = {
 
                 sub_cat_name : body.sub_cat_name.trim(),
-                cat_id : 1
+                cat_id : body.category
 
             };
 

@@ -29,6 +29,20 @@
                                 <div class="mb-4">
                                     <input type="text" class="form-control" id="form-category/name" value="<%= sub_category[0].sub_cat_name %>" name="sub_cat_name" required />
                                 </div>
+                                <div class="mb-5">
+                                    <h2 class="mb-0 fs-exact-18">Catégorie*</h2>
+                                </div>
+                                <select class="sa-select2 form-select mb-4" name="category" required>
+                                    <% if (typeof(category) !== 'undefined' && category != null && category.length > 0) {
+
+                                        for (var i = 0; i < category.length; i++)
+
+                                        {
+
+                                    %>
+                                    <option <%= category[i].cat_id ==  sub_category[0].cat_id ? "selected"  : "" %> value="<%= category[i].cat_id %>"><%= category[i].cat_name %></option>
+                                    <% }} %>
+                                </select>
                             </div>
                         </div>
                         <div class="card">
