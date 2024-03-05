@@ -142,7 +142,9 @@ const product_edit = function (req,res) {
 
                     if (err) {console.log(err)}
 
-                    sub_category_module.sub_category_get_all(function (err,result4) {
+                    let filterCat = ""
+
+                    sub_category_module.sub_category_get_all(filterCat,function (err,result4) {
 
                          if (err) {console.log(err)}
 
@@ -187,7 +189,7 @@ const product_edit_save = function (req,res) {
           typeof(body.product_ref) != 'undefined' && body.product_ref != null && body.product_ref != ""
           && typeof(body.product_name) != 'undefined' && body.product_name != null && body.product_name != ""
           && typeof(body.product_category) != 'undefined' && body.product_category != null && body.product_category != ""
-          && typeof(body.product_brand) != 'undefined' && body.product_brand != null && body.product_brand != ""
+/*           && typeof(body.product_brand) != 'undefined' && body.product_brand != null && body.product_brand != "" */
           && typeof(body.product_price) != 'undefined' && body.product_price != null && body.product_price != ""
           && typeof(body.product_quantity) != 'undefined' && body.product_quantity != null && body.product_quantity != ""
 
@@ -202,7 +204,7 @@ const product_edit_save = function (req,res) {
                     product_price : body.product_price.trim(),
                     product_qt : body.product_quantity.trim(),
                     sub_cat_id : body.product_category.trim(),
-                    brand_id : body.product_brand.trim()
+                    brand_id : 1
 
                }
 
@@ -261,7 +263,9 @@ const product_add = function (req,res) {
 
                if (err) {console.log(err)}
 
-               sub_category_module.sub_category_get_all(function (err,result3) {
+               let filterCat = ""
+
+               sub_category_module.sub_category_get_all(filterCat,function (err,result3) {
 
                     if (err) {console.log(err)}
 
@@ -299,7 +303,7 @@ const product_add_save = function (req,res) {
           typeof(body.product_ref) != 'undefined' && body.product_ref != null && body.product_ref != ""
           && typeof(body.product_name) != 'undefined' && body.product_name != null && body.product_name != ""
           && typeof(body.product_category) != 'undefined' && body.product_category != null && body.product_category != ""
-          && typeof(body.product_brand) != 'undefined' && body.product_brand != null && body.product_brand != ""
+   /*        && typeof(body.product_brand) != 'undefined' && body.product_brand != null && body.product_brand != "" */
           && typeof(body.product_price) != 'undefined' && body.product_price != null && body.product_price != ""
           && typeof(body.product_quantity) != 'undefined' && body.product_quantity != null && body.product_quantity != ""
 
@@ -314,7 +318,7 @@ const product_add_save = function (req,res) {
                     product_price : body.product_price.trim(),
                     product_qt : body.product_quantity.trim(),
                     sub_cat_id : body.product_category.trim(),
-                    brand_id : body.product_brand.trim(),
+                    brand_id : 1,
                     shop_id : 1
 
                }
