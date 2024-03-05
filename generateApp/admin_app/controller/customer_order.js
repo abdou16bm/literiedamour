@@ -265,15 +265,25 @@ exports.customer_order_add_save = customer_order_add_save
 
 
 const customer_order_delete = function (req,res) {
-const id = req.params.id;
-customer_order_module.customer_order_delete(id,function (err,result1) {
-if (err) console.log('error',err);
-     if(req.baseUrl == "/api") {
-     res.send({delete_result : result1, err : err, session : req.session});
-     } else {
-     res.redirect('/customer_order/admin/page/1');
-     }
-});
+
+     const id = req.params.id;
+
+     order_stat_module.order_stat_get_one_order(id,function (err,result) {
+          
+          if (result.length > 0 && result[0].stat_id == 4) 
+          product_module.product_update_qt_order(id,"+")
+
+          customer_order_module.customer_order_delete(id,function (err,result1) {
+          if (err) console.log('error',err);
+               if(req.baseUrl == "/api") {
+               res.send({delete_result : result1, err : err, session : req.session});
+               } else {
+               res.redirect('/orders/list');
+               }
+          });
+
+     })
+
 };
 
 

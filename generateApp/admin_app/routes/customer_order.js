@@ -20,7 +20,7 @@ const express = require('express');
  customer_order_router.post('/customer_order/:id/edit',authentication_controller.isAuthenticated,customer_order_controller.customer_order_edit_save);
  customer_order_router.get('/customer_order/add',authentication_controller.isAuthenticated,customer_order_controller.customer_order_add);
  customer_order_router.post('/customer_order/add',authentication_controller.isAuthenticated,customer_order_controller.customer_order_add_save);
- customer_order_router.get('/customer_order/:id/delete',authentication_controller.isAuthenticated,customer_order_controller.customer_order_delete);
+ customer_order_router.get('/order/:id/delete',authentication_controller.isAuthenticated,customer_order_controller.customer_order_delete);
  customer_order_router.get('/customer_order/list/:filter',authentication_controller.isAuthenticated,customer_order_controller.customer_order_filter);
 
 
