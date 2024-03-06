@@ -2,8 +2,8 @@
   "name": "admin App",
   "version": "1.0.0",
   "scripts": {
-    "start": "node app.js",
-    "start service": "nodemon app.js"
+    "start admin": "node app.js",
+    "start admin service": "nodemon app.js"
   },
   "dependencies": {
     "bcrypt": "5.1.0",

@@ -312,9 +312,9 @@ const home_page_edit = function (req,res) {
 
     let dataBanner = {}
 
-    if (fs.existsSync('./admin_app/public/img/banner/data.ini')) {
+    if (fs.existsSync('./public/img/banner/data.ini')) {
         
-        file_content = fs.readFileSync('./admin_app/public/img/banner/data.ini',{encoding : 'utf-8'})
+        file_content = fs.readFileSync('./public/img/banner/data.ini',{encoding : 'utf-8'})
         file_content = JSON.parse(file_content);
 
         console.log("file banner content : ",file_content)
@@ -332,7 +332,7 @@ const banner_edit_save = function (req,res) {
 
     const options = {
         multiples : true,
-        uploadDir: './admin_app/uploads'
+        uploadDir: './uploads'
     };
 
     var form = new formidable.IncomingForm(options);
@@ -343,12 +343,12 @@ const banner_edit_save = function (req,res) {
         let DataBanner = '{"text" : "'+input.textBanner+'"}'
 
         // banner img & data
-        doc_module.uploadFile('./admin_app/public/img/',"banner",files,'main','main','jpg', function (err,count1){
+        doc_module.uploadFile('./public/img/',"banner",files,'main','main','jpg', function (err,count1){
 
             if (err) console.log(err)
 
         });
-        fs.writeFile('./admin_app/public/img/banner/data.ini', DataBanner , function (err) {
+        fs.writeFile('./public/img/banner/data.ini', DataBanner , function (err) {
             if (err) console.log(err);
             console.log('Saved file 1 !');
         });
@@ -366,7 +366,7 @@ const video_edit_save = function (req,res) {
 
     const options = {
         multiples : true,
-        uploadDir: './admin_app/uploads'
+        uploadDir: './uploads'
     };
 
     var form = new formidable.IncomingForm(options);
@@ -374,7 +374,7 @@ const video_edit_save = function (req,res) {
     form.parse(req, function (err, fields, files) {     
 
         // video
-        doc_module.uploadFile('./admin_app/public/img/',"video",files,'main',number,'mp4', function (err,count1){
+        doc_module.uploadFile('./public/img/',"video",files,'main',number,'mp4', function (err,count1){
 
             if (err) console.log(err)
 

@@ -147,7 +147,7 @@ const product_details_edit_save = function (req,res) {
      const detail_id = req.params.detail
      const options = {
           multiples : true,
-          uploadDir: './admin_app/uploads'
+          uploadDir: './uploads'
      };
 
      var form = new formidable.IncomingForm(options);
@@ -208,7 +208,7 @@ exports.product_details_add = product_details_add
 const product_details_add_save = function (req,res) {
      const options = {
           multiples : true,
-          uploadDir: './admin_app/uploads'
+          uploadDir: './uploads'
      };
 
      var form = new formidable.IncomingForm(options);

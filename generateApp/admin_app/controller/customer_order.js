@@ -164,7 +164,7 @@ const id = req.params.id;
 //let data_update = input
     const options = {
         multiples : true,
-        uploadDir: './admin_app/uploads'
+        uploadDir: './uploads'
     };
 
     var form = new formidable.IncomingForm(options);
@@ -177,12 +177,12 @@ const id = req.params.id;
         let data_update =input;
       customer_order_module.customer_order_update(id,data_update,function (err,result1) {
       if (err) console.log('error',err);
-        doc_module.uploadFile('./admin_app/public/img/customer_order/',id,files,'main','main','jpg', function (err,count1){
+        doc_module.uploadFile('./public/img/customer_order/',id,files,'main','main','jpg', function (err,count1){
 
         if (err) console.log(err)
 
         console.log('count1 : ',count1)
-         doc_module.uploadMultiFile('./admin_app/public/img/customer_order/',id,files,'jpg', function (err,count2){
+         doc_module.uploadMultiFile('./public/img/customer_order/',id,files,'jpg', function (err,count2){
 
              if (err) console.log(err)
 
@@ -223,7 +223,7 @@ const customer_order_add_save = function (req,res) {
 //let data_insert = input
     const options = {
         multiples : true,
-        uploadDir: './admin_app/uploads'
+        uploadDir: './uploads'
     };
 
     var form = new formidable.IncomingForm(options);
@@ -236,12 +236,12 @@ const customer_order_add_save = function (req,res) {
         let data_insert =input;
 customer_order_module.customer_order_add(data_insert,function (err,result1) {
 if (err) console.log('error',err);
-           doc_module.uploadFile('./admin_app/public/img/customer_order/',result1.insertId,files,'main','main','jpg', function (err,count1){
+           doc_module.uploadFile('./public/img/customer_order/',result1.insertId,files,'main','main','jpg', function (err,count1){
 
            if (err) console.log(err)
 
             console.log('count1 : ',count1)
-                doc_module.uploadMultiFile('./admin_app/public/img/customer_order/',result1.insertId,files,'jpg', function (err,count2){
+                doc_module.uploadMultiFile('./public/img/customer_order/',result1.insertId,files,'jpg', function (err,count2){
 
                     if (err) console.log(err)
 

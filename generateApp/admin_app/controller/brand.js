@@ -163,7 +163,7 @@ const brand_edit_save = function (req,res) {
                     brand_module.brand_update(id,data_update,function (err,result1) {
 
                          if (err) console.log('error',err);
-                         doc_module.uploadFile('./admin_app/public/img/brand/',id,files,'main','main','jpg', function (err,count1){
+                         doc_module.uploadFile('./public/img/brand/',id,files,'main','main','jpg', function (err,count1){
 
                               if (err) console.log(err)
                               console.log('count1 : ',count1)
@@ -205,7 +205,7 @@ const brand_add_save = function (req,res) {
 
      const options = {
          multiples : true,
-         uploadDir: './admin_app/uploads'
+         uploadDir: './uploads'
      };
 
      var form = new formidable.IncomingForm(options);
@@ -225,7 +225,7 @@ const brand_add_save = function (req,res) {
                 brand_module.brand_add(data_insert,function (err,result1) {
 
                      if (err) console.log('error',err);
-                     doc_module.uploadFile('./admin_app/public/img/brand/',result1.insertId,files,'main','main','jpg', function (err,count1){
+                     doc_module.uploadFile('./public/img/brand/',result1.insertId,files,'main','main','jpg', function (err,count1){
 
                           if (err) console.log(err)
                           console.log('count1 : ',count1)

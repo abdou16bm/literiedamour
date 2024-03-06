@@ -40,7 +40,7 @@
                             <td>                          
                                 <div class="d-flex justify-content-start align-items-center gap-2">
                                     
-                                    <input type="text" class="form-control id<%= delivery_price[i].wilaya_id%>" style="width: 200px;"
+                                    <input type="number" class="form-control id<%= delivery_price[i].wilaya_id%>" style="width: 200px;"
                                     value="<%= delivery_price[i].price_home %>">
                                     <button class="btn btn-success"
                                     onclick="updateDeliveryPrice(<%= delivery_price[i].wilaya_id%>,document.querySelector('.id<%= delivery_price[i].wilaya_id%>').value,1)">Modifier</button>
