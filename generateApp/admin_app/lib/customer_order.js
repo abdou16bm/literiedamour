@@ -109,8 +109,10 @@ exports.customer_order_update = customer_order_update;
 
 
 const customer_order_delete = function(id,callback){
-let sql = 'delete from customer_order where order_id =?';
-database_module.db.query(sql,[id], function (error, results, fields) {
+let sql = 'delete from order_stat where order_id = ?;\n' +
+'delete from order_p where order_id = ?;\n' +
+'delete from customer_order where order_id = ?';
+database_module.db.query(sql,[id,id,id], function (error, results, fields) {
 if (error) console.log('error : ',error);
 //console.log('results: ', results);
 if (callback){callback(error,results)};

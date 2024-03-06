@@ -27,6 +27,19 @@ return results;
 
 exports.order_stat_get_one = order_stat_get_one;
 
+const order_stat_get_one_order = function(order_id,callback){
+let sql='SELECT * from  order_stat where order_id = ?';
+database_module.db.query(sql,[order_id], function (error, results, fields) {
+if (error) console.log('error : ',error);
+//console.log('results: ', results);
+if (callback){callback(error,results)};
+return results;
+});
+};
+
+
+exports.order_stat_get_one_order = order_stat_get_one_order;
+
 
 const order_stat_add = function(data,callback){
 let fields = '('+Object.keys(data).toString()+')';

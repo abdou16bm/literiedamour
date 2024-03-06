@@ -245,37 +245,25 @@
                                 <div class="mb-5">
                                     <h2 class="mb-0 fs-exact-18">Catégorie*</h2>
                                 </div><select class="sa-select2 form-select" name="product_category" required>
-                                    <% if (typeof(sub_category) !== 'undefined' && sub_category != null && sub_category.length > 0) {
-
-                                        for (var i = 0; i < sub_category.length; i++){ 
-                                            
-                                          let selected = ""; 
-                                          if (sub_category[i].sub_cat_id == product[0].sub_cat_id) {selected = "selected"}
-
-                                    %>
-                                    <option <%= selected %> value="<%= sub_category[i].sub_cat_id %>"><%= sub_category[i].sub_cat_name %></option>
+                                    <% if (typeof(sub_category) !== 'undefined' && sub_category != null && sub_category.length > 0) { %>
+                                    <% for (var i = 0; i < sub_category.length; i++){ %>
+                                    <option <%= sub_category[i].sub_cat_id == product[0].sub_cat_id ? "selected" : "" %> value="<%= sub_category[i].sub_cat_id %>"><%= sub_category[i].sub_cat_name %></option>
                                     <% }} %>
                                 </select>
                             </div>
                         </div>
-                        <div class="card w-100">
+                        <!-- <div class="card w-100">
                             <div class="card-body p-5">
                                 <div class="mb-5">
                                     <h2 class="mb-0 fs-exact-18">Marques*</h2>
                                 </div><select class="sa-select2 form-select" name="product_brand" required>
-                                    <% if (typeof(brands) !== 'undefined' && brands != null && brands.length > 0) {
-
-                                        for (var i = 0; i < brands.length; i++){
-
-                                          let selected = ""; 
-                                          if (brands[i].brand_id == product[0].brand_id) {selected = "selected"}
-
-                                    %>
-                                    <option <%= selected %> value="<%= brands[i].brand_id %>"><%= brands[i].brand_name %></option>
+                                    <% if (typeof(brands) !== 'undefined' && brands != null && brands.length > 0) { %>
+                                    <% for (var i = 0; i < brands.length; i++){ %>
+                                    <option <%= brands[i].brand_id == product[0].brand_id ? "selected" : "" %> value="<%= brands[i].brand_id %>"><%= brands[i].brand_name %></option>
                                     <% }} %>
                                 </select>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="card w-100 mt-5">
                             <div class="card-body p-5">
                                 <div class="mb-5">

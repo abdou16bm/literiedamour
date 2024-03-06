@@ -61,7 +61,9 @@ apis.get("/delivery_price/:wilaya/:type",function (req,res) {
 
 apis.get("/subcat/list",function (req,res) {
 
-    sub_category_module.sub_category_get_all(function (err,result1){
+    let filterCat = ""
+
+    sub_category_module.sub_category_get_all(filterCat,function (err,result1){
 
         if (err) console.log('Error : ',err);
 
