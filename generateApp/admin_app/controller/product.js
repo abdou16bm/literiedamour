@@ -225,7 +225,7 @@ const product_edit_save = function (req,res) {
 
                     })               
 
-                    doc_module.uploadFile('./admin_app/public/img/product/',id,files,'main','main','jpg', function (err,count1){
+                    doc_module.uploadFile('./public/img/product/',id,files,'main','main','jpg', function (err,count1){
 
                          if (err) console.log(err)
 
@@ -236,7 +236,7 @@ const product_edit_save = function (req,res) {
 
                     })
 
-                    doc_module.uploadMultiFile('./admin_app/public/img/product/',id,files,'jpg', function (err,count2){
+                    doc_module.uploadMultiFile('./public/img/product/',id,files,'jpg', function (err,count2){
 
                          if (err) console.log(err)
 
@@ -347,7 +347,7 @@ const product_add_save = function (req,res) {
 
                     }
     
-                    doc_module.uploadFile('./admin_app/public/img/product/',result1.insertId,files,'main','main','jpg', function (err,count1){
+                    doc_module.uploadFile('./public/img/product/',result1.insertId,files,'main','main','jpg', function (err,count1){
 
                          if (err) console.log(err)
 
@@ -358,7 +358,7 @@ const product_add_save = function (req,res) {
 
                     })
 
-                    doc_module.uploadMultiFile('./admin_app/public/img/product/',result1.insertId,files,'jpg', function (err,count2){
+                    doc_module.uploadMultiFile('./public/img/product/',result1.insertId,files,'jpg', function (err,count2){
 
                          if (err) console.log(err)
 
