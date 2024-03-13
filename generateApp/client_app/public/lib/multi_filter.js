@@ -1,6 +1,5 @@
 let cat = []
 let sub_cat = []
-let brands = []
 let price = []
 let bprice = ""
 let eprice = ""
@@ -10,8 +9,6 @@ const catDiv = document.getElementById("cat-choice")
 const subCatDiv = document.getElementById("subCat-choice")
 const inputCatList = catDiv.querySelectorAll("input")
 const inputSubCatList = subCatDiv.querySelectorAll("input")
-const brandDiv = document.getElementById("brand-choice")
-const inputBrandList = brandDiv.querySelectorAll("input")
 
 
 
@@ -82,7 +79,7 @@ if (document.getElementById('subCat-choice')) {
     document.getElementById('subCat-choice').onclick = () => {
 
 
-        for (let i = 0; i < inputCatList.length; i++) {
+        for (let i = 0; i < inputSubCatList.length; i++) {
 
             if (inputSubCatList[i].checked == true) {
 
@@ -113,41 +110,6 @@ if (document.getElementById('subCat-choice')) {
 
 
 
-if (document.getElementById('brand-choice')) {
-
-    document.getElementById('brand-choice').onclick = () => {
-
-        for (let i = 0; i < inputBrandList.length; i++) {
-
-            if (inputBrandList[i].checked == true) {
-
-                if (brands.indexOf(inputBrandList[i].value) == -1) {
-
-                    brands.push(inputBrandList[i].value)
-
-                }
-
-            } else {
-
-                if (brands.indexOf(inputBrandList[i].value) != -1) {
-
-                    brands.splice(brands.indexOf(inputBrandList[i].value),1)
-
-                }
-
-            }
-
-        }
-
-
-        //console.log("brands : ",brands)
-
-    }
-
-}
-
-
-
 if (document.getElementById('btn-filter')) {
 
     document.getElementById('btn-filter').onclick = () => {
@@ -161,10 +123,10 @@ if (document.getElementById('btn-filter')) {
 
         } else {price = []}
 
-        if (cat.length > 0 || sub_cat.length > 0 || brands.length > 0 || price.length > 0 ) {
+        if (cat.length > 0 || sub_cat.length > 0 || price.length > 0 ) {
 
 
-            location.href = "1?catP="+cat+"&cat="+sub_cat+"&bprice="+bprice+"&eprice="+eprice+"&brand="+brands
+            location.href = "1?catP="+cat+"&cat="+sub_cat+"&bprice="+bprice+"&eprice="+eprice
 
 
         } else {

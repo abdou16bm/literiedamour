@@ -1,5 +1,6 @@
 // MY MODULES
 const brand_module = require ("../../admin_app/lib/brand")
+const category_module = require ("../../admin_app/lib/category")
 const sub_category_module = require ("../../admin_app/lib/sub_category")
 const product_module = require ("../../admin_app/lib/product")
 
@@ -24,17 +25,17 @@ const home = function (req, res) {
     }
 
 
-    sub_category_module.sub_category_get_all_client(function (err,result1) {
+    category_module.category_get_all(function (err,result1) {
 
         if (err) console.log(err)
 
         for (let i = 0; i < result1.length; i++) {
 
-            product_module.product_get_all_client(result1[i].sub_cat_id,function (err,subcat_products) {
+            product_module.product_get_all_client(result1[i].cat_id,function (err,cat_products) {
 
                 if (err) console.log(err)
 
-                result1[i].products = subcat_products
+                result1[i].products = cat_products
 
             })
 
@@ -44,7 +45,7 @@ const home = function (req, res) {
 
             if (err) console.log(err)
             //console.log(result1)
-            res.render('home',{product_top : result2, sub_category : result1, banner : dataBanner, err : err, session : req.session});
+            res.render('home',{product_top : result2, category : result1, banner : dataBanner, err : err, session : req.session});
 
 
         })

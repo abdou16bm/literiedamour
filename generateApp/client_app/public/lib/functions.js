@@ -61,7 +61,7 @@ if (btn_ToCheckout.length > 0) {
     
 }
 
-if (document.getElementById("select_brand")) {
+/* if (document.getElementById("select_brand")) {
 
     document.getElementById("select_brand").oninput = function () {
 
@@ -164,7 +164,7 @@ if (document.getElementById("btn_compare")) {
 
     }
 
-}
+} */
 
 
 

@@ -1,7 +1,10 @@
 const database_module=require('./database');
 
 const category_get_all = function(callback){
- let sql='SELECT * from category order by cat_id ASC ';
+ let sql='SELECT c.*,count(p.product_id) as product_count from category c\n' +
+ 'left join product p on p.cat_id = c.cat_id\n' +
+ 'group by c.cat_id\n' +
+ 'order by c.cat_id ASC ';
 database_module.db.query(sql,[], function (error, results, fields) {
 if (error) console.log('error : ',error);
 //console.log('results: ', results);

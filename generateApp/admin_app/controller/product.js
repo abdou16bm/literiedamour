@@ -9,6 +9,8 @@ const property_module = require('../lib/property');
 const sub_category_module = require('../lib/sub_category');
 const product_details_module = require('../lib/product_details');
 const details_module = require('../lib/details');
+const category_module = require("../lib/category");
+const product_sub_cat_module = require("../lib/product_sub_cat")
 
 
 const product_list_page = function (req,res) {
@@ -141,17 +143,15 @@ const product_edit = function (req,res) {
                property_module.property_get_all_color(function (err,result3) {
 
                     if (err) {console.log(err)}
-
-                    let filterCat = ""
-
-                    sub_category_module.sub_category_get_all(filterCat,function (err,result4) {
+        
+                    category_module.category_get_all(function (err,result4) {
 
                          if (err) {console.log(err)}
 
                          if(req.baseUrl == "/api") {
-                         res.send({product : result1, brands : result2, property : result3, sub_category : result4, err : req.query.err, session : req.session});
+                         res.send({product : result1, brands : result2, property : result3, category : result4, err : req.query.err, session : req.session});
                          } else {
-                         res.render('product_edit',{product : result1, brands : result2, property : result3, sub_category : result4, err : req.query.err, session : req.session});
+                         res.render('product_edit',{product : result1, brands : result2, property : result3, category : result4, err : req.query.err, session : req.session});
                          }
 
                     })
@@ -203,16 +203,29 @@ const product_edit_save = function (req,res) {
                     product_desig : body.product_desig.trim(),
                     product_price : body.product_price.trim(),
                     product_qt : body.product_quantity.trim(),
-                    sub_cat_id : body.product_category.trim(),
+                    cat_id : body.product_category.trim(),
                     brand_id : 1
 
                }
 
                product_module.product_update(id,data_product,function (err,result1) {
 
-                    if (err) {console.log(err)}
+                    if (err) {console.log(err)}            
+                    
+                    product_sub_cat_module.product_sub_cat_delete(id,(err,resultDelete)=>{
 
-                    doc_module.uploadFile('./public/img/product/',id,files,'main','main','jpg', function (err,count1){
+                         if (typeof(body.product_sub_cat) != 'undefined') {
+
+                              let sub_cat_list = body.product_sub_cat
+                              if (Array.isArray(sub_cat_list) == false) sub_cat_list = sub_cat_list.split() 
+                              sub_cat_list.forEach(sub_cat => 
+                              product_sub_cat_module.product_sub_cat_add({product_id : id,sub_cat_id : sub_cat}));
+
+                         }
+
+                    })               
+
+                    doc_module.uploadFile('./admin_app/public/img/product/',id,files,'main','main','jpg', function (err,count1){
 
                          if (err) console.log(err)
 
@@ -223,7 +236,7 @@ const product_edit_save = function (req,res) {
 
                     })
 
-                    doc_module.uploadMultiFile('./public/img/product/',id,files,'jpg', function (err,count2){
+                    doc_module.uploadMultiFile('./admin_app/public/img/product/',id,files,'jpg', function (err,count2){
 
                          if (err) console.log(err)
 
@@ -263,13 +276,11 @@ const product_add = function (req,res) {
 
                if (err) {console.log(err)}
 
-               let filterCat = ""
-
-               sub_category_module.sub_category_get_all(filterCat,function (err,result3) {
+               category_module.category_get_all(function (err,result3) {
 
                     if (err) {console.log(err)}
 
-                    res.render("product_add",{brands : result1, property : result2, sub_category : result3, session : req.session, err : req.query.err})
+                    res.render("product_add",{brands : result1, property : result2, category : result3, session : req.session, err : req.query.err})
 
                })
 
@@ -317,7 +328,7 @@ const product_add_save = function (req,res) {
                     product_desig : body.product_desig.trim(),
                     product_price : body.product_price.trim(),
                     product_qt : body.product_quantity.trim(),
-                    sub_cat_id : body.product_category.trim(),
+                    cat_id : body.product_category.trim(),
                     brand_id : 1,
                     shop_id : 1
 
@@ -327,7 +338,16 @@ const product_add_save = function (req,res) {
 
                     if (err) {console.log(err)}
 
-                    doc_module.uploadFile('./public/img/product/',result1.insertId,files,'main','main','jpg', function (err,count1){
+                    if (typeof(body.product_sub_cat) != 'undefined') {
+                         
+                         let sub_cat_list = body.product_sub_cat
+                         if (Array.isArray(sub_cat_list) == false) sub_cat_list = sub_cat_list.split() 
+                         sub_cat_list.forEach(sub_cat => 
+                         product_sub_cat_module.product_sub_cat_add({product_id : result1.insertId,sub_cat_id : sub_cat}));
+
+                    }
+    
+                    doc_module.uploadFile('./admin_app/public/img/product/',result1.insertId,files,'main','main','jpg', function (err,count1){
 
                          if (err) console.log(err)
 
@@ -338,7 +358,7 @@ const product_add_save = function (req,res) {
 
                     })
 
-                    doc_module.uploadMultiFile('./public/img/product/',result1.insertId,files,'jpg', function (err,count2){
+                    doc_module.uploadMultiFile('./admin_app/public/img/product/',result1.insertId,files,'jpg', function (err,count2){
 
                          if (err) console.log(err)
 

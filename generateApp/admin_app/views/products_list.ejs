@@ -38,7 +38,7 @@
                                 <th class="w-min" data-orderable="false">Réf</th>
                                 <th class="min-w-20x">Produits</th>
                                 <td>Catégorie</td>
-                                <th>Marque</th>
+                                <td>Sous-catégorie</td>
                                 <th>Etat</th>
                                 <th>Prix</th>
                                 <th>Fiche technique</th>
@@ -73,8 +73,8 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td class="text-reset"><%= products[i].sub_cat_name %></td>
-                                <td class="text-reset"><%= products[i].brand_name %></td>
+                                <td class="text-reset"><%= products[i].cat_name %></td>
+                                <td class="text-reset"><%= products[i].sub_cat_list %></td>
                                 <td>
                                     <% if (products[i].product_qt > 0) {var etat = "Disponible" %>
                                 

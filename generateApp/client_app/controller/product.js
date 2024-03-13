@@ -23,7 +23,7 @@ const product_details = function (req, res) {
 
             if (err) console.log(err)
 
-            product_module.product_get_all_limit_filter({cat : result1[0].sub_cat_id},1,6,'table_pk','DESC',function (err,result3){
+            product_module.product_get_all_limit_filter({catP : result1[0].cat_id},1,6,'table_pk','DESC',function (err,result3){
 
                 if (err) console.log(err)
 
@@ -39,8 +39,9 @@ const product_details = function (req, res) {
 
 
 const product_list_page = function (req,res) {
+    
     let count_page = 0;
-    let limit_page = 9;
+    let limit_page = 12;
     let current_page = req.params.page-1;
 
     let filterObj = {}
@@ -71,11 +72,6 @@ const product_list_page = function (req,res) {
     if (typeof(req.query.eprice) != "undefined" && req.query.eprice != null && req.query.eprice != "") {
 
         filterObj.eprice = req.query.eprice
-    }
-    if (typeof(req.query.brand) != "undefined" && req.query.brand != null && req.query.brand != "") {
-
-        filterObj.brand = req.query.brand
-
     }
     if (typeof(req.query.product) != "undefined" && req.query.product != null && req.query.product != "") {
 

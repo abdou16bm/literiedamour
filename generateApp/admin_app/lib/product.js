@@ -1,11 +1,14 @@
 const database_module=require('./database');
 
 const product_get_all = function(callback){
-    let sql='SELECT * from product\n' +
-        'LEFT JOIN brand ON brand.brand_id = product.brand_id\n' +
-        'LEFT JOIN shop ON shop.shop_id = product.shop_id\n' +
-        'LEFT JOIN sub_category sc ON sc.sub_cat_id = product.sub_cat_id\n' +
-        'order by product_id DESC ';
+    let sql='SELECT product.*,shop.*,c.*,GROUP_CONCAT(sc.sub_cat_name) as sub_cat_list from product\n' +
+    'LEFT JOIN brand ON brand.brand_id = product.brand_id\n' +
+    'LEFT JOIN shop ON shop.shop_id = product.shop_id\n' +
+    'LEFT JOIN category c ON c.cat_id = product.cat_id\n' +
+    'LEFT JOIN product_sub_cat psc on psc.product_id = product.product_id\n' +
+    'LEFT JOIN sub_category sc on sc.sub_cat_id = psc.sub_cat_id\n' +
+    'group by product.product_id\n' +
+    'order by product.product_id DESC';
     database_module.db.query(sql,[], function (error, results, fields) {
         if (error) console.log('error : ',error);
 //console.log('results: ', results);
@@ -20,11 +23,15 @@ exports.product_get_all = product_get_all;
 
 const product_get_all_top = function(top,callback){
 
-    let sql='SELECT * from product\n' +
+    let sql='SELECT product.*,brand.*,c.*,GROUP_CONCAT(sc.sub_cat_name) as sub_cat_list from product\n' +
     'LEFT JOIN brand ON brand.brand_id = product.brand_id\n' +
     'LEFT JOIN shop ON shop.shop_id = product.shop_id\n' +
-    'LEFT JOIN sub_category sc ON sc.sub_cat_id = product.sub_cat_id\n' +
-    'order by product_id DESC limit ?';
+    'LEFT JOIN category c ON c.cat_id = product.cat_id\n' +
+    'LEFT JOIN product_sub_cat psc on psc.product_id = product.product_id\n' +
+    'LEFT JOIN sub_category sc on sc.sub_cat_id = psc.sub_cat_id\n' +
+    'group by product.product_id\n' +
+    'order by product.product_id DESC\n' +
+    'limit ?';
 
     database_module.db.query(sql,[top], function (error, results, fields) {
     if (error) console.log('error : ',error);
@@ -37,10 +44,14 @@ const product_get_all_top = function(top,callback){
 exports.product_get_all_top = product_get_all_top;
 
 const product_get_one = function(product_id,callback){
-    let sql='SELECT * FROM product\n' +
-        'LEFT JOIN sub_category sc ON sc.sub_cat_id = product.sub_cat_id\n' +
-        'LEFT JOIN brand ON brand.brand_id = product.brand_id\n' +
-        'WHERE product_id = ?';
+    let sql='SELECT product.*,brand.*,shop.*,c.*,CONCAT("[",GROUP_CONCAT(sc.sub_cat_id),"]") as subCat_list_id FROM product\n' +
+    'LEFT JOIN brand ON brand.brand_id = product.brand_id\n' +
+    'LEFT JOIN shop ON shop.shop_id = product.shop_id\n' +
+    'LEFT JOIN category c ON c.cat_id = product.cat_id\n' +
+    'LEFT JOIN product_sub_cat psc on psc.product_id = product.product_id\n' +
+    'LEFT JOIN sub_category sc on sc.sub_cat_id = psc.sub_cat_id\n' +
+    'WHERE product.product_id = ?\n' +
+    'group by product.product_id'
     database_module.db.query(sql,[product_id], function (error, results, fields) {
         if (error) console.log('error : ',error);
 //console.log('results: ', results);
@@ -100,8 +111,9 @@ exports.product_update = product_update;
 
 
 const product_delete = function(id,callback){
-    let sql = 'delete from product where product_id =?';
-    database_module.db.query(sql,[id], function (error, results, fields) {
+    let sql = 'delete from product_sub_cat where product_id = ?;\n' +
+    'delete from product where product_id = ?';
+    database_module.db.query(sql,[id,id], function (error, results, fields) {
         if (error) console.log('error : ',error);
 //console.log('results: ', results);
         if (callback){callback(error,results)};
@@ -125,6 +137,9 @@ const product_get_filter = function (filter_field,filter_data,callback) {
 
 
 exports.product_get_filter = product_get_filter;
+
+
+
 
 
 const product_get_filter_multi = function (filter_field,callback) {
@@ -257,11 +272,16 @@ exports.product_stock_update = product_stock_update;
 
 const product_get_all_client = function(sub_cat,callback){
 
-    let sql='SELECT * from product p\n' +
+    let sql='SELECT p.*,brand.*,c.*,GROUP_CONCAT(sc.sub_cat_name) as sub_cat_list from product p\n' +
         'LEFT JOIN brand ON brand.brand_id = p.brand_id\n' +
-        'LEFT JOIN sub_category sc ON sc.sub_cat_id = p.sub_cat_id\n' +
-        'WHERE p.sub_cat_id = ?\n' +
-        'order by product_id DESC LIMIT 12';
+        'LEFT JOIN category c ON c.cat_id = p.cat_id\n' +
+        'LEFT JOIN product_sub_cat psc on psc.product_id = p.product_id\n' +
+        'LEFT JOIN sub_category sc on sc.sub_cat_id = psc.sub_cat_id\n' +
+        'WHERE p.cat_id = ?\n' +
+        'group by p.product_id\n' +
+        'order by p.product_id DESC\n' +
+        'limit 12';
+        
     database_module.db.query(sql,[sub_cat], function (error, results, fields) {
         if (error) console.log('error : ',error);
         //console.log('results: ', results);
@@ -277,10 +297,14 @@ exports.product_get_all_client = product_get_all_client;
 
 
 const product_get_one_client = function(product_id,callback){
-    let sql='SELECT * FROM product\n' +
-        'LEFT JOIN sub_category sc ON sc.sub_cat_id = product.sub_cat_id\n' +
-        'LEFT JOIN brand ON brand.brand_id = product.brand_id\n' +
-        'WHERE product_id = ?';
+    let sql='SELECT p.*,c.*,brand.*,GROUP_CONCAT(sc.sub_cat_name) as sub_cat_list FROM product p\n' +
+    'LEFT JOIN category c ON c.cat_id = p.cat_id\n' +
+    'LEFT JOIN product_sub_cat psc on psc.product_id = p.product_id\n' +
+    'LEFT JOIN sub_category sc on sc.sub_cat_id = psc.sub_cat_id\n' +
+    'LEFT JOIN brand ON brand.brand_id = p.brand_id\n' +
+    'WHERE p.product_id = ?\n' +
+    'group by p.product_id';
+
     database_module.db.query(sql,[product_id], function (error, results, fields) {
         if (error) console.log('error : ',error);
         //console.log('results: ', results);
@@ -298,9 +322,14 @@ let product_count_page_filter = function (filterObj,limit,callback){
 
     let filter = ""
 
+    if (typeof(filterObj.catP) != 'undefined' && filterObj.catP != null && filterObj.catP != "") {
+
+        filter += " and product.cat_id in (" + filterObj.catP + ")"
+
+    }
     if (typeof(filterObj.cat) != 'undefined' && filterObj.cat != null && filterObj.cat != "") {
 
-        filter += " and sub_cat_id in (" + filterObj.cat + ")"
+        filter += " and psc.sub_cat_id in (" + filterObj.cat + ")"
 
     }
     if (
@@ -308,12 +337,12 @@ let product_count_page_filter = function (filterObj,limit,callback){
         && typeof(filterObj.eprice) != 'undefined' && filterObj.eprice != null && filterObj.eprice != ""
     ) {
 
-        filter += " and product_price between " + filterObj.bprice + " and " + filterObj.eprice
+        filter += " and product.product_price between " + filterObj.bprice + " and " + filterObj.eprice
 
     }
     if (typeof(filterObj.brand) != 'undefined' && filterObj.brand != null && filterObj.brand != "") {
 
-        filter += " and brand_id in (" + filterObj.brand + ")"
+        filter += " and product.brand_id in (" + filterObj.brand + ")"
 
     }
     if (typeof(filterObj.product) != 'undefined' && filterObj.product != null && filterObj.product != "") {
@@ -324,8 +353,12 @@ let product_count_page_filter = function (filterObj,limit,callback){
 
 
     let sql ="select CEIL(count(*)/?) as 'count_p' from product\n" +
-        "where shop_id = 1\n"
-        + filter;
+        "left join category on category.cat_id = product.cat_id\n" +
+        "LEFT JOIN product_sub_cat psc on psc.product_id = product.product_id\n" +
+        "LEFT JOIN sub_category sc on sc.sub_cat_id = psc.sub_cat_id\n" +
+        "where shop_id = 1\n" +
+        "group by product.product_id\n" +
+        filter;
 
     //console.log(sql)
     database_module.db.query(sql,limit, function (error, results, fields) {
@@ -346,13 +379,13 @@ let product_get_all_limit_filter = function (filterObj,limit1,limit2,order_value
 
     if (typeof(filterObj.catP) != 'undefined' && filterObj.catP != null && filterObj.catP != "") {
 
-        filter += " and category.cat_id in (" + filterObj.catP + ")"
+        filter += " and product.cat_id in (" + filterObj.catP + ")"
 
     }
 
     if (typeof(filterObj.cat) != 'undefined' && filterObj.cat != null && filterObj.cat != "") {
 
-        filter += " and sub_category.sub_cat_id in (" + filterObj.cat + ")"
+        filter += " and psc.sub_cat_id in (" + filterObj.cat + ")"
 
     }
     if (
@@ -375,12 +408,14 @@ let product_get_all_limit_filter = function (filterObj,limit1,limit2,order_value
     }
 
 
-    let sql =" SELECT * FROM product \n" +
-        "left join sub_category on sub_category.sub_cat_id = product.sub_cat_id\n" +
-        "left join category on category.cat_id = sub_category.cat_id\n" +
+    let sql =" SELECT product.*,category.*,GROUP_CONCAT(sc.sub_cat_name) AS sub_cat_list FROM product \n" +
+        "left join category on category.cat_id = product.cat_id\n" +
+        "LEFT JOIN product_sub_cat psc on psc.product_id = product.product_id\n" +
+        "LEFT JOIN sub_category sc on sc.sub_cat_id = psc.sub_cat_id\n" +
         "where shop_id = 1\n"
         +filter+"\n" +
         // "order by ? ?\n"+
+        "group by product.product_id\n" +
         " order by product_id DESC \n"+
         "LIMIT ?,?";
 
