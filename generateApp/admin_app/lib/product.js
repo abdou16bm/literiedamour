@@ -354,15 +354,26 @@ let product_count_page_filter = function (filterObj,limit,callback){
     }
 
 
-    let sql ="select CEIL(count(*)/?) as 'count_p' from product\n" +
+   /*  let sql ="select CEIL(count(*)/?) as 'count_p' from product\n" +
         "left join category on category.cat_id = product.cat_id\n" +
         "LEFT JOIN product_sub_cat psc on psc.product_id = product.product_id\n" +
         "LEFT JOIN sub_category sc on sc.sub_cat_id = psc.sub_cat_id\n" +
         "where shop_id = 1\n" +
-        "group by product.product_id\n" +
-        filter;
+        filter + "\n" +
+        "group by product.product_id"; */
 
-    //console.log(sql)
+        let sql = "select CEIL(COUNT(*)/?) as 'count_p' from product\n" +
+        "INNER JOIN (\n" +
+        "SELECT product.product_id from product\n" +
+        "left join category on category.cat_id = product.cat_id\n" +
+        "LEFT JOIN product_sub_cat psc on psc.product_id = product.product_id\n" +
+        "LEFT JOIN sub_category sc on sc.sub_cat_id = psc.sub_cat_id\n" +
+        "where shop_id = 1\n" +
+        filter + "\n" +
+        "group by product.product_id\n" + 
+        ") t1 ON t1.product_id = product.product_id";
+
+    console.log(sql)
     database_module.db.query(sql,limit, function (error, results, fields) {
         if (error) console.log('error : ',error);
         // console.log('results: ', results);
