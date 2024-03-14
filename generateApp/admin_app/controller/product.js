@@ -444,16 +444,19 @@ const product_data_sheet = function (req,res) {
 
           if (result1.length > 0 ) {
 
-               let sub_cat = result1[0].sub_cat_id
+               let sub_cat = "";
+               result1[0].subCat_list_id != null ? 
+               sub_cat = result1[0].subCat_list_id.replaceAll("[","").replaceAll("]","") 
+               : sub_cat = ""
 
                //console.log("product : ",result1)
-
+ 
                product_details_module.product_details_get_all_product(product_id,function (err,result2) {
 
                     if (err) {console.log(err)}
-
+                   
                     details_module.details_get_all_sub_category(sub_cat,function (err,result3) {
-
+                   
                          if (err) {console.log(err)}
 
                          if(req.baseUrl == "/api") {

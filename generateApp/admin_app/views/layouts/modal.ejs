@@ -568,8 +568,9 @@
           <input type="hidden" value="<%= product[0].product_id %>" name="product_id">  
           <div class="row g-3 needs-validation">
           <div class="mb-2 col-md-12">
-            <label for="detail_id" class="form-label">Détails* : <span style="color: gray;">Selectionner un detail</span></label>
+            <label for="detail_id" class="form-label">Détails* : <span style="color: gray;"><span class="text-danger"> ( Le produit doit au moin étre classé dans une sous-catégorie )</span></span></label>
             <select class="form-control font-sm" aria-label=".form-select-lg example" name="detail_id" required>
+              <option value="" selected disabled>Selectionner un detail</option>
               <% if (typeof(details) !== 'undefined' && details.length > 0 ) { for (let i = 0; i < details.length; i++) { %>
                 <option value="<%= details[i].detail_id %>"><%= details[i].detail_name %></option>
               <% }} %>
