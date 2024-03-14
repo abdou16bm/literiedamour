@@ -111,9 +111,11 @@ exports.product_update = product_update;
 
 
 const product_delete = function(id,callback){
-    let sql = 'delete from product_sub_cat where product_id = ?;\n' +
+    let sql = 'delete from cart_p where product_id = ?;\n' +
+    'delete from product_details where product_id = ?;\n' +
+    'delete from product_sub_cat where product_id = ?;\n' +
     'delete from product where product_id = ?';
-    database_module.db.query(sql,[id,id], function (error, results, fields) {
+    database_module.db.query(sql,[id,id,id,id], function (error, results, fields) {
         if (error) console.log('error : ',error);
 //console.log('results: ', results);
         if (callback){callback(error,results)};

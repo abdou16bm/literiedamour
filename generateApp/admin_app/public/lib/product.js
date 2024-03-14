@@ -31,7 +31,7 @@ if (cat_select && sub_cat_select) {
 
                 sub_cat_list.forEach((sub_cat) => {
         
-                    sub_cat_select.innerHTML += "<option selected value='"+sub_cat.sub_cat_id+"'>"+sub_cat.sub_cat_name+"</option>"
+                    sub_cat_select.innerHTML += "<option value='"+sub_cat.sub_cat_id+"'>"+sub_cat.sub_cat_name+"</option>"
         
                 });
     
@@ -46,8 +46,4 @@ if (cat_select && sub_cat_select) {
 }
 
 
-if (typeof(subCat_list_id) != "undefined" && subCat_list_id.length > 0) {
-
-    setTimeout(() =>cat_select.oninput(), 200);
-    
-}
+setTimeout(() =>cat_select.oninput(), 200);

@@ -27,6 +27,8 @@
                     </div>
                     <% if (typeof(err) != "undefined" && err != null && err == 1) { %>
                         <div class="alert alert-danger ms-4 me-4" role="alert">Echec de suppression du produit !</div>
+                    <% } else if (typeof(err) != "undefined" && err != null && err == 2) { %>    
+                        <div class="alert alert-danger ms-4 me-4" role="alert">Impossible de supprimer ce produit ! <br><br> il a déja été commandé par un client.</div>
                     <% } else if (typeof(err) != "undefined" && err != null && err == 0) { %>
                         <div class="alert alert-success ms-4 me-4" role="alert">Succées !</div>
                     <% } %>    

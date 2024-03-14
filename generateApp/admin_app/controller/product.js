@@ -10,7 +10,9 @@ const sub_category_module = require('../lib/sub_category');
 const product_details_module = require('../lib/product_details');
 const details_module = require('../lib/details');
 const category_module = require("../lib/category");
-const product_sub_cat_module = require("../lib/product_sub_cat")
+const product_sub_cat_module = require("../lib/product_sub_cat");
+const cart_p_module = require("../lib/cart_p");
+const order_p_module = require("../lib/order_p")
 
 
 const product_list_page = function (req,res) {
@@ -388,25 +390,39 @@ exports.product_add_save = product_add_save
 
 
 const product_delete = function (req,res) {
-const id = req.params.id;
-product_module.product_delete(id,function (err,result1) {
 
-     if (err) {
+     const id = req.params.id;
 
-          console.log('error',err)
-          res.redirect("/products/list?err=1")
+     order_p_module.order_p_get_one(id,function (err,result1) {
 
-     } else {
+          if (err) console.log(err)
 
-          if(req.baseUrl == "/api") {
-          res.send({delete_result : result1, err : err, session : req.session});
-          } else {
-          res.redirect('/products/list?err=0');
+          if (result1.length > 0)  res.redirect("/products/list?err=2")
+          else {
+     
+               product_module.product_delete(id,function (err,result2) {
+
+                    if (err) {
+               
+                         console.log('error',err)
+                         res.redirect("/products/list?err=1")
+               
+                    } else {
+               
+                         if(req.baseUrl == "/api") {
+                         res.send({delete_result : result2, err : err, session : req.session});
+                         } else {
+                         res.redirect('/products/list?err=0');
+                         }
+               
+                    }
+               
+               });
+
           }
+     
+     })
 
-     }
-
-});
 };
 
 
