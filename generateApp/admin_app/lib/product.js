@@ -272,7 +272,7 @@ exports.product_stock_update = product_stock_update;
 //------------- module client
 
 
-const product_get_all_client = function(sub_cat,callback){
+const product_get_all_client = function(cat,callback){
 
     let sql='SELECT p.*,brand.*,c.*,GROUP_CONCAT(sc.sub_cat_name) as sub_cat_list from product p\n' +
         'LEFT JOIN brand ON brand.brand_id = p.brand_id\n' +
@@ -284,7 +284,7 @@ const product_get_all_client = function(sub_cat,callback){
         'order by p.product_id DESC\n' +
         'limit 12';
         
-    database_module.db.query(sql,[sub_cat], function (error, results, fields) {
+    database_module.db.query(sql,[cat], function (error, results, fields) {
         if (error) console.log('error : ',error);
         //console.log('results: ', results);
         if (callback){callback(error,results)};
@@ -296,6 +296,27 @@ const product_get_all_client = function(sub_cat,callback){
 
 exports.product_get_all_client = product_get_all_client;
 
+
+const product_get_all_subcat = function(sub_cat,callback){
+
+    let sql='SELECT p.*,brand.brand_name,c.cat_name,sc.sub_cat_name FROM product_sub_cat psc\n' +
+    'left join sub_category sc on sc.sub_cat_id = psc.sub_cat_id\n' +
+    'LEFT JOIN product p on psc.product_id = p.product_id\n' +
+    'LEFT JOIN brand ON brand.brand_id = p.brand_id\n' +
+    'LEFT JOIN category c ON c.cat_id = p.cat_id\n' +
+    'WHERE psc.sub_cat_id = ?';
+        
+    database_module.db.query(sql,[sub_cat], function (error, results, fields) {
+        if (error) console.log('error : ',error);
+        //console.log('results: ', results);
+        if (callback){callback(error,results)};
+        return results;
+    });
+
+};
+
+
+exports.product_get_all_subcat = product_get_all_subcat;
 
 
 const product_get_one_client = function(product_id,callback){

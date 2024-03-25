@@ -29,30 +29,32 @@ const home = function (req, res) {
 
         if (err) console.log(err)
 
-        for (let i = 0; i < result1.length; i++) {
+        sub_category_module.sub_category_get_all_client(function (err,result_subcat) {
 
-            product_module.product_get_all_client(result1[i].cat_id,function (err,cat_products) {
+            for (let i = 0; i < result_subcat.length; i++) {
+
+                product_module.product_get_all_subcat(result_subcat[i].sub_cat_id,function (err,products) {
+    
+                    if (err) console.log(err)
+    
+                    result_subcat[i].products = products
+    
+                })
+    
+            }
+
+            product_module.product_get_all_top(12,function (err,result2) {
 
                 if (err) console.log(err)
-
-                result1[i].products = cat_products
-
+                //console.log(result1)
+                res.render('home',{product_top : result2, sub_category : result_subcat, banner : dataBanner, err : err, session : req.session});
+    
+    
             })
-
-        }
-
-        product_module.product_get_all_top(12,function (err,result2) {
-
-            if (err) console.log(err)
-            //console.log(result1)
-            res.render('home',{product_top : result2, category : result1, banner : dataBanner, err : err, session : req.session});
-
-
+          
         })
 
-
     })
-
 
 }
 
