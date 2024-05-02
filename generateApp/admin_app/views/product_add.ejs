@@ -225,12 +225,21 @@
                         <div class="card w-100">
                             <div class="card-body p-5">
                                 <div class="mb-5">
-                                    <h2 class="mb-0 fs-exact-18">Sous-catégorie*</h2>
-                                </div><select class="sa-select2 form-select" name="product_category" required>
-                                    <% if (typeof(sub_category) !== 'undefined' && sub_category != null && sub_category.length > 0) { %>
-                                    <% for (var i = 0; i < sub_category.length; i++) { %>
-                                    <option value="<%= sub_category[i].sub_cat_id %>"><%= sub_category[i].sub_cat_name %></option>
+                                    <h2 class="mb-0 fs-exact-18">Catégorie</h2>
+                                </div><select class="sa-select2 form-select" name="product_category">
+                                    <% if (typeof(category) !== 'undefined' && category != null && category.length > 0) { %>
+                                    <option value=""></option>
+                                    <% for (var i = 0; i < category.length; i++) { %>
+                                    <option value="<%= category[i].cat_id %>"><%= category[i].cat_name %></option>
                                     <% }} %>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="card w-100">
+                            <div class="card-body p-5">
+                                <div class="mb-5">
+                                    <h2 class="mb-0 fs-exact-18">Sous-catégorie</h2>
+                                </div><select disabled class="sa-select2 form-select" multiple name="product_sub_cat">
                                 </select>
                             </div>
                         </div>
@@ -296,3 +305,4 @@
 </script>
 <%- include ("layouts/footer.ejs") %>
 <%- include ("layouts/modal.ejs") %>
+<script src="/lib/product.js"></script>

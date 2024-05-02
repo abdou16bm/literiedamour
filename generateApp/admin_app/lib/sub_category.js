@@ -6,18 +6,20 @@ const sub_category_get_all = function(filterCat,callback){
     if (typeof(filterCat) != 'undefined' && filterCat != null && filterCat != "") 
     filter = "where sc.cat_id = " + filterCat
 
- let sql='SELECT sc.*,c.*, COUNT(p.product_id) AS product_count from sub_category sc\n' +
- 'LEFT JOIN product p ON p.sub_cat_id = sc.sub_cat_id\n' +
- 'left join category c on c.cat_id = sc.cat_id\n' +
- filter + "\n" +
- 'GROUP BY sc.sub_cat_id\n' +
- 'order by sc.sub_cat_id';
-database_module.db.query(sql,[], function (error, results, fields) {
-if (error) console.log('error : ',error);
-//console.log('results: ', results);
-if (callback){callback(error,results)};
-return results;
-});
+    let sql='SELECT sc.*,c.*,count(psc.product_id) AS product_count from sub_category sc\n' +
+    ' LEFT JOIN product_sub_cat psc on psc.sub_cat_id = sc.sub_cat_id\n' +
+    ' LEFT JOIN product p ON p.product_id = psc.product_id\n' +
+    ' LEFT join category c on c.cat_id = sc.cat_id\n' +
+    filter + "\n" +
+    'GROUP BY sc.sub_cat_id\n' +
+    'order by sc.sub_cat_id';
+    database_module.db.query(sql,[], function (error, results, fields) {
+    if (error) console.log('error : ',error);
+    //console.log('results: ', results);
+    if (callback){callback(error,results)};
+    return results;
+    });
+    
 };
 
 
@@ -197,16 +199,19 @@ exports.sub_category_get_all_limit = sub_category_get_all_limit;
 
 
 const sub_category_get_all_client = function(callback){
-    let sql='SELECT sc.*,COUNT(p.product_id) AS product_count from sub_category sc\n' +
-    'LEFT JOIN product p ON p.sub_cat_id = sc.sub_cat_id\n' +
-    'GROUP BY sc.sub_cat_id';
+    let sql='SELECT sc.*,c.*,count(psc.product_id) AS product_count from sub_category sc\n' +
+    'LEFT JOIN product_sub_cat psc on psc.sub_cat_id = sc.sub_cat_id\n' +
+    'LEFT JOIN product p ON p.product_id = psc.product_id\n' +
+    'left join category c on c.cat_id = sc.cat_id\n' +
+    'GROUP BY sc.sub_cat_id\n' +
+    'order by sc.sub_cat_id';
    database_module.db.query(sql,[], function (error, results, fields) {
    if (error) console.log('error : ',error);
    //console.log('results: ', results);
    if (callback){callback(error,results)};
    return results;
    });
-   };
+};
 
 
 exports.sub_category_get_all_client = sub_category_get_all_client;

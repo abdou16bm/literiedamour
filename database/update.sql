@@ -17,6 +17,8 @@ INSERT INTO `status` (`stat_id`, `stat_name`, `stat_color`) VALUES
 
 /* ------------------------------------add delivery type ------------------------------------*/
 
+
+
 -- Listage de la structure de la table ecom_literiedamour. delivery_type
 CREATE TABLE IF NOT EXISTS `delivery_type` (
   `delivery_type_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -63,3 +65,41 @@ UPDATE delivery_price
 SET delivery_type_id = 1
 
 /* ------------------------------------add delivery type ------------------------------------*/
+
+
+
+
+/* ---------------------------- NEW UPDATE 13/03/2024 -------------------------*/
+
+ALTER TABLE product ADD COLUMN cat_id INT;
+ALTER TABLE product ADD FOREIGN KEY (cat_id) REFERENCES category(cat_id);
+
+CREATE TABLE product_sub_cat (
+
+product_id INT,
+sub_cat_id INT,
+FOREIGN KEY (product_id) REFERENCES product(product_id),
+FOREIGN KEY (sub_cat_id) REFERENCES sub_category(sub_cat_id),
+PRIMARY KEY (product_id,sub_cat_id)
+
+
+);
+
+
+UPDATE product
+INNER JOIN sub_category ON sub_category.sub_cat_id = product.sub_cat_id
+SET product.cat_id = sub_category.cat_id;  
+
+
+INSERT INTO `product_sub_cat` (`product_id`, `sub_cat_id`)
+SELECT product_id,sub_cat_id FROM product; 
+
+ALTER TABLE product DROP FOREIGN KEY FK_product_sub_category;
+ALTER TABLE product DROP COLUMN sub_cat_id;
+
+
+/* ------------------------------NEW UPDATE 13/03/2024 ------------------------*/
+
+
+
+

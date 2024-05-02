@@ -54,6 +54,7 @@ const sub_category_list = function (req,res) {
             res.render('sub_category_list',{sub_category : result1, err : req.query.err, session : req.session});
         }
     });
+    
 };
 
 
