@@ -82,8 +82,7 @@
 										</div>
 									</div>
 									<div class="product-body">
-										<p class="product-category"><%= product_top[i].cat_name %></p>
-										<p class="product-subcat"><%= product_top[i].sub_cat_list != null ? product_top[i].sub_cat_list.replaceAll(","," | ") : "" %></p>
+										<p class="product-category"><%= product_top[i].cat_name %> - <%= product_top[i].sub_cat_list != null ? product_top[i].sub_cat_list.replaceAll(","," | ") : "" %></p>
 										<h3 class="product-name"><a
 												href="/product/<%= product_top[i].product_id %>/details"><%= product_top[i].product_name %></a>
 										</h3>
@@ -100,18 +99,18 @@
 										<div class="product-btns">
 											<button class="add-to-wishlist productToCart_btn"
 												idp="<%= product_top[i].product_id %>"><i
-													class="fa fa-shopping-cart"></i><span class="tooltipp">Ajouter au
+													class="fa fa-cart-plus"></i><span class="tooltipp">Ajouter au
 													panier</span></button>
 											<!-- <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button> -->
 											<button class="quick-view"
 												onclick="location.href='/product/<%= product_top[i].product_id %>/details'"><i
 													class="fa fa-eye"></i><span class="tooltipp">Détail</span></button>
 										</div>
-									</div>
-									<div class="add-to-cart">
-										<button class="add-to-cart-btn btn-ToCheckout" 
+									
+											<button class="primary-btn cta-btn" 
 										idp = "<%= product_top[i].product_id %>"><i
-										class="fa fa-shopping-cart"></i> Commander</button>
+										class="fa fa-shopping-cart" style="margin-right: 2px;"></i> Commander</button>
+								
 									</div>
 								</div>
 								<!-- /product -->
@@ -215,7 +214,7 @@
 														<div class="product-btns">
 															<button class="add-to-wishlist productToCart_btn"
 																idp="<%= sub_category[i].products[j].product_id %>"><i
-																	class="fa fa-shopping-cart"></i><span
+																	class="fa fa-cart-plus"></i><span
 																	class="tooltipp">Ajouter au panier</span></button>
 															<!-- <button class="add-to-compare" onclick="location.href='/compare/<%= sub_category[i].products[j].product_id %>'"><i
 														class="fa fa-exchange"></i><span
@@ -225,12 +224,11 @@
 																	class="fa fa-eye"></i><span
 																	class="tooltipp">Détail</span></button>
 														</div>
-													</div>
-													<div class="add-to-cart">
-														<button class="add-to-cart-btn btn-ToCheckout" 
+														<button class="cta-btn primary-btn" 
 														idp = "<%= sub_category[i].products[j].product_id %>"><i
-														class="fa fa-shopping-cart mobile-none"></i> <span class="text-mobile"> Commander</span> </button>
+														class="fa fa-shopping-cart mobile-none" style="margin-right: 2px;"></i> <span class="text-mobile"> Commander</span> </button>
 													</div>
+
 												</div>
 											</div>
 											<% } %>
