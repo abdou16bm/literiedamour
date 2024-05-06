@@ -106,9 +106,10 @@
 													class="fa fa-eye"></i><span class="tooltipp">Détail</span></button>
 										</div>
 									
-											<button class="primary-btn cta-btn" 
-										idp = "<%= product_top[i].product_id %>"><i
-										class="fa fa-shopping-cart" style="margin-right: 2px;"></i> Commander</button>
+											<a class="primary-btn cta-btn" href="/checkout/<%= product_top[i].product_id %>">
+												<i class="fa fa-shopping-cart" style="margin-right: 2px;"></i> 
+												Commander
+											</a>
 								
 									</div>
 								</div>
@@ -240,9 +241,10 @@
 																			class="fa fa-eye"></i><span
 																			class="tooltipp">Détail</span></button>
 																</div>
-																<button class="cta-btn primary-btn" 
-																idp = "<%= sub_category[i].products[j].product_id %>"><i
-																class="fa fa-shopping-cart mobile-none" style="margin-right: 2px;"></i> <span class="text-mobile"> Commander</span> </button>
+																<a class="primary-btn cta-btn" href="/checkout/<%= sub_category[i].products[j].product_id %>">
+																	<i class="fa fa-shopping-cart" style="margin-right: 2px;"></i> 
+																	Commander
+																</a>
 															</div>
 		
 														</div>
