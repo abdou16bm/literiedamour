@@ -23,6 +23,8 @@ const product_controller = require('../controller/product');
  product_api.get('/product/:id/delete',authentication_controller.isAuthenticated,product_controller.product_delete);
  product_api.get('/product/list/:filter',authentication_controller.isAuthenticated,product_controller.product_filter);
 
+ product_api.post('/quantity/:id/edit',authentication_controller.isAuthenticated,product_controller.product_qt_edit);
+ product_api.get('/quantity/:id/reset',authentication_controller.isAuthenticated,product_controller.product_qt_reset)
 
 
  module.exports = product_api;

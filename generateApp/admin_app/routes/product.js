@@ -26,7 +26,8 @@ const product_controller = require('../controller/product');
  
  product_router.get('/product/:id/sheet',authentication_controller.isAuthenticated,product_controller.product_data_sheet);
  
- product_router.post('/quantity/:id/edit',authentication_controller.isAuthenticated,product_controller.product_qt_edit)
+ product_router.post('/quantity/:id/edit',authentication_controller.isAuthenticated,product_controller.product_qt_edit);
+ product_router.get('/quantity/:id/reset',authentication_controller.isAuthenticated,product_controller.product_qt_reset)
 
 
 

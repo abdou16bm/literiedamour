@@ -518,11 +518,31 @@ const product_qt_edit = function (req,res) {
 
           if (err)console.log(err)
 
-          res.redirect("/stock")
-
+          if(req.baseUrl == "/api") res.send({err : err})
+          else  res.redirect("/stock")
+        
      })
 
 }
 
 
 exports.product_qt_edit = product_qt_edit
+
+
+const product_qt_reset = function (req,res) {
+
+     const product_id = req.params.id
+
+     product_module.product_update(product_id,{product_qt : 0},function (err,result1) {
+
+          if (err)console.log(err)
+
+          if(req.baseUrl == "/api") res.send({err : err})
+          else  res.redirect("/stock")
+        
+     })
+
+}
+
+
+exports.product_qt_reset = product_qt_reset
