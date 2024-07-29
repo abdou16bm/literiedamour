@@ -1,5 +1,4 @@
 <%- include ("layout/header") %>
-
 <!-- HOT DEAL SECTION -->
 <div id="hot-deal" class="section slidemob" style="background-image: url('./img/banner/main.jpg') ; background-size: cover;">
 	<!-- container -->
@@ -82,8 +81,7 @@
 										</div>
 									</div>
 									<div class="product-body">
-										<p class="product-category"><%= product_top[i].cat_name %></p>
-										<p class="product-subcat"><%= product_top[i].sub_cat_list != null ? product_top[i].sub_cat_list.replaceAll(","," | ") : "" %></p>
+										<p class="product-category"><%= product_top[i].cat_name %> - <%= product_top[i].sub_cat_list != null ? product_top[i].sub_cat_list.replaceAll(","," | ") : "" %></p>
 										<h3 class="product-name"><a
 												href="/product/<%= product_top[i].product_id %>/details"><%= product_top[i].product_name %></a>
 										</h3>
@@ -100,18 +98,19 @@
 										<div class="product-btns">
 											<button class="add-to-wishlist productToCart_btn"
 												idp="<%= product_top[i].product_id %>"><i
-													class="fa fa-shopping-cart"></i><span class="tooltipp">Ajouter au
+													class="fa fa-cart-plus"></i><span class="tooltipp">Ajouter au
 													panier</span></button>
 											<!-- <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button> -->
 											<button class="quick-view"
 												onclick="location.href='/product/<%= product_top[i].product_id %>/details'"><i
 													class="fa fa-eye"></i><span class="tooltipp">Détail</span></button>
 										</div>
-									</div>
-									<div class="add-to-cart">
-										<button class="add-to-cart-btn btn-ToCheckout" 
-										idp = "<%= product_top[i].product_id %>"><i
-										class="fa fa-shopping-cart"></i> Commander</button>
+									
+											<a class="primary-btn cta-btn" href="/checkout/<%= product_top[i].product_id %>">
+												<i class="fa fa-shopping-cart" style="margin-right: 2px;"></i> 
+												Commander
+											</a>
+								
 									</div>
 								</div>
 								<!-- /product -->
@@ -164,80 +163,6 @@
 						</ul>
 					</div>
 				</div>
-<<<<<<< HEAD
-				<div class="section-nav">
-					<ul class="section-tab-nav tab-nav">
-
-						<% for (var i = 0; i < sub_category.length; i++){ let active = ""; if (i==0) {active = "active"} %>
-						<li class="<%= active %>"><a data-toggle="tab"
-								href="#cat<%= sub_category[i].sub_cat_id %>"><%= sub_category[i].sub_cat_name %></a>
-						</li>
-						<% } %>
-
-					</ul>
-				</div>
-			</div>
-			<!-- /section title -->
-
-			<!-- Products tab & slick -->
-			<div class="col-md-12">
-				<div class="row">
-					
-					<div class="products-tabs">
-						<!-- tab -->
-						<% for (var i = 0; i < sub_category.length; i++){ let active = ""; if (i==0) {active = "active"}  %>
-						<div id="cat<%= sub_category[i].sub_cat_id %>" class="tab-pane <%= active  %>">
-							<div id="store" class="col-md-12">
-
-								<!-- store products -->
-								<div class="row">
-									
-									<div class="col-8 col-sm-8 col-lg-8 col-xs-12 mobile-col">
-										<!-- product -->
-										<% for (var j = 0; j < sub_category[i].products.length; j++) { %>
-									
-										<!-- product -->
-										<div class="col-xs-6 col-3 col-lg-4 col-sm-6 mobile-col">
-											<div class="product">
-												<div class="product-img text-center">
-													<a href="/product/<%= sub_category[i].products[j].product_id %>/details"><img src="/img/product/<%= sub_category[i].products[j].product_id %>/main.jpg"
-														alt="literie d'amour" style=" height: 200px; padding: 0px; width: 90%;" class="img-mobile"></a>
-													<!-- <div class="product-label">
-											<span class="sale">-30%</span>
-											<span class="new">NEW</span>
-										</div> -->
-												</div>
-												<div class="product-body">
-													<p class="product-category">
-														<%= sub_category[i].products[j].sub_cat_name %></p>
-													<!-- <a href="#"><p class="product-marque"><%= sub_category[i].products[j].brand_name %></p></a>  -->
-													<h3 class="product-name max-lines"><a
-															href="/product/<%= sub_category[i].products[j].product_id %>/details"><%= sub_category[i].products[j].product_name %></a>
-													</h3>
-													<h4 class="product-price">
-														<% let formating=Intl.NumberFormat('en-US') %>
-														<%= formating.format(sub_category[i].products[j].product_price)+" DA" %>
-													</h4>
-													<!-- <div class="product-rating">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-										</div> -->
-													<div class="product-btns">
-														<button class="add-to-wishlist productToCart_btn"
-															idp="<%= sub_category[i].products[j].product_id %>"><i
-																class="fa fa-shopping-cart"></i><span
-																class="tooltipp">Ajouter au panier</span></button>
-														<!-- <button class="add-to-compare" onclick="location.href='/compare/<%= sub_category[i].products[j].product_id %>'"><i
-                                                    class="fa fa-exchange"></i><span
-                                                    class="tooltipp">comparer</span></button> -->
-														<button class="quick-view"
-															onclick="location.href='/product/<%= sub_category[i].products[j].product_id %>/details'"><i
-																class="fa fa-eye"></i><span
-																class="tooltipp">Détail</span></button>
-=======
 				<!-- /section title -->
 	
 				<!-- Products tab & slick -->
@@ -248,68 +173,89 @@
 							<!-- tab -->
 							<% for (var i = 0; i < sub_category.length; i++){ let active = ""; if (i==0) {active = "active"}  %>
 							<div id="subcat<%= sub_category[i].sub_cat_id %>" class="tab-pane <%= active  %>">
-								<div id="store" class="col-md-12">
+								<div id="store" class="col-md-12 cat-block">
 	
 									<!-- store products -->
 									<div class="row">
 										
 										<div class="col-8 col-sm-8 col-lg-8 col-xs-12 mobile-col">
-											<!-- product -->
-											<% for (var j = 0; j < sub_category[i].products.length; j++) { %>
+
+											<nav class="pagination-container">
+												<button class="pagination-button prev-button" aria-label="Previous page" title="Previous page">
+												  &lt;
+												</button>
+											
+												<div class="pagination-numbers">
+											
+												</div>
+											
+												<button class="pagination-button next-button" aria-label="Next page" title="Next page">
+												  &gt;
+												</button>
+											</nav>
+
+											<div class="paginated-list">
+
+												<!-- product -->
+												<% for (var j = 0; j < sub_category[i].products.length; j++) { %>
 	
-											<!-- product -->
-											<div class="col-xs-6 col-3 col-lg-4 col-sm-6 mobile-col">
-												<div class="product">
-													<div class="product-img text-center">
-														<a href="/product/<%= sub_category[i].products[j].product_id %>/details"><img src="/img/product/<%= sub_category[i].products[j].product_id %>/main.jpg"
-															alt="literie d'amour" style=" height: 200px; padding: 0px; width: 90%;" class="img-mobile"></a>
-														<!-- <div class="product-label">
-												<span class="sale">-30%</span>
-												<span class="new">NEW</span>
-											</div> -->
-													</div>
-													<div class="product-body">
-														<p class="product-category">
-															<%= sub_category[i].products[j].sub_cat_list != null ? sub_category[i].products[j].sub_cat_list.replaceAll(","," | ") : "" %></p>
-															<p class="product-marque"><%= sub_category[i].products[j].sub_cat_name %></p>
-														<h3 class="product-name max-lines"><a
-																href="/product/<%= sub_category[i].products[j].product_id %>/details"><%= sub_category[i].products[j].product_name %></a>
-														</h3>
-														<h4 class="product-price">
-															<% let formating=Intl.NumberFormat('en-US') %>
-															<%= formating.format(sub_category[i].products[j].product_price)+" DA" %>
-														</h4>
-														<!-- <div class="product-rating">
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-											</div> -->
-														<div class="product-btns">
-															<button class="add-to-wishlist productToCart_btn"
-																idp="<%= sub_category[i].products[j].product_id %>"><i
-																	class="fa fa-shopping-cart"></i><span
-																	class="tooltipp">Ajouter au panier</span></button>
-															<!-- <button class="add-to-compare" onclick="location.href='/compare/<%= sub_category[i].products[j].product_id %>'"><i
-														class="fa fa-exchange"></i><span
-														class="tooltipp">comparer</span></button> -->
-															<button class="quick-view"
-																onclick="location.href='/product/<%= sub_category[i].products[j].product_id %>/details'"><i
-																	class="fa fa-eye"></i><span
-																	class="tooltipp">Détail</span></button>
+													<!-- product -->
+													<div class="col-xs-6 col-3 col-lg-4 col-sm-6 mobile-col products-cat">
+														<div class="product">
+															<div class="product-img text-center">
+																<a href="/product/<%= sub_category[i].products[j].product_id %>/details"><img src="/img/product/<%= sub_category[i].products[j].product_id %>/main.jpg"
+																	alt="literie d'amour" style=" height: 200px; padding: 0px; width: 90%;" class="img-mobile"></a>
+																<!-- <div class="product-label">
+														<span class="sale">-30%</span>
+														<span class="new">NEW</span>
+													</div> -->
+															</div>
+															<div class="product-body">
+																<p class="product-category">
+																	<%= sub_category[i].products[j].sub_cat_list != null ? sub_category[i].products[j].sub_cat_list.replaceAll(","," | ") : "" %></p>
+																	<p class="product-marque"><%= sub_category[i].products[j].sub_cat_name %></p>
+																<h3 class="product-name max-lines"><a
+																		href="/product/<%= sub_category[i].products[j].product_id %>/details"><%= sub_category[i].products[j].product_name %></a>
+																</h3>
+																<h4 class="product-price">
+																	<% let formating=Intl.NumberFormat('en-US') %>
+																	<%= formating.format(sub_category[i].products[j].product_price)+" DA" %>
+																</h4>
+																<!-- <div class="product-rating">
+														<i class="fa fa-star"></i>
+														<i class="fa fa-star"></i>
+														<i class="fa fa-star"></i>
+														<i class="fa fa-star"></i>
+														<i class="fa fa-star"></i>
+													</div> -->
+																<div class="product-btns">
+																	<button class="add-to-wishlist productToCart_btn"
+																		idp="<%= sub_category[i].products[j].product_id %>"><i
+																			class="fa fa-cart-plus"></i><span
+																			class="tooltipp">Ajouter au panier</span></button>
+																	<!-- <button class="add-to-compare" onclick="location.href='/compare/<%= sub_category[i].products[j].product_id %>'"><i
+																class="fa fa-exchange"></i><span
+																class="tooltipp">comparer</span></button> -->
+																	<button class="quick-view"
+																		onclick="location.href='/product/<%= sub_category[i].products[j].product_id %>/details'"><i
+																			class="fa fa-eye"></i><span
+																			class="tooltipp">Détail</span></button>
+																</div>
+																<a class="primary-btn cta-btn" href="/checkout/<%= sub_category[i].products[j].product_id %>">
+																	<i class="fa fa-shopping-cart" style="margin-right: 2px;"></i> 
+																	Commander
+																</a>
+															</div>
+		
 														</div>
 													</div>
-													<div class="add-to-cart">
-														<button class="add-to-cart-btn btn-ToCheckout" 
-														idp = "<%= sub_category[i].products[j].product_id %>"><i
-														class="fa fa-shopping-cart mobile-none"></i> <span class="text-mobile"> Commander</span> </button>
->>>>>>> 01a7bfe5c235cb326b0e4b4669dba8b639f42b08
-													</div>
-												</div>
+	
+												<% } %>
+												<!-- /product -->
+
 											</div>
-											<% } %>
-											<!-- /product -->
+											
+
 										</div>
 	
 	
@@ -317,13 +263,13 @@
 											<div class=" col-12 mobile-col">
 												<div class="product-img text-center ">
 													<video src="./img/video/1.mp4" style="width: 100%;padding: 1%; max-width: 280px;" class="mobile-none video-mobile"
-														alt="video"  muted></video>
+														alt="video" autoplay muted></video>
 												</div>
 											</div>
 											<div class=" col-12 mobile-col" >
 												<div class="product-img text-center">
 													<video src="./img/video/2.mp4" style="width: 100%;padding: 1%; max-width: 280px;" class="video-mobile"
-														alt="video"  muted></video>
+														alt="video" autoplay muted></video>
 												</div>
 											</div>
 										
@@ -361,3 +307,117 @@
 
 
 <%- include ("layout/footer") %>
+<script>
+
+	const cat_block = document.querySelectorAll(".cat-block");
+
+	if (cat_block.length > 0) {
+	
+		cat_block.forEach(block => {
+		
+		const paginatedList = block.querySelector(".paginated-list");
+		const listItems = paginatedList.querySelectorAll(".products-cat");
+		const paginationNumbers = block.querySelector(".pagination-numbers");
+		const nextButton = block.querySelector(".next-button");
+		const prevButton = block.querySelector(".prev-button");
+
+		const paginationLimit = 10;
+		const pageCount = Math.ceil(listItems.length / paginationLimit);
+		let currentPage = 1;
+
+		const disableButton = (button) => {
+		button.classList.add("disabled");
+		button.setAttribute("disabled", true);
+		};
+		
+		const enableButton = (button) => {
+		button.classList.remove("disabled");
+		button.removeAttribute("disabled");
+		};
+		
+		const handlePageButtonsStatus = () => {
+		if (currentPage === 1) {
+			disableButton(prevButton);
+		} else {
+			enableButton(prevButton);
+		}
+		
+		if (pageCount === currentPage) {
+			disableButton(nextButton);
+		} else {
+			enableButton(nextButton);
+		}
+		};
+
+			
+		const handleActivePageNumber = () => {
+		block.querySelectorAll(".pagination-number").forEach((button) => {
+			button.classList.remove("active");
+			const pageIndex = Number(button.getAttribute("page-index"));
+			if (pageIndex == currentPage) {
+			button.classList.add("active");
+			}
+		});
+		};
+
+		const appendPageNumber = (index) => {
+		const pageNumber = document.createElement("button");
+		pageNumber.className = "pagination-number";
+		pageNumber.innerHTML = index;
+		pageNumber.setAttribute("page-index", index);
+		pageNumber.setAttribute("aria-label", "Page " + index);
+		
+		paginationNumbers.appendChild(pageNumber);
+		};
+		
+		const getPaginationNumbers = () => {
+		for (let i = 1; i <= pageCount; i++) {
+			appendPageNumber(i);
+		}
+		};
+		
+		const setCurrentPage = (pageNum) => {
+		currentPage = pageNum;
+		
+		handleActivePageNumber();
+		handlePageButtonsStatus();
+		
+		const prevRange = (pageNum - 1) * paginationLimit;
+		const currRange = pageNum * paginationLimit;
+		
+		listItems.forEach((item, index) => {
+			item.classList.add("hidden");
+			if (index >= prevRange && index < currRange) {
+			item.classList.remove("hidden");
+			}
+		});
+		};
+
+		window.addEventListener("load", () => {
+		getPaginationNumbers();
+		setCurrentPage(1);
+		
+		prevButton.addEventListener("click", () => {
+			setCurrentPage(currentPage - 1);
+		});
+		
+		nextButton.addEventListener("click", () => {
+			setCurrentPage(currentPage + 1);
+		});
+		
+		block.querySelectorAll(".pagination-number").forEach((button) => {
+			const pageIndex = Number(button.getAttribute("page-index"));
+		
+			if (pageIndex) {
+			button.addEventListener("click", () => {
+				setCurrentPage(pageIndex);
+			});
+			}
+		});
+		});
+
+	});
+
+	}
+
+</script>

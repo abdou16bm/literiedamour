@@ -148,7 +148,22 @@ function updateDeliveryPrice (w,p,t) {
 
 
 
+function quantity_reset(idp) {
+    
+    let url = "/api/quantity/" + idp + "/reset"
+    let option =  {headers: {'Accept': 'application/json','Content-Type': 'application/json'},method : "GET"}
+    fetchData(url,option,function (result) {
 
+        if (result.err != null) {
+            
+            document.getElementById("alert_msg").innerHTML = "<div class='alert alert-danger' role='alert'>Echec de l'opération</div>";
+            $('#alert_modal').modal('show');
+
+        } else location.reload()
+    
+    })
+
+}
 
 
 
