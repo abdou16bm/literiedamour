@@ -180,19 +180,7 @@
 										
 										<div class="col-8 col-sm-8 col-lg-8 col-xs-12 mobile-col">
 
-											<nav class="pagination-container">
-												<button class="pagination-button prev-button" aria-label="Previous page" title="Previous page">
-												  &lt;
-												</button>
 											
-												<div class="pagination-numbers">
-											
-												</div>
-											
-												<button class="pagination-button next-button" aria-label="Next page" title="Next page">
-												  &gt;
-												</button>
-											</nav>
 
 											<div class="paginated-list">
 
@@ -255,7 +243,7 @@
 
 											</div>
 											
-
+											
 										</div>
 	
 	
@@ -280,6 +268,21 @@
 											</div>
 										</div> -->
 	
+									</div>
+									<div class="col-12">
+										<nav class="pagination-container" >
+											<button class="pagination-button prev-button" aria-label="Previous page" title="Previous page">
+											  &lt;
+											</button>
+										
+											<div class="pagination-numbers">
+										
+											</div>
+										
+											<button class="pagination-button next-button" aria-label="Next page" title="Next page">
+											  &gt;
+											</button>
+										</nav>
 									</div>
 	
 	
@@ -321,7 +324,7 @@
 		const nextButton = block.querySelector(".next-button");
 		const prevButton = block.querySelector(".prev-button");
 
-		const paginationLimit = 10;
+		const paginationLimit = 9;
 		const pageCount = Math.ceil(listItems.length / paginationLimit);
 		let currentPage = 1;
 

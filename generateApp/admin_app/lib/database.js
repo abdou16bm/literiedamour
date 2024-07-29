@@ -3,12 +3,12 @@ const mysql = require('mysql');
 let connection = mysql.createConnection({
 
     host: 'localhost',
-    // user: 'literiedamour_user1',
-    // password: 'p2N[~lH!HreJ',
-    // database: 'literiedamour_ecom_literiedamour',
-    user: 'root',
-    password: '',
-    database: 'ecom_literiedamour',
+     // user: 'literiedamour_user1',
+     // password: 'p2N[~lH!HreJ',
+     // database: 'literiedamour_ecom_literiedamour',
+   user: 'root',
+   password: '',
+   database: 'ecom_literiedamour',
     multipleStatements: true,
     timezone: 'utc'
 });

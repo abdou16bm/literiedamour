@@ -15,11 +15,10 @@ exports.details_get_all = details_get_all;
 
 
 const details_get_all_sub_category = function(sub_cat,callback){
-
     let sql='SELECT * from details\n' +
-    'WHERE sub_cat_id in ('+sub_cat+')\n' +
-    'order by detail_id ASC ';
-   database_module.db.query(sql,function (error, results, fields) {
+    'WHERE sub_cat_id = ?\n' +
+    'order by detail_id DESC ';
+   database_module.db.query(sql,[sub_cat], function (error, results, fields) {
    if (error) console.log('error : ',error);
    //console.log('results: ', results);
    if (callback){callback(error,results)};

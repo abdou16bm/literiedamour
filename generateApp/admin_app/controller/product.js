@@ -16,31 +16,31 @@ const order_p_module = require("../lib/order_p")
 
 
 const product_list_page = function (req,res) {
-let count_page = 0;
-let limit_page = 9;
-let current_page = req.params.page-1;
-product_module.product_count_page(limit_page,function (err,result1) {
- if (err) console.log('err : ',err) ;
-if (result1.length)
-{
-if (result1[0].count_p > 0) count_page = result1[0].count_p;
-product_module.product_get_all_limit(current_page*limit_page,limit_page,'table_pk','DESC',function (err,result2) {
-if (err) console.log('error',err);
-     if(req.baseUrl == "/api") {
-res.send({product : result2,info:{count_page : count_page, limit_page:limit_page, current_page : parseInt(current_page)+1}, err : err, session : req.session});
-     } else {
-res.render('product_list_page',{product : result2,info:{count_page : count_page, limit_page:limit_page, current_page : parseInt(current_page)+1}, err : err, session : req.session});
-     }
-})
-}
-else {
-     if(req.baseUrl == "/api") {
-res.send({product:[],info:{count_page : 0, limit_page:limit_page, current_page : parseInt(current_page)+1}, err : err, session : req.session})
-     } else {
-res.render('product_list_page',{product : result2,info:{count_page : count_page, limit_page:limit_page, current_page : parseInt(current_page)+1}, err : err, session : req.session});
-     }
-}
-})
+     let count_page = 0;
+     let limit_page = 9;
+     let current_page = req.params.page-1;
+     product_module.product_count_page(limit_page,function (err,result1) {
+          if (err) console.log('err : ',err) ;
+          if (result1.length)
+          {
+               if (result1[0].count_p > 0) count_page = result1[0].count_p;
+               product_module.product_get_all_limit(current_page*limit_page,limit_page,'table_pk','DESC',function (err,result2) {
+                    if (err) console.log('error',err);
+                    if(req.baseUrl == "/api") {
+                         res.send({product : result2,info:{count_page : count_page, limit_page:limit_page, current_page : parseInt(current_page)+1}, err : err, session : req.session});
+                    } else {
+                         res.render('product_list_page',{product : result2,info:{count_page : count_page, limit_page:limit_page, current_page : parseInt(current_page)+1}, err : err, session : req.session});
+                    }
+               })
+          }
+          else {
+               if(req.baseUrl == "/api") {
+                    res.send({product:[],info:{count_page : 0, limit_page:limit_page, current_page : parseInt(current_page)+1}, err : err, session : req.session})
+               } else {
+                    res.render('product_list_page',{product : result2,info:{count_page : count_page, limit_page:limit_page, current_page : parseInt(current_page)+1}, err : err, session : req.session});
+               }
+          }
+     })
 };
 
 
@@ -50,13 +50,13 @@ exports.product_list_page = product_list_page
 
 const product_list = function (req,res) {
      product_module.product_get_all(function (err,result1) {
-         if (err) console.log('error',err);
-         if(req.baseUrl == "/api") {
-         res.send({products : result1, err : err, session : req.session});
-         } else {
-         res.render('products_list',{products : result1, err : req.query.err, session : req.session});
-         }
-});
+          if (err) console.log('error',err);
+          if(req.baseUrl == "/api") {
+               res.send({products : result1, err : err, session : req.session});
+          } else {
+               res.render('products_list',{products : result1, err : req.query.err, session : req.session});
+          }
+     });
 };
 
 
@@ -65,31 +65,31 @@ exports.product_list = product_list
 
 
 const product_list_page_admin = function (req,res) {
-let count_page = 0;
-let limit_page = 9;
-let current_page = req.params.page-1;
-product_module.product_count_page(limit_page,function (err,result1) {
- if (err) console.log('err : ',err) ;
-if (result1.length)
-{
-if (result1[0].count_p > 0) count_page = result1[0].count_p;
-product_module.product_get_all_limit(current_page*limit_page,limit_page,'table_pk','DESC',function (err,result2) {
-if (err) console.log('error',err);
-     if(req.baseUrl == "/api") {
-res.send({product : result2,info:{count_page : count_page, limit_page:limit_page, current_page : parseInt(current_page)+1}, err : err, session : req.session});
-     } else {
-res.render('product_list_page_admin',{product : result2,info:{count_page : count_page, limit_page:limit_page, current_page : parseInt(current_page)+1}, err : err, session : req.session});
-     }
-})
-}
-else {
-     if(req.baseUrl == "/api") {
-res.send({product:[],info:{count_page : 0, limit_page:limit_page, current_page : parseInt(current_page)+1}, err : err, session : req.session})
-     } else {
-res.render('product_list_page_admin',{product : result2,info:{count_page : count_page, limit_page:limit_page, current_page : parseInt(current_page)+1}, err : err, session : req.session});
-     }
-}
-})
+     let count_page = 0;
+     let limit_page = 9;
+     let current_page = req.params.page-1;
+     product_module.product_count_page(limit_page,function (err,result1) {
+          if (err) console.log('err : ',err) ;
+          if (result1.length)
+          {
+               if (result1[0].count_p > 0) count_page = result1[0].count_p;
+               product_module.product_get_all_limit(current_page*limit_page,limit_page,'table_pk','DESC',function (err,result2) {
+                    if (err) console.log('error',err);
+                    if(req.baseUrl == "/api") {
+                         res.send({product : result2,info:{count_page : count_page, limit_page:limit_page, current_page : parseInt(current_page)+1}, err : err, session : req.session});
+                    } else {
+                         res.render('product_list_page_admin',{product : result2,info:{count_page : count_page, limit_page:limit_page, current_page : parseInt(current_page)+1}, err : err, session : req.session});
+                    }
+               })
+          }
+          else {
+               if(req.baseUrl == "/api") {
+                    res.send({product:[],info:{count_page : 0, limit_page:limit_page, current_page : parseInt(current_page)+1}, err : err, session : req.session})
+               } else {
+                    res.render('product_list_page_admin',{product : result2,info:{count_page : count_page, limit_page:limit_page, current_page : parseInt(current_page)+1}, err : err, session : req.session});
+               }
+          }
+     })
 };
 
 
@@ -98,14 +98,14 @@ exports.product_list_page_admin = product_list_page_admin
 
 
 const product_list_admin = function (req,res) {
-product_module.product_get_all(function (err,result1) {
-     if (err) console.log('error',err);
-     if(req.baseUrl == "/api") {
-     res.send({product : result1, err : err, session : req.session});
-     } else {
-     res.render('product_list_admin',{product : result1, err : err, session : req.session});
-     }
-  });
+     product_module.product_get_all(function (err,result1) {
+          if (err) console.log('error',err);
+          if(req.baseUrl == "/api") {
+               res.send({product : result1, err : err, session : req.session});
+          } else {
+               res.render('product_list_admin',{product : result1, err : err, session : req.session});
+          }
+     });
 };
 
 
@@ -114,15 +114,15 @@ exports.product_list_admin = product_list_admin
 
 
 const product_details = function (req,res) {
-const id = req.params.id;
-product_module.product_get_one(id,function (err,result1) {
-if (err) console.log('error',err);
-     if(req.baseUrl == "/api") {
-     res.send({product : result1, err : err, session : req.session});
-     } else {
-     res.render('product_details',{product : result1, err : err, session : req.session});
-     }
-});
+     const id = req.params.id;
+     product_module.product_get_one(id,function (err,result1) {
+          if (err) console.log('error',err);
+          if(req.baseUrl == "/api") {
+               res.send({product : result1, err : err, session : req.session});
+          } else {
+               res.render('product_details',{product : result1, err : err, session : req.session});
+          }
+     });
 };
 
 
@@ -136,7 +136,7 @@ const product_edit = function (req,res) {
 
      product_module.product_get_one(id,function (err,result1) {
 
-        if (err) console.log('error',err);
+          if (err) console.log('error',err);
 
           brand_module.brand_get_all(function (err,result2) {
 
@@ -145,15 +145,15 @@ const product_edit = function (req,res) {
                property_module.property_get_all_color(function (err,result3) {
 
                     if (err) {console.log(err)}
-        
+
                     category_module.category_get_all(function (err,result4) {
 
                          if (err) {console.log(err)}
 
                          if(req.baseUrl == "/api") {
-                         res.send({product : result1, brands : result2, property : result3, category : result4, err : req.query.err, session : req.session});
+                              res.send({product : result1, brands : result2, property : result3, category : result4, err : req.query.err, session : req.session});
                          } else {
-                         res.render('product_edit',{product : result1, brands : result2, property : result3, category : result4, err : req.query.err, session : req.session});
+                              res.render('product_edit',{product : result1, brands : result2, property : result3, category : result4, err : req.query.err, session : req.session});
                          }
 
                     })
@@ -175,25 +175,25 @@ const product_edit_save = function (req,res) {
 
      const id = req.params.id;
      const options = {
-         multiples : true,
-        // uploadDir: './uploads'
-        uploadDir: './uploads'
+          multiples : true,
+          // uploadDir: './uploads'
+          uploadDir: './uploads'
      };
 
      let form = new formidable.IncomingForm(options);
 
      form.parse(req, function (err, fields, files) {
 
-         let body = fields;
+          let body = fields;
 
-         if (
+          if (
 
-          typeof(body.product_ref) != 'undefined' && body.product_ref != null && body.product_ref != ""
-          && typeof(body.product_name) != 'undefined' && body.product_name != null && body.product_name != ""
-          && typeof(body.product_category) != 'undefined' && body.product_category != null && body.product_category != ""
-/*           && typeof(body.product_brand) != 'undefined' && body.product_brand != null && body.product_brand != "" */
-          && typeof(body.product_price) != 'undefined' && body.product_price != null && body.product_price != ""
-          && typeof(body.product_quantity) != 'undefined' && body.product_quantity != null && body.product_quantity != ""
+              typeof(body.product_ref) != 'undefined' && body.product_ref != null && body.product_ref != ""
+              && typeof(body.product_name) != 'undefined' && body.product_name != null && body.product_name != ""
+              && typeof(body.product_category) != 'undefined' && body.product_category != null && body.product_category != ""
+              && typeof(body.product_brand) != 'undefined' && body.product_brand != null && body.product_brand != ""
+              && typeof(body.product_price) != 'undefined' && body.product_price != null && body.product_price != ""
+              && typeof(body.product_quantity) != 'undefined' && body.product_quantity != null && body.product_quantity != ""
 
           ) {
 
@@ -206,26 +206,26 @@ const product_edit_save = function (req,res) {
                     product_price : body.product_price.trim(),
                     product_qt : body.product_quantity.trim(),
                     cat_id : body.product_category.trim(),
-                    brand_id : 1
+                    brand_id : body.product_category.trim()
 
                }
 
                product_module.product_update(id,data_product,function (err,result1) {
 
-                    if (err) {console.log(err)}            
-                    
+                    if (err) {console.log(err)}
+
                     product_sub_cat_module.product_sub_cat_delete(id,(err,resultDelete)=>{
 
                          if (typeof(body.product_sub_cat) != 'undefined') {
 
                               let sub_cat_list = body.product_sub_cat
-                              if (Array.isArray(sub_cat_list) == false) sub_cat_list = sub_cat_list.split() 
-                              sub_cat_list.forEach(sub_cat => 
-                              product_sub_cat_module.product_sub_cat_add({product_id : id,sub_cat_id : sub_cat}));
+                              if (Array.isArray(sub_cat_list) == false) sub_cat_list = sub_cat_list.split()
+                              sub_cat_list.forEach(sub_cat =>
+                                  product_sub_cat_module.product_sub_cat_add({product_id : id,sub_cat_id : sub_cat}));
 
                          }
 
-                    })               
+                    })
 
                     doc_module.uploadFile('./public/img/product/',id,files,'main','main','jpg', function (err,count1){
 
@@ -260,7 +260,7 @@ const product_edit_save = function (req,res) {
 
 
      })
- }
+}
 
 
 
@@ -300,25 +300,25 @@ exports.product_add = product_add
 const product_add_save = function (req,res) {
 
      const options = {
-         multiples : true,
-         //uploadDir: './uploads'
-         uploadDir: './uploads'
+          multiples : true,
+          //uploadDir: './uploads'
+          uploadDir: './uploads'
      };
 
      let form = new formidable.IncomingForm(options);
 
      form.parse(req, function (err, fields, files) {
 
-         let body = fields;
+          let body = fields;
 
-         if (
+          if (
 
-          typeof(body.product_ref) != 'undefined' && body.product_ref != null && body.product_ref != ""
-          && typeof(body.product_name) != 'undefined' && body.product_name != null && body.product_name != ""
-          && typeof(body.product_category) != 'undefined' && body.product_category != null && body.product_category != ""
-   /*        && typeof(body.product_brand) != 'undefined' && body.product_brand != null && body.product_brand != "" */
-          && typeof(body.product_price) != 'undefined' && body.product_price != null && body.product_price != ""
-          && typeof(body.product_quantity) != 'undefined' && body.product_quantity != null && body.product_quantity != ""
+              typeof(body.product_ref) != 'undefined' && body.product_ref != null && body.product_ref != ""
+              && typeof(body.product_name) != 'undefined' && body.product_name != null && body.product_name != ""
+              && typeof(body.product_category) != 'undefined' && body.product_category != null && body.product_category != ""
+              && typeof(body.product_brand) != 'undefined' && body.product_brand != null && body.product_brand != ""
+              && typeof(body.product_price) != 'undefined' && body.product_price != null && body.product_price != ""
+              && typeof(body.product_quantity) != 'undefined' && body.product_quantity != null && body.product_quantity != ""
 
           ) {
 
@@ -331,7 +331,7 @@ const product_add_save = function (req,res) {
                     product_price : body.product_price.trim(),
                     product_qt : body.product_quantity.trim(),
                     cat_id : body.product_category.trim(),
-                    brand_id : 1,
+                    brand_id : body.product_brand.trim(),
                     shop_id : 1
 
                }
@@ -341,14 +341,14 @@ const product_add_save = function (req,res) {
                     if (err) {console.log(err)}
 
                     if (typeof(body.product_sub_cat) != 'undefined') {
-                         
+
                          let sub_cat_list = body.product_sub_cat
-                         if (Array.isArray(sub_cat_list) == false) sub_cat_list = sub_cat_list.split() 
-                         sub_cat_list.forEach(sub_cat => 
-                         product_sub_cat_module.product_sub_cat_add({product_id : result1.insertId,sub_cat_id : sub_cat}));
+                         if (Array.isArray(sub_cat_list) == false) sub_cat_list = sub_cat_list.split()
+                         sub_cat_list.forEach(sub_cat =>
+                             product_sub_cat_module.product_sub_cat_add({product_id : result1.insertId,sub_cat_id : sub_cat}));
 
                     }
-    
+
                     doc_module.uploadFile('./public/img/product/',result1.insertId,files,'main','main','jpg', function (err,count1){
 
                          if (err) console.log(err)
@@ -382,7 +382,7 @@ const product_add_save = function (req,res) {
 
 
      })
- }
+}
 
 
 
@@ -399,28 +399,28 @@ const product_delete = function (req,res) {
 
           if (result1.length > 0)  res.redirect("/products/list?err=2")
           else {
-     
+
                product_module.product_delete(id,function (err,result2) {
 
                     if (err) {
-               
+
                          console.log('error',err)
                          res.redirect("/products/list?err=1")
-               
+
                     } else {
-               
+
                          if(req.baseUrl == "/api") {
-                         res.send({delete_result : result2, err : err, session : req.session});
+                              res.send({delete_result : result2, err : err, session : req.session});
                          } else {
-                         res.redirect('/products/list?err=0');
+                              res.redirect('/products/list?err=0');
                          }
-               
+
                     }
-               
+
                });
 
           }
-     
+
      })
 
 };
@@ -431,15 +431,15 @@ exports.product_delete = product_delete
 
 
 const product_filter = function (req,res) {
-const filter = req.params.filter;
-product_module.product_filter(filter,function (err,result1) {
-if (err) console.log('error',err);
-     if(req.baseUrl == "/api") {
-     res.send({product : result1, err : err, session : req.session});
-     } else {
-     res.render('product_list_admin',{product : result1, err : err, session : req.session});
-     }
-});
+     const filter = req.params.filter;
+     product_module.product_filter(filter,function (err,result1) {
+          if (err) console.log('error',err);
+          if(req.baseUrl == "/api") {
+               res.send({product : result1, err : err, session : req.session});
+          } else {
+               res.render('product_list_admin',{product : result1, err : err, session : req.session});
+          }
+     });
 };
 
 
@@ -461,24 +461,24 @@ const product_data_sheet = function (req,res) {
           if (result1.length > 0 ) {
 
                let sub_cat = "";
-               result1[0].subCat_list_id != null ? 
-               sub_cat = result1[0].subCat_list_id.replaceAll("[","").replaceAll("]","") 
-               : sub_cat = ""
+               result1[0].subCat_list_id != null ?
+                   sub_cat = result1[0].subCat_list_id.replaceAll("[","").replaceAll("]","")
+                   : sub_cat = ""
 
                //console.log("product : ",result1)
- 
+
                product_details_module.product_details_get_all_product(product_id,function (err,result2) {
 
                     if (err) {console.log(err)}
-                   
+
                     details_module.details_get_all_sub_category(sub_cat,function (err,result3) {
-                   
+
                          if (err) {console.log(err)}
 
                          if(req.baseUrl == "/api") {
-                         res.send({product : result1, product_details : result2, details : result3, err : req.query.err, session : req.session});
+                              res.send({product : result1, product_details : result2, details : result3, err : req.query.err, session : req.session});
                          } else {
-                         res.render('product_data_sheet',{product : result1, product_details : result2, details : result3, err : req.query.err, session : req.session});
+                              res.render('product_data_sheet',{product : result1, product_details : result2, details : result3, err : req.query.err, session : req.session});
                          }
 
 
@@ -489,9 +489,9 @@ const product_data_sheet = function (req,res) {
           } else {
 
                if(req.baseUrl == "/api") {
-               res.send({product : [], product_details : [], details : [], err : req.query.err, session : req.session});
+                    res.send({product : [], product_details : [], details : [], err : req.query.err, session : req.session});
                } else {
-               res.render('product_data_sheet',{product : [], product_details : [], details : [], err : req.query.err, session : req.session});
+                    res.render('product_data_sheet',{product : [], product_details : [], details : [], err : req.query.err, session : req.session});
                }
 
           }
@@ -520,7 +520,7 @@ const product_qt_edit = function (req,res) {
 
           if(req.baseUrl == "/api") res.send({err : err})
           else  res.redirect("/stock")
-        
+
      })
 
 }
@@ -539,7 +539,7 @@ const product_qt_reset = function (req,res) {
 
           if(req.baseUrl == "/api") res.send({err : err})
           else  res.redirect("/stock")
-        
+
      })
 
 }

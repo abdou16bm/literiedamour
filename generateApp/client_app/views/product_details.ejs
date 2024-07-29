@@ -254,7 +254,7 @@
 												<!-- <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button> -->
 												<button class="quick-view" onclick="location.href='/product/<%= product_similar[i].product_id %>/details'"><i class="fa fa-eye"></i><span class="tooltipp">Détail</span></button>
 											</div>
-											<button class="cta-btn primary-btn" onclick="location.href='/checkout/<%= product_similar[i].product_id %>'"><i class="fa fa-shopping-cart" style="margin-right: 2px;"></i> Commander</button>
+											<a class="cta-btn primary-btn"  href='/checkout/<%= product_similar[i].product_id %>'"><i class="fa fa-shopping-cart" style="margin-right: 2px;"></i> Commander</a>
 
 										</div>
 

@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div class="sa-entity-layout"
-                data-sa-container-query="{&quot;920&quot;:&quot;sa-entity-layout--size--md&quot;,&quot;1100&quot;:&quot;sa-entity-layout--size--lg&quot;}">
+                 data-sa-container-query="{&quot;920&quot;:&quot;sa-entity-layout--size--md&quot;,&quot;1100&quot;:&quot;sa-entity-layout--size--lg&quot;}">
                 <div class="sa-entity-layout__body">
                     <div class="sa-entity-layout__main">
                         <div class="card">
@@ -22,16 +22,26 @@
                                     <h2 class="mb-0 fs-exact-18">Informations</h2>
                                 </div>
                                 <% if (typeof(err) != "undefined" && err != null && err == 1) { %>
-                                <div class="alert alert-danger" role="alert">Remplissez les champs* obligatoire !</div>
+                                    <div class="alert alert-danger" role="alert">Remplissez les champs* obligatoire !</div>
                                 <% } %>
                                 <div class="mb-4"><label for="product_ref" class="form-label">Référence*</label><input
-                                        type="text" class="form-control" name="product_ref" required value=""/></div>
+                                            type="text" class="form-control" name="product_ref" required value=""/></div>
                                 <div class="mb-4"><label for="product_name" class="form-label">Nom du
                                         produit*</label><input type="text" class="form-control" name="product_name"
-                                        required value="" /></div>
-                                <div class="mb-2"><label for="product_desig" class="form-label">Description</label><textarea name="product_desig" class="form-control"
-                                        rows="2"></textarea></div>
-
+                                                               required value="" /></div>
+                                <div class="mb-4">
+                                    <label for="product_desig" class="form-label">Description</label>
+                                    <textarea name="product_desig" class="form-control" rows="2"></textarea>
+                                </div>
+                                <div class="mb-4">
+                                    <label for="product_brand" class="form-label">Marques</label>
+                                </div>
+                                <select class="sa-select2 form-select" name="product_brand" required>
+                                    <% if (typeof(brands) !== 'undefined' && brands != null && brands.length > 0) { %>
+                                        <% for (var i = 0; i < brands.length; i++){ %>
+                                            <option value="<%= brands[i].brand_id %>"><%= brands[i].brand_name %></option>
+                                    <% }} %>
+                                </select>
                             </div>
                         </div>
 
@@ -46,33 +56,33 @@
                                 <div class="table-responsive">
                                     <table class="sa-table table">
                                         <thead>
-                                            <tr>
-                                                <th class="w-min">Image</th>
-                                                <th class="min-w-10x"></th>
-                                                <th class="w-min">Order</th>
-                                                <th class="w-min"></th>
-                                            </tr>
+                                        <tr>
+                                            <th class="w-min">Image</th>
+                                            <th class="min-w-10x"></th>
+                                            <th class="w-min">Order</th>
+                                            <th class="w-min"></th>
+                                        </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>
-                                                    <!--
+                                        <tr>
+                                            <td>
+                                                <!--
                                                     <div
                                                         class="sa-symbol sa-symbol&#45;&#45;shape&#45;&#45;rounded sa-symbol&#45;&#45;size&#45;&#45;lg">
                                                         <img src="" width="40" id="img_main"
                                                             height="40" alt="" />
                                                     </div>
 -->
-                                                </td>
-                                                <!--                                                <td><input type="file" class="form-control form-control-sm input_main" id="formFile-2-sm" name="input_main" onchange="display_img(event,'img_main')" /></td>-->
-                                                <td >
-                                                    <input type="file" class="form-control form-control-sm input_main"
-                                                        id="main" name="main"/>
-                                                    <!-- <span style="font-size: smaller;">Taille maximum de l'image principal (1 MB)</span> -->
-                                                </td>
+                                            </td>
+                                            <!--                                                <td><input type="file" class="form-control form-control-sm input_main" id="formFile-2-sm" name="input_main" onchange="display_img(event,'img_main')" /></td>-->
+                                            <td >
+                                                <input type="file" class="form-control form-control-sm input_main"
+                                                       id="main" name="main"/>
+                                                <!-- <span style="font-size: smaller;">Taille maximum de l'image principal (1 MB)</span> -->
+                                            </td>
 
-                                                <td>Principal</td>
-                                                <!--
+                                            <td>Principal</td>
+                                            <!--
                                                 <td><button class="btn btn-sa-muted btn-sm mx-n3" type="button" onclick="remove_img('.input_main','#img_main')"
                                                         aria-label="Delete image" data-bs-toggle="tooltip"
                                                         data-bs-placement="right" title="Supprimer"><svg
@@ -83,25 +93,25 @@
                                                             </path>
                                                         </svg></button></td>
 -->
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <!--
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <!--
                                                     <div
                                                         class="sa-symbol sa-symbol&#45;&#45;shape&#45;&#45;rounded sa-symbol&#45;&#45;size&#45;&#45;lg">
                                                         <img src="" width="40" id="img_1"
                                                             height="40" alt="" />
                                                     </div>
 -->
-                                                </td>
-                                                <td>
-                                                    <input type="file" class="form-control form-control-sm input_1"
-                                                        id="file_u" name="file_u" multiple="multiple"/>
-                                                    <!-- <span style="font-size: smaller;">Taille maximum de chaque autres images (1 MB)</span> -->
-                                                </td>
+                                            </td>
+                                            <td>
+                                                <input type="file" class="form-control form-control-sm input_1"
+                                                       id="file_u" name="file_u" multiple="multiple"/>
+                                                <!-- <span style="font-size: smaller;">Taille maximum de chaque autres images (1 MB)</span> -->
+                                            </td>
 
-                                                <td>Autres</td>
-                                                <!--
+                                            <td>Autres</td>
+                                            <!--
                                                 <td>
                                                     <button class="btn btn-sa-muted btn-sm mx-n3" type="button" onclick="remove_img('.input_1','#img_1')"
                                                         aria-label="Delete image" data-bs-toggle="tooltip"
@@ -114,9 +124,9 @@
                                                         </svg></button>
                                                 </td>
 -->
-                                            </tr>
+                                        </tr>
 
-                                            <!--
+                                        <!--
                                                                                         <tr>
                                                                                             <td>
                                                                                                 <div
@@ -138,7 +148,7 @@
                                                                                                     </svg></button></td>
                                                                                         </tr>
                                             -->
-                                            <!--
+                                        <!--
                                             <tr>
                                                 <td>
                                                     <div
@@ -228,9 +238,9 @@
                                     <h2 class="mb-0 fs-exact-18">Catégorie</h2>
                                 </div><select class="sa-select2 form-select" name="product_category">
                                     <% if (typeof(category) !== 'undefined' && category != null && category.length > 0) { %>
-                                    <option value=""></option>
-                                    <% for (var i = 0; i < category.length; i++) { %>
-                                    <option value="<%= category[i].cat_id %>"><%= category[i].cat_name %></option>
+                                        <option value=""></option>
+                                        <% for (var i = 0; i < category.length; i++) { %>
+                                            <option value="<%= category[i].cat_id %>"><%= category[i].cat_name %></option>
                                     <% }} %>
                                 </select>
                             </div>
@@ -243,18 +253,7 @@
                                 </select>
                             </div>
                         </div>
-                        <!-- <div class="card w-100">
-                            <div class="card-body p-5">
-                                <div class="mb-5">
-                                    <h2 class="mb-0 fs-exact-18">Marques*</h2>
-                                </div><select class="sa-select2 form-select" name="product_brand" required>
-                                    <% if (typeof(brands) !== 'undefined' && brands != null && brands.length > 0) { %>
-                                    <% for (var i = 0; i < brands.length; i++){ %>
-                                    <option value="<%= brands[i].brand_id %>"><%= brands[i].brand_name %></option>
-                                    <% }} %>
-                                </select>
-                            </div>
-                        </div> -->
+
                         <div class="card w-100 mt-5">
                             <div class="card-body p-5">
                                 <div class="mb-5">
@@ -262,7 +261,7 @@
                                 </div>
                                 <div class="row g-4">
                                     <div class="col"><label for="product_price" class="form-label">Prix*</label><input
-                                            type="number" class="form-control" name="product_price" value="" required />
+                                                type="number" class="form-control" name="product_price" value="" required />
                                     </div>
                                     <!-- <div class="col"><label for="form-product/old-price" class="form-label">Ancien prix</label><input type="number" class="form-control"
                                             id="form-product/old-price" /></div> -->
@@ -275,12 +274,12 @@
                                     <h2 class="mb-0 fs-exact-18">Inventaire</h2>
                                 </div>
                                 <div class="mb-4 pt-2"><label class="form-check"><input type="checkbox"
-                                            onclick="if (this.checked) {document.querySelector('#product_quantity').value = 0} else {document.querySelector('#product_quantity').value = 1}"
-                                            class="form-check-input" /><span class="form-check-label text-danger"> Non
+                                                                                        onclick="if (this.checked) {document.querySelector('#product_quantity').value = 0} else {document.querySelector('#product_quantity').value = 1}"
+                                                                                        class="form-check-input" /><span class="form-check-label text-danger"> Non
                                             Disponible</span></label></div>
                                 <div><label for="product_quantity" class="form-label">Quantité*</label><input
-                                        type="number" class="form-control" id="product_quantity" name="product_quantity"
-                                        value="1" required /></div>
+                                            type="number" class="form-control" id="product_quantity" name="product_quantity"
+                                            value="1" required /></div>
                             </div>
                         </div>
                     </div>

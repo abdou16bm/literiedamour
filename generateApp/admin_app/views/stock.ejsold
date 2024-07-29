@@ -1,0 +1,142 @@
+<%- include ("layouts/header.ejs") %>
+<div id="top" class="sa-app__body">
+    <div class="mx-xxl-3 px-4 px-sm-5">
+        <div class="py-5">
+            <div class="row g-4 align-items-center">
+                <div class="col">
+                    <h1 class="h3 m-0">Stock</h1>
+                </div>
+
+                <div class="col-auto d-flex">
+                    <a href="/product/add" class="btn btn-primary">Nouveau produits</a></div>
+                </div>
+
+        </div>
+    </div>
+    <div class="mx-xxl-3 px-4 px-sm-5 pb-6">
+        <div class="sa-layout">
+
+            <div class="sa-layout__content">
+                <div class="card">
+                    <div class="p-4">
+                        <div class="row g-4">
+                            <div class="col"><input type="text" placeholder="Commencez à taper pour rechercher des produits"
+                                    class="form-control form-control--search mx-auto" id="table-search" />
+                            </div>
+                        </div>
+                    </div>
+                    <% if (typeof(err) != "undefined" && err != null && err == 1) { %>
+                        <div class="alert alert-danger ms-4 me-4" role="alert">Echec de mise a jour du stock !</div>
+                    <% } else if (typeof(err) != "undefined" && err != null && err == 0) { %>
+                        <div class="alert alert-success ms-4 me-4" role="alert">Succées.</div>
+                    <% } %>    
+                    <div class="sa-divider"></div>
+                    <table class="sa-datatables-init" data-order="[[ 3, &quot;deasc&quot; ]]"
+                        data-sa-search-input="#table-search" id="example">
+                        <thead>
+                            <tr>
+                                <th class="min-w-20x">Produits</th>
+                                <th>Qte Vendu</th>
+                                <th>Qte en commande</th>
+                                <th>Qte en stock</th>
+                                <th>Etat</th>
+                                <th class="w-min" data-orderable="false"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% if (typeof(product) !== 'undefined' && product != null && product.length > 0) { 
+             
+                                for (var i = 0; i < product.length; i++)
+                                
+                                {
+                              
+                              %>
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center"><a href="/product/<%= product[i].product_id %>/details" class="me-4">
+                                            <div class="sa-symbol sa-symbol--shape--rounded sa-symbol--size--lg">
+                                                <img src="/img/product/<%= product[i].product_id %>/main.jpg" width="40" height="40"
+                                                    alt="" />
+                                            </div>
+                                        </a>
+                                        <div><a href="/product/<%= product[i].product_id %>/details" class="text-reset"><%= product[i].product_name %></a>
+                                            <div class="sa-meta mt-0">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><%= product[i].qt_out %></td>
+                                <td><%= product[i].qt_order %></td>
+                                <td><%= product[i].qt_stock %></td>
+                                <td>
+                                    <% if (product[i].qt_stock > 0) {var etat = "Disponible" %>
+                                
+                                    <div class="badge badge-sa-success"><%= etat %></div>
+                                
+                                    <% } else {var etat = "Rupture" %>
+                                
+                                    <div class="badge badge-sa-danger"><%= etat %></div>
+                                
+                                    <% } %>
+                                    
+                                </td>
+                                <td>
+                 
+                                    <div class="dropdown"><button class="btn btn-sa-muted btn-sm" type="button"
+                                            id="product-context-menu-0" data-bs-toggle="dropdown" aria-expanded="false"
+                                            aria-label="More"><svg xmlns="http://www.w3.org/2000/svg" width="3"
+                                                height="13" fill="currentColor">
+                                                <path
+                                                    d="M1.5,8C0.7,8,0,7.3,0,6.5S0.7,5,1.5,5S3,5.7,3,6.5S2.3,8,1.5,8z M1.5,3C0.7,3,0,2.3,0,1.5S0.7,0,1.5,0 S3,0.7,3,1.5S2.3,3,1.5,3z M1.5,10C2.3,10,3,10.7,3,11.5S2.3,13,1.5,13S0,12.3,0,11.5S0.7,10,1.5,10z">
+                                                </path>
+                                            </svg></button>
+                                        <ul class="dropdown-menu dropdown-menu-end"
+                                            aria-labelledby="product-context-menu-0">
+                                            <li><a class="dropdown-item" type="button" data-bs-target="#quantity_edit" 
+                                            data-bs-toggle="modal"
+                                            onclick="set_info('<%=JSON.stringify(product[i]).replace(/'/g, '`').replace(/\\n/g,' ')%>','quantity')">Nouvelle quantité</a></li>
+                                        </ul>
+                                    </div>
+                        
+                                </td>
+                            </tr>
+                            <% }} %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- sa-app__body / end --><!-- sa-app__footer -->
+
+
+<%- include ("layouts/footer.ejs") %>
+
+
+<!-- edit quantity -->
+<div class="modal fade" id="quantity_edit" tabindex="-1" aria-labelledby="quantity-addLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title h4" id="quantity-addLabel">Quantité</h5>
+        <button type="button" class="sa-close sa-close--modal" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="post">
+            <div class="row g-3 needs-validation">
+            <div class="mb-2 col-md-12">
+                <label for="quantity" class="form-label">Entrez la nouvelle quantité : </label>
+                <input type="text" class="form-control" name="quantity" id="quantity" value="1" required>
+            </div>
+            <div class="modal-footer w-100 align-items-center justify-content-between flex-wrap">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fermer</button>
+                <input type="submit" class="btn btn-success" value="Ajouter">
+            </div>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+

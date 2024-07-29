@@ -2,7 +2,7 @@
   "name": "admin App",
   "version": "1.0.0",
   "scripts": {
-    "start admin": "node app.js",
+    "start": "node app.js",
     "start admin service": "nodemon app.js"
   },
   "dependencies": {

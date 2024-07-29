@@ -1,7 +1,7 @@
 const database_module=require('./database');
 
 const product_get_all = function(callback){
-    let sql='SELECT product.*,shop.*,c.*,GROUP_CONCAT(sc.sub_cat_name) as sub_cat_list from product\n' +
+    let sql='SELECT product.*,brand.*,shop.*,c.*,GROUP_CONCAT(sc.sub_cat_name) as sub_cat_list from product\n' +
     'LEFT JOIN brand ON brand.brand_id = product.brand_id\n' +
     'LEFT JOIN shop ON shop.shop_id = product.shop_id\n' +
     'LEFT JOIN category c ON c.cat_id = product.cat_id\n' +
@@ -283,7 +283,7 @@ const product_get_all_client = function(cat,callback){
         'group by p.product_id\n' +
         'order by p.product_id DESC\n' +
         'limit 12';
-        
+
     database_module.db.query(sql,[cat], function (error, results, fields) {
         if (error) console.log('error : ',error);
         //console.log('results: ', results);
@@ -305,7 +305,7 @@ const product_get_all_subcat = function(sub_cat,callback){
     'LEFT JOIN brand ON brand.brand_id = p.brand_id\n' +
     'LEFT JOIN category c ON c.cat_id = p.cat_id\n' +
     'WHERE psc.sub_cat_id = ?';
-        
+
     database_module.db.query(sql,[sub_cat], function (error, results, fields) {
         if (error) console.log('error : ',error);
         //console.log('results: ', results);
@@ -391,7 +391,7 @@ let product_count_page_filter = function (filterObj,limit,callback){
         "LEFT JOIN sub_category sc on sc.sub_cat_id = psc.sub_cat_id\n" +
         "where shop_id = 1\n" +
         filter + "\n" +
-        "group by product.product_id\n" + 
+        "group by product.product_id\n" +
         ") t1 ON t1.product_id = product.product_id";
 
     console.log(sql)

@@ -27,11 +27,11 @@
                     </div>
                     <% if (typeof(err) != "undefined" && err != null && err == 1) { %>
                         <div class="alert alert-danger ms-4 me-4" role="alert">Echec de suppression du produit !</div>
-                    <% } else if (typeof(err) != "undefined" && err != null && err == 2) { %>    
+                    <% } else if (typeof(err) != "undefined" && err != null && err == 2) { %>
                         <div class="alert alert-danger ms-4 me-4" role="alert">Impossible de supprimer ce produit ! <br><br> il a déja été commandé par un client.</div>
                     <% } else if (typeof(err) != "undefined" && err != null && err == 0) { %>
                         <div class="alert alert-success ms-4 me-4" role="alert">Succées !</div>
-                    <% } %>    
+                    <% } %>
                     <div class="sa-divider"></div>
                     <table class="sa-datatables-init" data-order="[]"
                         data-sa-search-input="#table-search">
@@ -39,6 +39,7 @@
                             <tr>
                                 <th class="w-min" data-orderable="false">Réf</th>
                                 <th class="min-w-20x">Produits</th>
+                                <td>Marque</td>
                                 <td>Catégorie</td>
                                 <td>Sous-catégorie</td>
                                 <th>Etat</th>
@@ -48,12 +49,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <% if (typeof(products) !== 'undefined' && products != null && products.length > 0) { 
-             
+                            <% if (typeof(products) !== 'undefined' && products != null && products.length > 0) {
+
                                 for (var i = 0; i < products.length; i++)
-                                
+
                                 {
-                              
+
                               %>
                             <tr>
                                 <td><%= products[i].product_ref %></td>
@@ -75,19 +76,20 @@
                                         </div>
                                     </div>
                                 </td>
+                                <td><%= products[i].brand_name %></td>
                                 <td class="text-reset"><%= products[i].cat_name %></td>
                                 <td class="text-reset"><%= products[i].sub_cat_list %></td>
                                 <td>
                                     <% if (products[i].product_qt > 0) {var etat = "Disponible" %>
-                                
+
                                     <div class="badge badge-sa-success"><%= etat %></div>
-                                
+
                                     <% } else {var etat = "Rupture" %>
-                                
+
                                     <div class="badge badge-sa-danger"><%= etat %></div>
-                                
+
                                     <% } %>
-                                    
+
                                 </td>
                                 <td>
                                     <div class="sa-price">
@@ -96,7 +98,7 @@
                                 </td>
                                 <td><a href="/product/<%= products[i].product_id %>/sheet" class="btn btn-secondary"><i class='fas fa-file-alt'></i></a></td>
                                 <td>
-                 
+
                                     <div class="dropdown"><button class="btn btn-sa-muted btn-sm" type="button"
                                             id="product-context-menu-0" data-bs-toggle="dropdown" aria-expanded="false"
                                             aria-label="More"><svg xmlns="http://www.w3.org/2000/svg" width="3"
@@ -115,7 +117,7 @@
                                             </li>
                                         </ul>
                                     </div>
-                        
+
                                 </td>
                             </tr>
                             <% }} %>
