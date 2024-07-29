@@ -186,6 +186,9 @@ const product_edit_save = function (req,res) {
 
           let body = fields;
 
+          console.log(body);
+
+
           if (
 
               typeof(body.product_ref) != 'undefined' && body.product_ref != null && body.product_ref != ""
@@ -206,7 +209,7 @@ const product_edit_save = function (req,res) {
                     product_price : body.product_price.trim(),
                     product_qt : body.product_quantity.trim(),
                     cat_id : body.product_category.trim(),
-                    brand_id : body.product_category.trim()
+                    brand_id : body.product_brand.trim()
 
                }
 
