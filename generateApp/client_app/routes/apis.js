@@ -30,7 +30,7 @@ apis.get("/products/:brand/:subcat",function (req,res) {
 
 
     product_module.product_get_all_sub_category_brand(subcat,brand,function (err,result1) {
-        
+
         if (err) console.log(err)
 
         res.send({products : result1, err : err})
@@ -38,23 +38,23 @@ apis.get("/products/:brand/:subcat",function (req,res) {
 
     })
 
-    
+
 })
 
 
 
 apis.get("/delivery_price/:wilaya/:type",function (req,res) {
-  
+
     let wilaya = req.params.wilaya
     let type = req.params.type
 
     delivery_module.delivery_price_get_one_client(wilaya,type,function (err,result) {
-        
+
         if (err) console.log('Error : ',err);
         res.send({delivery_price : result, err : err})
 
     })
-    
+
 })
 
 
@@ -68,10 +68,10 @@ apis.get("/subcat/list",function (req,res) {
         if (err) console.log('Error : ',err);
 
         res.send({
-    
+
             sub_category: result1,
             err : err
-        
+
         });
 
     });
@@ -86,10 +86,10 @@ apis.get("/cat/list",function (req,res) {
         if (err) console.log('Error : ',err);
 
         res.send({
-    
+
             category: result1,
             err : err
-        
+
         });
 
     });
@@ -101,40 +101,44 @@ apis.get("/cat/list",function (req,res) {
 apis.get("/cart_p/add",authentication_controller.isAuthenticated,function (req,res) {
 
     let product_id = req.query.product
+    let product_price = req.query.price
     let cart_id = req.session.cart_id
 
     console.log("productId : ",product_id)
     console.log("cartId : ",cart_id)
+    console.log("product_price : ",product_price)
+
 
     product_module.product_get_one(product_id,function (err,result) {
 
         if (err) console.log(err)
 
         if (result.length > 0) {
-            
+
             console.log("productPrice : ",result[0].product_price)
+            product_price > 0 ? false : product_price = result[0].product_price
 
             let data_insert = {
-                
-                product_id : product_id, 
-                cart_id : cart_id, 
-                product_qt_c : 1, 
-                product_price_c : result[0].product_price
-            
+
+                product_id : product_id,
+                cart_id : cart_id,
+                product_qt_c : 1,
+                // product_price_c : result[0].product_price
+                product_price_c : product_price
             };
 
             cart_p_module.cart_p_add(data_insert,function (err,result1) {
-                
+
                 if (err) console.log('error',err);
 
                 res.send({insert_result : result1, err : err, session : req.session});
-            
+
             });
 
         }
-         
+
     })
-   
+
 });
 
 
@@ -147,11 +151,11 @@ apis.get("/cart_p/:product/delete",authentication_controller.isAuthenticated,fun
     cart_p_module.cart_p_delete(product_id,cart_id,function (err,result1) {
 
         if (err) console.log(err)
-            
+
         res.send({result_delete : result1, err : err})
-        
+
     })
-    
+
 })
 
 
@@ -164,11 +168,11 @@ apis.get("/cart_p/:product/edit",authentication_controller.isAuthenticated,funct
     cart_p_module.cart_p_update2({product_qt_c : qte},product_id,cart_id,function (err,result1) {
 
         if (err) console.log(err)
-            
+
         res.send({result_update : result1, err : err})
-        
+
     })
-    
+
 })
 
 
@@ -183,10 +187,10 @@ apis.get("/cart/:type/valid",authentication_controller.isAuthenticated,function 
     order_module.customer_order_generate(user_id,delivery_type,function (err,result1) {
 
         if (err) console.log(err)
-            
+
         res.send({result : result1, multi : multi, err : err})
-        
-    })    
+
+    })
 
 })
 

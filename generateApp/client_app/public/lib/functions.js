@@ -4,62 +4,77 @@ let myBtnDelete_list = document.querySelectorAll(".myBtnDelete")
 let cart_wait = localStorage.getItem("cartWait")
 let formating=Intl.NumberFormat('en-US')
 let btn_ToCheckout = document.querySelectorAll(".btn-ToCheckout")
+let btnSubCatPrice = document.querySelectorAll(".btnSubCatPrice")
+let productToCartPrice = 0;
+let product_price = document.querySelector("#product_price");
 
 
 function checkout(idp) {
-    
+
     fetch("/api/checkout/" + idp)
-    .then(response => response.json())
-    .then(result => {
+        .then(response => response.json())
+        .then(result => {
 
-        console.log("multi product : ",result.multi)
-        if (result.multi == false) location.href = "/checkout/"+idp
-        else if (result.multi == true) {
-            
-            if (typeof(result.err) != "undefined" && result.err != null){
+            console.log("multi product : ",result.multi)
+            if (result.multi == false) location.href = "/checkout/"+idp
+            else if (result.multi == true) {
 
-                if (result.err.code == "ER_DUP_ENTRY") {
+                if (typeof(result.err) != "undefined" && result.err != null){
 
-                    console.log("Product exixts.")
-                    document.getElementById("alert_msg").innerHTML = '<div class="alert alert-info" role="alert">Produit existe déja dans votre panier. <a href="/cart">Voir panier</a></div>'
+                    if (result.err.code == "ER_DUP_ENTRY") {
+
+                        console.log("Product exixts.")
+                        document.getElementById("alert_msg").innerHTML = '<div class="alert alert-info" role="alert">Produit existe déja dans votre panier. <a href="/cart">Voir panier</a></div>'
+                        setTimeout(() => {
+
+                            $('#alert_modal').modal('show');
+
+                        }, 500);
+
+                    } else console.log(result.err)
+
+                }
+                else {
+
+                    console.log("Product add to cart.");
                     setTimeout(() => {
 
-                        $('#alert_modal').modal('show');
+                        $('#cart_modal').modal('show');
 
                     }, 500);
 
-                } else console.log(result.err)
+                    loadDropCart()
 
-            }
-            else {
-
-                console.log("Product add to cart.");
-                setTimeout(() => {
-
-                    $('#cart_modal').modal('show');
-
-                }, 500);
-
-                loadDropCart()
+                }
 
             }
 
-        }
-            
-    })
+        })
 
 }
 
 if (btn_ToCheckout.length > 0) {
 
     for (let i = 0; i < btn_ToCheckout.length; i++) {
-     
+
         let idp = btn_ToCheckout[i].getAttribute("idp")
         btn_ToCheckout[i].addEventListener("click",()=>checkout(idp))
-        
+
     }
-    
+
 }
+
+if (btnSubCatPrice.length > 0) {
+    for (let i = 0; i < btnSubCatPrice.length; i++) {
+        btnSubCatPrice[i].addEventListener("click",() => {
+            let subCatBlock = btnSubCatPrice[i];
+            productToCartPrice = subCatBlock.getAttribute("data")
+            product_price.innerText = formating.format(productToCartPrice)+" DA"
+        })
+    }
+}
+
+
 
 /* if (document.getElementById("select_brand")) {
 
@@ -208,40 +223,40 @@ if (document.getElementById("wilaya_checkout") && document.querySelector(".deliv
         const type = document.querySelector(".deliveryType").value
 
         fetch("/api/delivery_price/"+wilaya+"/"+type)
-        .then((response)=>response.json())
-        .then(data=>{
+            .then((response)=>response.json())
+            .then(data=>{
 
-            if (data.err != null) {
+                if (data.err != null) {
 
-                console.log(data.err)
-
-            } else {
-
-                console.log(data)
-                let formating=Intl.NumberFormat('en-US')
-
-                let deliveryPriceElement = document.getElementById("delivery_price")
-                let orderTotalElement = document.getElementById("order_total")
-
-                if (data.delivery_price != null && data.delivery_price != "" ) {
-
-
-                    deliveryPriceElement.innerText = formating.format(data.delivery_price[0].delivery_price)+" DA"
-
-                    orderTotalElement.innerText = formating.format(price + data.delivery_price[0].delivery_price)+" DA"
-
+                    console.log(data.err)
 
                 } else {
 
-                    deliveryPriceElement.innerText = "0.00 DA"
+                    console.log(data)
+                    let formating=Intl.NumberFormat('en-US')
 
-                    orderTotalElement.innerText = formating.format(price)+" DA"
+                    let deliveryPriceElement = document.getElementById("delivery_price")
+                    let orderTotalElement = document.getElementById("order_total")
+
+                    if (data.delivery_price != null && data.delivery_price != "" ) {
+
+
+                        deliveryPriceElement.innerText = formating.format(data.delivery_price[0].delivery_price)+" DA"
+
+                        orderTotalElement.innerText = formating.format(price + data.delivery_price[0].delivery_price)+" DA"
+
+
+                    } else {
+
+                        deliveryPriceElement.innerText = "0.00 DA"
+
+                        orderTotalElement.innerText = formating.format(price)+" DA"
+
+                    }
 
                 }
 
-            }
-
-        })
+            })
 
     }
 
@@ -252,56 +267,55 @@ if (document.getElementById("wilaya_checkout") && document.querySelector(".deliv
 
 if (document.getElementById("wilaya_checkout") && document.querySelector(".deliveryType")){
 
-    document.querySelector(".deliveryType").oninput = () => 
-    document.getElementById("wilaya_checkout").oninput()
+    document.querySelector(".deliveryType").oninput = () =>
+        document.getElementById("wilaya_checkout").oninput()
 
 }
 
 
 
 fetch("/api/cat/list")
-.then((response)=>response.json())
-.then(data=>{
+    .then((response)=>response.json())
+    .then(data=>{
 
 
-    if (data.err != null && typeof(data.err) != "undefined") {
+        if (data.err != null && typeof(data.err) != "undefined") {
 
-        console.log(data.err)
+            console.log(data.err)
 
-    } else {
+        } else {
 
-        if (document.getElementById("header_cat")) {
+            if (document.getElementById("header_cat")) {
 
-            document.getElementById("header_cat").innerHTML = ""
+                document.getElementById("header_cat").innerHTML = ""
 
-            for (let i = 0; i < data.category.length; i++) {
+                for (let i = 0; i < data.category.length; i++) {
 
-                document.getElementById("header_cat").innerHTML +=
+                    document.getElementById("header_cat").innerHTML +=
 
-                "<li><a href='/products/list/1?catP="+data.category[i].cat_id+"&bprice=&eprice='>"+data.category[i].cat_name+"</a></li>"
+                        "<li><a href='/products/list/1?catP="+data.category[i].cat_id+"&bprice=&eprice='>"+data.category[i].cat_name+"</a></li>"
+
+                }
+
+            }
+
+            if (document.getElementById("footer_cat")) {
+
+                document.getElementById("footer_cat").innerHTML = ""
+
+                for (let i = 0; i < data.category.length; i++) {
+
+                    document.getElementById("footer_cat").innerHTML +=
+
+                        "<li><a href='/products/list/1?catP="+data.category[i].cat_id+"&bprice=&eprice='>"+data.category[i].cat_name+"</a></li>"
+
+                }
 
             }
 
         }
-
-        if (document.getElementById("footer_cat")) {
-
-            document.getElementById("footer_cat").innerHTML = ""
-
-            for (let i = 0; i < data.category.length; i++) {
-
-                document.getElementById("footer_cat").innerHTML +=
-
-                "<li><a href='/products/list/1?catP="+data.category[i].cat_id+"&bprice=&eprice='>"+data.category[i].cat_name+"</a></li>"
-
-            }
-
-        }
-
-    }
 
 })
-
 
 
 
@@ -315,51 +329,51 @@ if (typeof(productToCart_btn_list) != "undefined" && productToCart_btn_list.leng
 
             if (typeof(product) != "undefined" && product != null && product != null) {
 
-                fetch("/api/cart_p/add?product="+product)
-                .then(response => response.json())
-                .then(result => {
+                fetch("/api/cart_p/add?product="+product+"&price="+productToCartPrice)
+                    .then(response => response.json())
+                    .then(result => {
 
-                    if (typeof(result.loggedin) != "undefined" && result.loggedin != null) {
+                        if (typeof(result.loggedin) != "undefined" && result.loggedin != null) {
 
-                        let dataWait = {product : productToCart_btn_list[i].getAttribute("idp")}
+                            let dataWait = {product : productToCart_btn_list[i].getAttribute("idp")}
 
-                        localStorage.setItem('cartWait',JSON.stringify(dataWait))
-                        location.href = "/login"
-
-                    }
-                    else {
-
-                        if (typeof(result.err) != "undefined" && result.err != null){
-
-                            if (result.err.code == "ER_DUP_ENTRY") {
-
-                                console.log("Product exixts.")
-                                document.getElementById("alert_msg").innerHTML = '<div class="alert alert-info" role="alert">Produit existe déja dans votre panier. <a href="/cart">Voir panier</a></div>'
-                                setTimeout(() => {
-
-                                    $('#alert_modal').modal('show');
-
-                                }, 500);
-
-                            } else console.log(result.err)
+                            localStorage.setItem('cartWait',JSON.stringify(dataWait))
+                            location.href = "/login"
 
                         }
                         else {
 
-                            console.log("Product add to cart.");
-                            setTimeout(() => {
+                            if (typeof(result.err) != "undefined" && result.err != null){
 
-                                $('#cart_modal').modal('show');
+                                if (result.err.code == "ER_DUP_ENTRY") {
 
-                            }, 500);
+                                    console.log("Product exixts.")
+                                    document.getElementById("alert_msg").innerHTML = '<div class="alert alert-info" role="alert">Produit existe déja dans votre panier. <a href="/cart">Voir panier</a></div>'
+                                    setTimeout(() => {
 
-                            loadDropCart()
+                                        $('#alert_modal').modal('show');
+
+                                    }, 500);
+
+                                } else console.log(result.err)
+
+                            }
+                            else {
+
+                                console.log("Product add to cart.");
+                                setTimeout(() => {
+
+                                    $('#cart_modal').modal('show');
+
+                                }, 500);
+
+                                loadDropCart()
+
+                            }
 
                         }
 
-                    }
-
-                })
+                    })
 
             }
 
@@ -379,45 +393,45 @@ if (typeof(cart_wait) != "undefined" && cart_wait != null && cart_wait != "") {
     if (typeof(product) != "undefined" && product != null && product != null) {
 
         fetch("/api/cart_p/add?product="+product)
-        .then(response => response.json())
-        .then(result => {
+            .then(response => response.json())
+            .then(result => {
 
-            if (typeof(result.loggedin) != "undefined" && result.loggedin != null) console.log("Not Authentificated.")
-            else {
+                if (typeof(result.loggedin) != "undefined" && result.loggedin != null) console.log("Not Authentificated.")
+                else {
 
-                localStorage.removeItem("cartWait")
+                    localStorage.removeItem("cartWait")
 
-                if (typeof(result.err) != "undefined" && result.err != null){
+                    if (typeof(result.err) != "undefined" && result.err != null){
 
-                    if (result.err.code == "ER_DUP_ENTRY") {
+                        if (result.err.code == "ER_DUP_ENTRY") {
 
-                        console.log("Product exixts.")
-                        document.getElementById("alert_msg").innerHTML = '<div class="alert alert-info" role="alert">Produit existe déja dans votre panier. <a href="/cart">Voir panier</a></div>'
+                            console.log("Product exixts.")
+                            document.getElementById("alert_msg").innerHTML = '<div class="alert alert-info" role="alert">Produit existe déja dans votre panier. <a href="/cart">Voir panier</a></div>'
+                            setTimeout(() => {
+
+                                $('#alert_modal').modal('show');
+
+                            }, 500);
+
+                        } else console.log(result.err)
+
+                    }
+                    else {
+
+                        console.log("Product add to cart.")
                         setTimeout(() => {
 
-                            $('#alert_modal').modal('show');
+                            $('#cart_modal').modal('show');
 
                         }, 500);
 
-                    } else console.log(result.err)
+                        loadDropCart()
 
-                }
-                else {
-
-                    console.log("Product add to cart.")
-                    setTimeout(() => {
-
-                        $('#cart_modal').modal('show');
-
-                    }, 500);
-
-                    loadDropCart()
+                    }
 
                 }
 
-            }
-
-        })
+            })
 
     }
 
@@ -438,23 +452,23 @@ if (typeof(myBtnDelete_list) != "undefined" && myBtnDelete_list.length > 0) {
             let product = myBtnDelete_list[i].getAttribute("idp")
 
             fetch("/api/cart_p/"+product+"/delete")
-            .then(response => response.json())
-            .then(result => {
+                .then(response => response.json())
+                .then(result => {
 
-                if (typeof(result.loggedin) != "undefined" && result.loggedin != null) console.log("Not Authentificated.")
-                else {
-
-                    if (typeof(result.err) != "undefined" && result.err != null) console.log(result.err)
+                    if (typeof(result.loggedin) != "undefined" && result.loggedin != null) console.log("Not Authentificated.")
                     else {
 
-                        console.log("Product deleted from cart.")
-                        location.reload()
+                        if (typeof(result.err) != "undefined" && result.err != null) console.log(result.err)
+                        else {
+
+                            console.log("Product deleted from cart.")
+                            location.reload()
+
+                        }
 
                     }
 
-                }
-
-            })
+                })
 
         })
 
@@ -477,24 +491,24 @@ if (typeof(myInputQte_list) != "undefined" && myInputQte_list.length > 0) {
                 let qte = myInputQte_list[i].value
 
                 fetch("/api/cart_p/"+product+"/edit?qte="+qte)
-                .then(response => response.json())
-                .then(result => {
+                    .then(response => response.json())
+                    .then(result => {
 
-                    if (typeof(result.loggedin) != "undefined" && result.loggedin != null) console.log("Not Authentificated.")
-                    else {
-
-                        if (typeof(result.err) != "undefined" && result.err != null) console.log(result.err)
+                        if (typeof(result.loggedin) != "undefined" && result.loggedin != null) console.log("Not Authentificated.")
                         else {
 
-                            console.log("Product qte updated.")
-                            $(".myTotalCart").load(" .myTotalCart > *");
-                            loadDropCart()
+                            if (typeof(result.err) != "undefined" && result.err != null) console.log(result.err)
+                            else {
+
+                                console.log("Product qte updated.")
+                                $(".myTotalCart").load(" .myTotalCart > *");
+                                loadDropCart()
+
+                            }
 
                         }
 
-                    }
-
-                })
+                    })
 
             } else myInputQte_list[i].value = 1
 
@@ -507,56 +521,14 @@ if (typeof(myInputQte_list) != "undefined" && myInputQte_list.length > 0) {
 
 
 if (document.querySelector(".myBtnValid") && document.querySelector(".deliveryType")) {
-    
+
     document.querySelector(".myBtnValid").addEventListener("click",function () {
-        
-        let type = document.querySelector(".deliveryType").value
-
-        fetch("/api/cart/"+type+"/valid")
-        .then(response => response.json())
-        .then(result => {
-
-            if (typeof(result.err) != "undefined" && result.err != null){
-
-                if (result.err.code == "EMPTY_CART") {
-
-                    console.log("Empty cart")
-                    document.getElementById("alert_msg").innerHTML = '<div class="alert alert-info" role="alert">Votre panier est vide. </div>'
-                    setTimeout(() => {
-
-                        $('#alert_modal').modal('show');
-
-                    }, 500);
-
-                } else console.log(result.err)
-
-            }
-            else {
-
-                if (result.multi == false) location.href = "/orders" 
-                else location.href = "/logout?buyer=success" 
-
-            }
-                    
-        })
-
-    })
-    
-}
-
-
-if (document.querySelector(".myBtnValid_drop") &&  document.querySelector(".deliveryType")) {
-    
-    document.querySelector(".myBtnValid_drop").addEventListener("click",function () {
 
         let type = document.querySelector(".deliveryType").value
 
         fetch("/api/cart/"+type+"/valid")
-        .then(response => response.json())
-        .then(result => {
-
-            if (typeof(result.loggedin) != "undefined" && result.loggedin != null) console.log("Not Authentificated.")
-            else {
+            .then(response => response.json())
+            .then(result => {
 
                 if (typeof(result.err) != "undefined" && result.err != null){
 
@@ -575,77 +547,119 @@ if (document.querySelector(".myBtnValid_drop") &&  document.querySelector(".deli
                 }
                 else {
 
-                    if (result.multi == false) location.href = "/orders" 
-                    else location.href = "/logout?buyer=success" 
+                    if (result.multi == false) location.href = "/orders"
+                    else location.href = "/logout?buyer=success"
 
                 }
 
-            }
-                    
-        })
+            })
 
     })
-    
+
+}
+
+
+if (document.querySelector(".myBtnValid_drop") &&  document.querySelector(".deliveryType")) {
+
+    document.querySelector(".myBtnValid_drop").addEventListener("click",function () {
+
+        let type = document.querySelector(".deliveryType").value
+
+        fetch("/api/cart/"+type+"/valid")
+            .then(response => response.json())
+            .then(result => {
+
+                if (typeof(result.loggedin) != "undefined" && result.loggedin != null) console.log("Not Authentificated.")
+                else {
+
+                    if (typeof(result.err) != "undefined" && result.err != null){
+
+                        if (result.err.code == "EMPTY_CART") {
+
+                            console.log("Empty cart")
+                            document.getElementById("alert_msg").innerHTML = '<div class="alert alert-info" role="alert">Votre panier est vide. </div>'
+                            setTimeout(() => {
+
+                                $('#alert_modal').modal('show');
+
+                            }, 500);
+
+                        } else console.log(result.err)
+
+                    }
+                    else {
+
+                        if (result.multi == false) location.href = "/orders"
+                        else location.href = "/logout?buyer=success"
+
+                    }
+
+                }
+
+            })
+
+    })
+
 }
 
 function loadDropCart() {
-    
+
     if (document.getElementById("qteCart_drop") && document.getElementById("productCart_drop") && document.getElementById("totalCart_drop")) {
 
         fetch("/api/cart")
-        .then(response => response.json())
-        .then(result => {
-    
-          
-    
-            if (typeof(result.loggedin) != "undefined" && result.loggedin != null) console.log("Not Authentificated.")
-            else {
-    
-                if (typeof(result.err) != "undefined" && result.err != null) console.log(result.err)
-                else {
-            
-                    let qteCart = document.getElementById("qteCart_drop")
-                    let productCart = document.getElementById("productCart_drop")
-                    let totalCart = document.getElementById("totalCart_drop")
+            .then(response => response.json())
+            .then(result => {
 
-                    qteCart.innerHTML = ""
-                    productCart.innerHTML = ""
-                    totalCart.innerHTML = ""
-    
-                    if (result.cart.length > 0) {
-    
-                        qteCart.innerText = result.cart[0].productCount                    
-    
-                        if (result.cart_p.length > 0) {
-                               
-                            totalCart.innerText = "Total : " + formating.format(result.cart[0].totalPrice)+" DA"            
-    
-                            for (let i = 0; i < result.cart_p.length; i++) {
-                           
-                                productCart.innerHTML += 
-                                
-                                '<div class="product-widget">' +
-                                '<div class="product-img">' +
-                                    '<img src="/img/product/'+result.cart_p[i].product_id+'/main.jpg" alt="">' +
-                                '</div>' +
-                                '<div class="product-body">' +
-                                    '<h3 class="product-name"><a href="#">'+result.cart_p[i].product_name+'</a></h3>' +
-                                    '<h4 class="product-price"><span class="qty">'+result.cart_p[i].product_qt_c+'x</span>'+formating.format(result.cart_p[i].product_price_c)+" DA"+'</h4>' +
-                                '</div>' +
-                                '</div>' 
-                                
-                            }
-    
-                        } else {productCart.innerHTML = "<span class = 'text-info'>Votre panier est vide.</span>"}
-                        
+
+
+                if (typeof(result.loggedin) != "undefined" && result.loggedin != null) console.log("Not Authentificated.")
+                else {
+
+                    if (typeof(result.err) != "undefined" && result.err != null) console.log(result.err)
+                    else {
+
+                        let qteCart = document.getElementById("qteCart_drop")
+                        let productCart = document.getElementById("productCart_drop")
+                        let totalCart = document.getElementById("totalCart_drop")
+
+                        qteCart.innerHTML = ""
+                        productCart.innerHTML = ""
+                        totalCart.innerHTML = ""
+
+                        if (result.cart.length > 0) {
+
+                            qteCart.innerText = result.cart[0].productCount
+
+                            if (result.cart_p.length > 0) {
+
+                                totalCart.innerText = "Total : " + formating.format(result.cart[0].totalPrice)+" DA"
+
+                                for (let i = 0; i < result.cart_p.length; i++) {
+
+                                    productCart.innerHTML +=
+
+                                        '<div class="product-widget">' +
+                                        '<div class="product-img">' +
+                                        '<img src="/img/product/'+result.cart_p[i].product_id+'/main.jpg" alt="">' +
+                                        '</div>' +
+                                        '<div class="product-body">' +
+                                        '<h3 class="product-name"><a href="#">'+result.cart_p[i].product_name+'</a></h3>' +
+                                        '<h4 class="product-price"><span class="qty">'+result.cart_p[i].product_qt_c+'x</span>'+formating.format(result.cart_p[i].product_price_c)+" DA"+'</h4>' +
+                                        '</div>' +
+                                        '</div>'
+
+                                }
+
+                            } else {productCart.innerHTML = "<span class = 'text-info'>Votre panier est vide.</span>"}
+
+                        }
+
                     }
-    
+
                 }
-    
-            }
-    
-        })
-        
+
+            })
+
     }
 
 }

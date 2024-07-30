@@ -27,9 +27,15 @@ const product_details = function (req, res) {
 
                 if (err) console.log(err)
 
-                res.render('product_details',{product : result1, product_details : result2, product_similar : result3, session : req.session, err : err});
-            })
+                product_module.product_get_all_subcat_price(id,function (err,result4){
 
+                    if (err) console.log(err)
+
+
+                    res.render('product_details',{product : result1, product_details : result2, product_similar : result3, product_subcats : result4, session : req.session, err : err});
+                })
+
+            })
         })
 
     })
@@ -39,7 +45,7 @@ const product_details = function (req, res) {
 
 
 const product_list_page = function (req,res) {
-    
+
     let count_page = 0;
     let limit_page = 12;
     let current_page = req.params.page-1;
