@@ -44,7 +44,7 @@ const product_get_all_top = function(top,callback){
 exports.product_get_all_top = product_get_all_top;
 
 const product_get_one = function(product_id,callback){
-    let sql='SELECT product.*,brand.*,shop.*,c.*,CONCAT("[",GROUP_CONCAT(sc.sub_cat_id),"]") as subCat_list_id FROM product\n' +
+    let sql='SELECT product.*,brand.*,shop.*,c.*,CONCAT("[",GROUP_CONCAT(psc.sub_cat_id),"]") as subCat_list_id,CONCAT("[",GROUP_CONCAT(psc.product_sub_cat_price),"]") as subCat_list_price FROM product\n' +
     'LEFT JOIN brand ON brand.brand_id = product.brand_id\n' +
     'LEFT JOIN shop ON shop.shop_id = product.shop_id\n' +
     'LEFT JOIN category c ON c.cat_id = product.cat_id\n' +
