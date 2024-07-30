@@ -63,6 +63,7 @@ const product_get_all_top = function(top,callback){
 exports.product_get_all_top = product_get_all_top;
 
 const product_get_one = function(product_id,callback){
+/*<<<<<<< HEAD
     let sql='SELECT product.*,brand.*,shop.*,c.*,CONCAT("[",GROUP_CONCAT(sc.sub_cat_id),"]") as subCat_list_id FROM product\n' +
         'LEFT JOIN brand ON brand.brand_id = product.brand_id\n' +
         'LEFT JOIN shop ON shop.shop_id = product.shop_id\n' +
@@ -71,6 +72,16 @@ const product_get_one = function(product_id,callback){
         'LEFT JOIN sub_category sc on sc.sub_cat_id = psc.sub_cat_id\n' +
         'WHERE product.product_id = ?\n' +
         'group by product.product_id'
+=======*/
+    let sql='SELECT product.*,brand.*,shop.*,c.*,CONCAT("[",GROUP_CONCAT(psc.sub_cat_id),"]") as subCat_list_id,CONCAT("[",GROUP_CONCAT(psc.product_sub_cat_price),"]") as subCat_list_price FROM product\n' +
+    'LEFT JOIN brand ON brand.brand_id = product.brand_id\n' +
+    'LEFT JOIN shop ON shop.shop_id = product.shop_id\n' +
+    'LEFT JOIN category c ON c.cat_id = product.cat_id\n' +
+    'LEFT JOIN product_sub_cat psc on psc.product_id = product.product_id\n' +
+    'LEFT JOIN sub_category sc on sc.sub_cat_id = psc.sub_cat_id\n' +
+    'WHERE product.product_id = ?\n' +
+    'group by product.product_id'
+// >>>>>>> 4e48bde1e9f3a7dd8b366ef66c57a068a5615f4e
     database_module.db.query(sql,[product_id], function (error, results, fields) {
         if (error) console.log('error : ',error);
 //console.log('results: ', results);

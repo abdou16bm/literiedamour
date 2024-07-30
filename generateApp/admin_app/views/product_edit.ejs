@@ -2,7 +2,7 @@
 <div id="top" class="sa-app__body">
     <div class="mx-sm-2 px-2 px-sm-3 px-xxl-4 pb-6">
         <% if (typeof(product) !== 'undefined' && product != null && product.length > 0) {  %>
-            <form class="container" method="post" enctype="multipart/form-data">
+            <form class="container" method="post" id="product-form" enctype="multipart/form-data">
                 <div class="py-5">
                     <div class="row g-4 align-items-center">
                         <div class="col">
@@ -270,8 +270,9 @@
                                 <div class="card-body p-5">
                                     <div class="mb-5">
                                         <h2 class="mb-0 fs-exact-18">Sous-catégorie</h2>
-                                    </div><select disabled class="sa-select2 form-select" multiple name="product_sub_cat">
-                                    </select>
+                                    </div>
+                                    <select disabled class="sa-select2 form-select" multiple id="product_sub_cat"></select>
+                                    <div id="subcat-selection"></div>
                                 </div>
                             </div>
 
@@ -306,7 +307,12 @@
                         </div>
                     </div>
             </form>
-            <script>let subCat_list_id = <%= product[0].subCat_list_id %></script>
+            <script>
+
+                let subCat_list_id = <%= product[0].subCat_list_id %>
+                let subCat_list_price = <%= product[0].subCat_list_price %>
+            
+            </script>
         <% } else { %>
 
                 <div class="alert alert-danger mt-5" role="alert">
@@ -336,4 +342,4 @@
 <script src="/lib/data_control.js"></script>
 <%- include ("layouts/footer.ejs") %>
 <%- include ("layouts/modal.ejs") %>
-<script src="/lib/product.js"></script>
+<script src="/lib/product_edit.js"></script>

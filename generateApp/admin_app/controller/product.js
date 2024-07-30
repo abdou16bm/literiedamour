@@ -12,8 +12,8 @@ const details_module = require('../lib/details');
 const category_module = require("../lib/category");
 const product_sub_cat_module = require("../lib/product_sub_cat");
 const cart_p_module = require("../lib/cart_p");
-const order_p_module = require("../lib/order_p")
-
+const order_p_module = require("../lib/order_p");
+const functions_module = require("../lib/functions")
 
 const product_list_page = function (req,res) {
      let count_page = 0;
@@ -185,7 +185,6 @@ const product_edit_save = function (req,res) {
      form.parse(req, function (err, fields, files) {
 
           let body = fields;
-
           console.log(body);
 
 
@@ -219,13 +218,22 @@ const product_edit_save = function (req,res) {
 
                     product_sub_cat_module.product_sub_cat_delete(id,(err,resultDelete)=>{
 
-                         if (typeof(body.product_sub_cat) != 'undefined') {
+                         if (typeof(body["product_sub_cat"]) != 'undefined') {
 
-                              let sub_cat_list = body.product_sub_cat
-                              if (Array.isArray(sub_cat_list) == false) sub_cat_list = sub_cat_list.split()
-                              sub_cat_list.forEach(sub_cat =>
-                                  product_sub_cat_module.product_sub_cat_add({product_id : id,sub_cat_id : sub_cat}));
-
+                              let sub_cat_list = JSON.parse(body["product_sub_cat"])
+                              console.log(sub_cat_list)
+                              if (Array.isArray(sub_cat_list) == true && sub_cat_list.length > 0) {
+     
+                                   sub_cat_list.forEach(sub_cat =>
+     
+                                        (sub_cat["id"] && functions_module.isNumber([sub_cat["price"]]) == true && sub_cat["price"] >= 0) ?     
+                                        product_sub_cat_module.product_sub_cat_add({product_id : id,sub_cat_id : sub_cat["id"], product_sub_cat_price : sub_cat["price"].replaceAll(",",".")})
+                                        : false 
+          
+                                   )
+     
+                              }
+     
                          }
 
                     })
@@ -313,7 +321,7 @@ const product_add_save = function (req,res) {
      form.parse(req, function (err, fields, files) {
 
           let body = fields;
-
+          console.log(body)
           if (
 
               typeof(body.product_ref) != 'undefined' && body.product_ref != null && body.product_ref != ""
@@ -343,12 +351,21 @@ const product_add_save = function (req,res) {
 
                     if (err) {console.log(err)}
 
-                    if (typeof(body.product_sub_cat) != 'undefined') {
+                    if (typeof(body["product_sub_cat"]) != 'undefined') {
 
-                         let sub_cat_list = body.product_sub_cat
-                         if (Array.isArray(sub_cat_list) == false) sub_cat_list = sub_cat_list.split()
-                         sub_cat_list.forEach(sub_cat =>
-                             product_sub_cat_module.product_sub_cat_add({product_id : result1.insertId,sub_cat_id : sub_cat}));
+                         let sub_cat_list = JSON.parse(body["product_sub_cat"])
+                         console.log(sub_cat_list)
+                         if (Array.isArray(sub_cat_list) == true && sub_cat_list.length > 0) {
+
+                              sub_cat_list.forEach(sub_cat =>
+
+                                   (sub_cat["id"] && functions_module.isNumber([sub_cat["price"]]) == true && sub_cat["price"] >= 0) ?     
+                                   product_sub_cat_module.product_sub_cat_add({product_id : result1["insertId"],sub_cat_id : sub_cat["id"], product_sub_cat_price : sub_cat["price"].replaceAll(",",".")})
+                                   : false 
+     
+                              )
+
+                         }
 
                     }
 
@@ -371,7 +388,7 @@ const product_add_save = function (req,res) {
 
                          product_module.product_update(result1.insertId,{product_imgcount:count2})
 
-                    })
+                    }) 
 
 
                     res.redirect("/products/list?err=0")
