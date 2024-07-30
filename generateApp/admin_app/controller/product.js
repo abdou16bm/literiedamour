@@ -177,7 +177,7 @@ const product_edit_save = function (req,res) {
      const options = {
           multiples : true,
           // uploadDir: './uploads'
-          //uploadDir: './uploads'
+          uploadDir: './uploads'
      };
 
      let form = new formidable.IncomingForm(options);
@@ -238,7 +238,7 @@ const product_edit_save = function (req,res) {
 
                     })
 
-            /*         doc_module.uploadFile('./public/img/product/',id,files,'main','main','jpg', function (err,count1){
+                    doc_module.uploadFile('./public/img/product/',id,files,'main','main','jpg', function (err,count1){
 
                          if (err) console.log(err)
 
@@ -257,7 +257,7 @@ const product_edit_save = function (req,res) {
 
                          product_module.product_update(id,{product_imgcount:count2})
 
-                    }) */
+                    })
 
 
                     res.redirect("/products/list?err=0")
