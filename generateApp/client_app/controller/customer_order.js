@@ -9,6 +9,7 @@ const order_stat_module = require ("../../admin_app/lib/order_stat")
 const session_module = require("../../admin_app/lib/session")
 const cart_module = require("../../admin_app/lib/cart")
 const cart_p_module = require("../../admin_app/lib/cart_p")
+const product_sub_cat_module = require("../../admin_app/lib/product_sub_cat")
 
 
 
@@ -57,6 +58,11 @@ const order_details = function (req,res) {
 const checkout = function (req, res) {
 
     const product = req.params.product
+    const subcat = req.query.sub
+    let product_price = 0
+
+    console.log("sub cat: ",subcat)
+
 
     if(req.session.privid != 5) {
 
@@ -69,12 +75,29 @@ const checkout = function (req, res) {
 
                 wilaya_module.wilaya_get_all(function (err,result2) {
 
-                    if(req.baseUrl == "/api") {
-                    res.send({multi : false, err : err, session : req.session});
-                    } else {
-                    res.render('checkout',{product : result1, wilaya : result2, user: result3 , session : req.session, err : req.query.err});
+                    if (subcat > 0) {
+
+                        product_sub_cat_module.product_sub_cat_get_one(product,subcat,function (err,result4) {
+                            if (err) console.log('error',err);
+
+                            result1[0].product_price = result4[0].product_sub_cat_price
+
+                            if(req.baseUrl == "/api") {
+                                res.send({multi : false, err : err, session : req.session});
+                            } else {
+                                res.render('checkout',{product : result1, wilaya : result2, user: result3 , session : req.session, err : req.query.err});
+                            }
+                        })
                     }
-                
+                    else {
+
+                        if(req.baseUrl == "/api") {
+                            res.send({multi : false, err : err, session : req.session});
+                        } else {
+                            res.render('checkout',{product : result1, wilaya : result2, user: result3 , session : req.session, err : req.query.err});
+                        }
+                    }
+
                 })
             })
         })
@@ -84,6 +107,13 @@ const checkout = function (req, res) {
 
         const cart_id = req.session.cart_id
 
+        if (subcat > 0) {
+            product_sub_cat_module.product_sub_cat_get_one(product, subcat, function (err, result4) {
+                if (err) console.log('error', err);
+                product_price = result4[0].product_sub_cat_price
+            })
+        }
+        
         console.log("productId : ",product)
         console.log("cartId : ",cart_id)
 
@@ -95,12 +125,14 @@ const checkout = function (req, res) {
 
                 console.log("productPrice : ",result[0].product_price)
 
+                product_price > 0 ? false : product_price = result[0].product_price
+
                 let data_insert = {
 
                     product_id : product,
                     cart_id : cart_id,
                     product_qt_c : 1,
-                    product_price_c : result[0].product_price
+                    product_price_c : product_price
 
                 };
 
@@ -108,10 +140,11 @@ const checkout = function (req, res) {
 
                     if (err) console.log('error',err);
 
+
                     if(req.baseUrl == "/api") {
-                    res.send({multi : true, err : err, session : req.session});
+                        res.send({multi : true, err : err, session : req.session});
                     } else {
-                    res.redirect('/');
+                        res.redirect('/cart');
                     }
 
                 });

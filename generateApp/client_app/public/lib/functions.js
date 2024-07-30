@@ -1,4 +1,5 @@
 let productToCart_btn_list = document.querySelectorAll(".productToCart_btn")
+let CheckOutBtn1 = document.querySelector(".CheckOutBtn1")
 let myInputQte_list = document.querySelectorAll(".myInputQte")
 let myBtnDelete_list = document.querySelectorAll(".myBtnDelete")
 let cart_wait = localStorage.getItem("cartWait")
@@ -6,6 +7,7 @@ let formating=Intl.NumberFormat('en-US')
 let btn_ToCheckout = document.querySelectorAll(".btn-ToCheckout")
 let btnSubCatPrice = document.querySelectorAll(".btnSubCatPrice")
 let productToCartPrice = 0;
+let productSub = 0;
 let product_price = document.querySelector("#product_price");
 
 
@@ -69,6 +71,7 @@ if (btnSubCatPrice.length > 0) {
         btnSubCatPrice[i].addEventListener("click",() => {
             let subCatBlock = btnSubCatPrice[i];
             productToCartPrice = subCatBlock.getAttribute("data")
+            productSub = subCatBlock.getAttribute("idsub")
             product_price.innerText = formating.format(productToCartPrice)+" DA"
         })
     }
@@ -316,6 +319,15 @@ fetch("/api/cat/list")
         }
 
 })
+
+
+if (typeof(CheckOutBtn1) != "undefined" && CheckOutBtn1 != null) {
+    CheckOutBtn1.addEventListener('click', (e)=>{
+        let idp = CheckOutBtn1.getAttribute("idp")
+        location.href='/checkout/'+idp+'?sub='+productSub
+    })
+
+}
 
 
 
