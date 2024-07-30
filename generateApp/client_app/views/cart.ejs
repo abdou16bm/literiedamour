@@ -26,6 +26,7 @@
                                 </div>
                                 <div class="col-md-4 col-xs-12">
                                     <h4 class="product-name"><strong><%= cart_p[i].product_name %></strong></h4>
+                                    <p class="product-name"><%= cart_p[i].product_info1_c %></p>
                                 </div>
                                 <div class="col-md-6 col-xs-12" style="display: flex; justify-content: space-between; margin-top: 5px;">
                                     <div class="col-md-8 col-xs-6 text-right" style="padding-top: 2% ;">
@@ -48,11 +49,11 @@
                             <% }} else { %>
 
                                 <div class="text-info">
-                                    
+
                                     Votre panier est vide.
-                                
+
                                 </div>
-                        
+
                             <% } %>
 
                         </div>
@@ -68,7 +69,7 @@
                                     </div>
                                     <div class="row text-center col-md-6">
                                         <div class="col-md-9 myTotalCart">
-                                            <h4 class="text-right">Total : <strong> 
+                                            <h4 class="text-right">Total : <strong>
                                                 <% let formating=Intl.NumberFormat('en-US') %>
                                                 <%= formating.format(cart[0].totalPrice)+" DA" %>
                                             </strong></h4>
@@ -81,23 +82,23 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                         <% } %>
                     </div>
                 </div>
-                
+
             <% } else { %>
 
                 <div class="alert alert-danger mt-5" role="alert">
-                    
+
                     Aucun panier trouvé !
-                
+
                 </div>
-        
+
             <% } %>
         </div>
     </div>
-    
+
 </div>
 
 <%- include ("layout/footer") %>

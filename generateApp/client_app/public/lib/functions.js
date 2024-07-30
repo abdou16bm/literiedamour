@@ -341,7 +341,7 @@ if (typeof(productToCart_btn_list) != "undefined" && productToCart_btn_list.leng
 
             if (typeof(product) != "undefined" && product != null && product != null) {
 
-                fetch("/api/cart_p/add?product="+product+"&price="+productToCartPrice)
+                fetch("/api/cart_p/add?product="+product+"&price="+productToCartPrice+"&sub="+productSub)
                     .then(response => response.json())
                     .then(result => {
 

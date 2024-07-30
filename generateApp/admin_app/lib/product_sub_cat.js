@@ -15,7 +15,9 @@ exports.product_sub_cat_get_all = product_sub_cat_get_all;
 
 
 const product_sub_cat_get_one = function(product_id,sub_cat_id,callback){
- let sql='SELECT * from  product_sub_cat where product_id =? and sub_cat_id =?';
+ let sql="SELECT * from  product_sub_cat\n" +
+     "inner join sub_category on sub_category.sub_cat_id = product_sub_cat.sub_cat_id\n" +
+     "where product_sub_cat.product_id =? and product_sub_cat.sub_cat_id =?\n" ;
  database_module.db.query(sql,[product_id,sub_cat_id], function (error, results, fields) {
   if (error) console.log('error : ',error);
 //console.log('results: ', results);

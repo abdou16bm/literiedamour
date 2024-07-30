@@ -81,6 +81,7 @@ const checkout = function (req, res) {
                             if (err) console.log('error',err);
 
                             result1[0].product_price = result4[0].product_sub_cat_price
+                            result1[0].product_sub_cat_name = result4[0].sub_cat_name
 
                             if(req.baseUrl == "/api") {
                                 res.send({multi : false, err : err, session : req.session});
@@ -113,7 +114,7 @@ const checkout = function (req, res) {
                 product_price = result4[0].product_sub_cat_price
             })
         }
-        
+
         console.log("productId : ",product)
         console.log("cartId : ",cart_id)
 

@@ -11,6 +11,7 @@ const sub_category_module = require("../../admin_app/lib/sub_category")
 const cart_module = require("../../admin_app/lib/cart")
 const cart_p_module = require("../../admin_app/lib/cart_p")
 const order_module = require("../../admin_app/lib/customer_order")
+const product_sub_cat_module = require("../../admin_app/lib/product_sub_cat")
 
 //MY CONTROLLER
 const authentication_controller = require('../../admin_app/controller/authentication');
@@ -102,7 +103,9 @@ apis.get("/cart_p/add",authentication_controller.isAuthenticated,function (req,r
 
     let product_id = req.query.product
     let product_price = req.query.price
+    let subcat = req.query.sub
     let cart_id = req.session.cart_id
+    let subcat_name = ""
 
     console.log("productId : ",product_id)
     console.log("cartId : ",cart_id)
@@ -115,25 +118,50 @@ apis.get("/cart_p/add",authentication_controller.isAuthenticated,function (req,r
 
         if (result.length > 0) {
 
-            console.log("productPrice : ",result[0].product_price)
-            product_price > 0 ? false : product_price = result[0].product_price
-
             let data_insert = {
 
                 product_id : product_id,
                 cart_id : cart_id,
                 product_qt_c : 1,
                 // product_price_c : result[0].product_price
-                product_price_c : product_price
+                // product_price_c : product_price,
+                // product_info1_c : subcat_name
             };
 
-            cart_p_module.cart_p_add(data_insert,function (err,result1) {
+            if (subcat > 0) {
+                product_sub_cat_module.product_sub_cat_get_one(product_id, subcat, function (err, result4) {
+                    if (err) console.log('error', err);
+                    console.log(result4)
+                    // product_price = result4[0].product_sub_cat_price
+                    subcat_name = result4[0].sub_cat_name
+                    data_insert.product_price_c = result4[0].product_sub_cat_price
+                    data_insert.product_info1_c = result4[0].sub_cat_name
 
-                if (err) console.log('error',err);
+                    cart_p_module.cart_p_add(data_insert,function (err,result1) {
 
-                res.send({insert_result : result1, err : err, session : req.session});
+                        if (err) console.log('error',err);
 
-            });
+                        res.send({insert_result : result1, err : err, session : req.session});
+
+                    });
+                })
+            }
+            else {
+                // product_price = result[0].product_price
+                data_insert.product_price_c = result[0].product_price
+
+                cart_p_module.cart_p_add(data_insert,function (err,result1) {
+
+                    if (err) console.log('error',err);
+
+                    res.send({insert_result : result1, err : err, session : req.session});
+
+                });
+            }
+
+
+
+
 
         }
 
