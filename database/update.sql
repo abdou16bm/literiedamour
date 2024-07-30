@@ -31,8 +31,8 @@ DELETE FROM `delivery_type`;
 INSERT INTO `delivery_type` (`delivery_type_id`, `delivery_type_name`) VALUES
 	(1, 'A domicile'),
 	(2, 'Point de relais');
-	
-	
+
+
 ALTER TABLE customer_order
 ADD COLUMN delivery_type_id INT;
 ALTER TABLE customer_order
@@ -41,9 +41,9 @@ UPDATE customer_order
 SET delivery_type_id = 1;
 
 
-ALTER TABLE delivery_price 
+ALTER TABLE delivery_price
 DROP FOREIGN KEY delivery_price_shop0_FK;
-ALTER TABLE delivery_price 
+ALTER TABLE delivery_price
 DROP FOREIGN KEY delivery_price_wilaya_FK;
 ALTER TABLE delivery_price
 DROP PRIMARY KEY;
@@ -88,17 +88,30 @@ PRIMARY KEY (product_id,sub_cat_id)
 
 UPDATE product
 INNER JOIN sub_category ON sub_category.sub_cat_id = product.sub_cat_id
-SET product.cat_id = sub_category.cat_id;  
+SET product.cat_id = sub_category.cat_id;
 
 
 INSERT INTO `product_sub_cat` (`product_id`, `sub_cat_id`)
-SELECT product_id,sub_cat_id FROM product; 
+SELECT product_id,sub_cat_id FROM product;
 
 ALTER TABLE product DROP FOREIGN KEY FK_product_sub_category;
 ALTER TABLE product DROP COLUMN sub_cat_id;
 
 
 /* ------------------------------NEW UPDATE 13/03/2024 ------------------------*/
+
+
+
+
+/* ------------------------------NEW
+   UPDATE 30/07/2024 ------------------------*/
+
+alter table product_sub_cat
+add product_sub_cat_price decimal(15,2) null;
+
+
+
+/* ------------------------------NEW UPDATE 30/07/2024 ------------------------*/
 
 
 
