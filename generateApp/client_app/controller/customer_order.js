@@ -160,10 +160,13 @@ const checkout = function (req, res) {
 const checkout_valid = function (req, res) {
 
     const product = req.params.product
+    const subcat = req.query.sub
+    let product_price = 0
     const input = req.body
 
     console.log("checkoutValid")
     console.log("input others : ", input)
+    console.log("subcat : ", subcat)
 
 
     if (

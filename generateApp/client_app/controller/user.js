@@ -15,14 +15,14 @@ const signup = function (req,res) {
         if (err) console.log('Error : ',err);
 
         res.render("signup",{
-            
+
             wilaya : result,
             session : req.session,
-            err : req.query.err       
-        
+            err : req.query.err
+
        })
-    
-    })    
+
+    })
 
 }
 
@@ -39,52 +39,52 @@ const signup_save = function (req,res) {
         console.log("form check result : ",result)
         if (result.statusNumber == 1) {console.log("informations missed");res.redirect("/signup?err=1")}
         else if (result.statusNumber == 0) {
-    
+
             if (input.password != input.password_c) {
-                
+
                 console.log("confirmation incorrect");
                 res.redirect("/signup?err=2")
 
             } else {
 
                 if (input.password.length < 6) {
-                
+
                     console.log("password length error");
                     res.redirect("/signup?err=3")
-    
+
                 } else {
 
                     user_module.user_get_filter_equal('user_username',input.username,function (err,result){
 
                         if (result.length > 0) {
-                            
+
                             console.log("username exists");
                             res.redirect("/signup?err=4")
-                            
+
                         }
                         else {
-                
-    
+
+
                             let data_user = {
-    
+
                                 user_lastname : input.lastname.trim(),
-                                user_name    : input.name.trim(), 
-                                user_phone   : input.phone.trim(), 
-                                user_email   : input.email.trim(),                         
-                                user_address   : input.address.trim(),       
+                                user_name    : input.name.trim(),
+                                user_phone   : input.phone.trim(),
+                                user_email   : input.email.trim(),
+                                user_address   : input.address.trim(),
                                 user_username   : input.username.trim(),
                                 user_password   : input.password.trim(),
                                 wilaya_id  : input.wilaya,
                                 user_status   : 0,
                                 priv_id : 3
-            
+
                             };
-    
-          
+
+
                             user_default_module.user_add(data_user,function (err,result1) {
-    
+
                                 if (err) console.log(err)
-                            
+
                                 let data_cart = {cart_date : new Date(), cart_status : 1, user_id : result1.insertId}
 
                                 cart_module.cart_add(data_cart,function (err,result2) {
@@ -92,7 +92,7 @@ const signup_save = function (req,res) {
                                     if (err) console.log(err)
 
                                     let confirm_code = Math.floor(Math.random()*999999) + 111111
-                              
+
                                     req.session["confirm_code"] = confirm_code
                                     req.session["confirm_user"] = result1.insertId
 
@@ -121,21 +121,21 @@ const signup_save = function (req,res) {
                                     })
 
                                 })
-    
+
                             })
-        
+
                         }
-                  
+
                     })
 
                 }
 
             }
-    
+
         }
-    
+
     })
-    
+
 }
 
 
@@ -157,28 +157,28 @@ const confirm_email_valid = function (req, res) {
         else if (result.statusNumber == 0) {
 
             if (req.body.confirmCode != req.session["confirm_code"]) {
-                
+
                 console.log("confirm code error")
                 res.redirect("/confirm/email?err=2")
-    
+
             } else {
-    
+
                 let user_id = req.session["confirm_user"]
                 let data_update = {user_status : 1}
-    
+
                 user_module.user_update(user_id,data_update,(err,result) => {
-                    
+
                     if (err) console.log('err : ',err) ;
-    
+
                     delete req.session["confirm_code"]
                     delete req.session["confirm_user"]
 
                     console.log("session deleted")
-    
+
                     res.redirect("/login")
-    
+
                 })
-    
+
             }
 
         }
@@ -209,7 +209,7 @@ const login_check = function (req, res) {
 
             user_default_module.user_connect(input.username,input.password,function (err,result1) {
 
-                if (result1.loggedin == true) {
+                if (result1.loggedin == true  && result1.priv_id == 3) {
 
                     user_module.user_get_one(result1.user_id,function (err,result2) {
 
@@ -217,9 +217,9 @@ const login_check = function (req, res) {
 
                         if (result2[0].user_status == 0) {
 
-                            
+
                             let confirm_code = Math.floor(Math.random()*999999) + 111111
-                              
+
                             req.session["confirm_code"] = confirm_code
                             req.session["confirm_user"] = result2[0].user_id
 
@@ -246,11 +246,11 @@ const login_check = function (req, res) {
                                 }
 
                             })
-                            
+
                         } else {
-    
+
                             let session_data = {
-    
+
                                 loggedin : true,
                                 username : result2[0].user_username,
                                 name : result2[0].user_name,
@@ -263,16 +263,16 @@ const login_check = function (req, res) {
                                 timeout : 3600000,
                                 location : '/'
                             };
-    
+
                             session_module.session_create(req,res,session_data);
 
                             console.log('connected')
                             res.redirect('/');
-    
-                        }             
-                    
+
+                        }
+
                     })
-                
+
                 } else {
 
                     console.log("informations error")
@@ -282,7 +282,7 @@ const login_check = function (req, res) {
             })
 
         }
-    
+
     })
 
 }
@@ -313,14 +313,14 @@ const account_edit = function (req,res) {
         if (err) console.log('Error : ',err);
 
         res.render("account",{
-            
+
             wilaya : result,
             session : req.session,
-            err : req.query.err       
-        
+            err : req.query.err
+
        })
-    
-    })    
+
+    })
 
 }
 
@@ -341,7 +341,7 @@ const account_edit_save = function (req,res) {
         else if (resultCheck.statusNumber == 0) {
 
             if (input.password != input.password_c) {
-                
+
                 console.log("confirmation incorrect");
                 res.redirect("/account?err=2")
 
@@ -349,27 +349,27 @@ const account_edit_save = function (req,res) {
 
 
                 if (input.password.length < 6) {
-                
+
                     console.log("password length error");
                     res.redirect("/account?err=3")
-    
+
                 } else {
 
                     user_module.user_get_filter_equal('user_username',input.username,function (err,result){
 
                         if (result.length > 0 && result[0].user_id != req.session.userid) {
-                            
+
                             console.log("username exists");
                             res.redirect("/account?err=4")
-                            
+
                         }
                         else {
 
                             let data_user = {
-         
+
                                 user_username   : input.username.trim(),
                                 user_password   : input.password.trim()
-            
+
                             };
 
                             user_default_module.user_update(user_id,data_user,function (err,result1) {
@@ -379,11 +379,11 @@ const account_edit_save = function (req,res) {
                                 req.session.username = input.username.trim();
 
                                 res.redirect("/account?err=0")
-                                                               
+
                             })
 
                         }
-                    
+
                     })
 
                 }
@@ -391,7 +391,7 @@ const account_edit_save = function (req,res) {
             }
 
         }
-    
+
     })
 
 }
