@@ -29,12 +29,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <% if (typeof(orders) !== 'undefined' && orders != null && orders.length > 0) { 
-            
+                    <% if (typeof(orders) !== 'undefined' && orders != null && orders.length > 0) {
+
                         for (var i = 0; i < orders.length; i++)
-                        
+
                         {
-                        
+
                     %>
                         <tr>
                             <td><a href="/order/<%= orders[i].order_id %>/details" class="text-reset">#<%= orders[i].order_ref %></a></td>
@@ -46,7 +46,7 @@
                                 </div>
                             </td>
                             <td><%= orders[i].products_count +" Produits" %></td>
-                            <td style="display: none;"><%= orders[i].product_list.replaceAll(","," | ") %> </td>
+                            <td style="display: none;"><%= orders[i].product_list != null ? orders[i].product_list.replaceAll(","," | ") : orders[i].product_list %> </td>
                             <td><%= orders[i].wilaya_name %></td>
                             <td><% let formating=Intl.NumberFormat('en-US') %><%= formating.format(orders[i].order_total_price + orders[i].delivery_price)+" DA" %></td>
                             <td>

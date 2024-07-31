@@ -54,10 +54,12 @@
                                         <% for (var i = 0; i < order_p.length; i++) { %>
                                         <tr>
                                             <td class="min-w-20x">
-                                                <div class="d-flex align-items-center"><img
-                                                        src="/img/product/<%= order_p[i].product_id %>/main.jpg" class="me-4"
-                                                        width="40" height="40" alt="" /><a href="/product/<%= order_p[i].product_id %>/details"
-                                                        class="text-reset"><%= order_p[i].product_name %></a></div>
+                                                <div class="d-flex align-items-center">
+                                                    <img src="/img/product/<%= order_p[i].product_id %>/main.jpg" class="me-4" width="40" height="40" alt="" />
+                                                    <a href="/product/<%= order_p[i].product_id %>/details" class="text-reset"><%= order_p[i].product_name %></a>
+                                                </div>
+                                                <p class="text-muted"><%= order_p[i].product_info1_o %></p>
+
                                             </td>
                                             <td class="text-end">
                                                 <div class="sa-price"><span class="sa-price__integer"><%= formating.format(order_p[i].product_price_o)+" DA" %></span></div>
