@@ -347,7 +347,7 @@ if (typeof(productToCart_btn_list) != "undefined" && productToCart_btn_list.leng
 
                         if (typeof(result.loggedin) != "undefined" && result.loggedin != null) {
 
-                            let dataWait = {product : productToCart_btn_list[i].getAttribute("idp")}
+                            let dataWait = {product : productToCart_btn_list[i].getAttribute("idp"),sub:productSub}
 
                             localStorage.setItem('cartWait',JSON.stringify(dataWait))
                             location.href = "/login"
@@ -401,10 +401,13 @@ if (typeof(productToCart_btn_list) != "undefined" && productToCart_btn_list.leng
 if (typeof(cart_wait) != "undefined" && cart_wait != null && cart_wait != "") {
 
     let product = JSON.parse(cart_wait).product
+    let sub = JSON.parse(cart_wait).sub
 
     if (typeof(product) != "undefined" && product != null && product != null) {
 
-        fetch("/api/cart_p/add?product="+product)
+
+
+        fetch("/api/cart_p/add?product="+product+"&price="+cart_wait+"&sub="+sub)
             .then(response => response.json())
             .then(result => {
 
