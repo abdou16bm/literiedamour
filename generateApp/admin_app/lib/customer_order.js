@@ -250,8 +250,8 @@ const customer_order_generate = function(user_id,delivery_type,callback){
                 "insert into order_stat (stat_id,order_id,order_stat_date)\n" +
                 "values (1,(SELECT MAX(LAST_INSERT_ID(order_id)) FROM customer_order),NOW());\n" +
 
-                "insert into order_p ( `order_id`,`product_id`, `product_qt_o`, `product_price_o`,`product_order_status`)\n" +
-                "SELECT (SELECT MAX(LAST_INSERT_ID(order_id))  FROM customer_order),cart_p.product_id,product_qt_c,product_price_c,1 from cart_p\n" +
+                "insert into order_p ( `order_id`,`product_id`, `product_qt_o`, `product_price_o`,`product_info1_o`,`product_order_status`)\n" +
+                "SELECT (SELECT MAX(LAST_INSERT_ID(order_id))  FROM customer_order),cart_p.product_id,product_qt_c,product_price_c,product_info1_c,1 from cart_p\n" +
                 "INNER JOIN cart ON cart.cart_id = cart_p.cart_id\n" +
                 "INNER JOIN product ON product.product_id = cart_p.product_id\n" +
                 "WHERE cart.user_id = "+user_id+";\n" +
