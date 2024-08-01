@@ -9,7 +9,31 @@ let btnSubCatPrice = document.querySelectorAll(".btnSubCatPrice")
 let productToCartPrice = 0;
 let productSub = 0;
 let product_price = document.querySelector("#product_price");
+let subcatnav = document.querySelectorAll(".subcatnav")
 
+
+const showSubNav = function (cat){
+    if(typeof subcatnav != "undefined" && subcatnav != null)
+    {
+        subcatnav.forEach((item) => {
+            console.log(item)
+            console.log(item.getAttribute("category"))
+            console.log(cat)
+            console.log("..")
+            if (item.getAttribute("category") == cat)
+            {
+                item.classList.remove("hideBlock")
+
+            }
+            else {
+
+                item.classList.add("hideBlock")
+            }
+        })
+    }
+
+
+}
 
 function checkout(idp) {
 

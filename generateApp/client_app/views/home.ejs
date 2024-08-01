@@ -69,51 +69,50 @@
 						<div id="tab2" class="tab-pane fade in active">
 							<div class="products-slick" data-nav="#slick-nav-2">
 								<% if (typeof(product_top) !== 'undefined' && product_top != null && product_top.length > 0) { %>
-								<% for (var i = 0; i < product_top.length; i++) { %>
-								<!-- product -->
-								<div class="product" style="border-radius: 50px;">
-									<div class="product-img" style="border-radius: 50px;">
-										<img src="/img/product/<%= product_top[i].product_id %>/main.jpg" alt=""
-											style="height: 320px; border-radius: 50px; ">
-										<div class="product-label">
-											<!-- 	<span class="sale">-30%</span> -->
-											<span class="new">NEW</span>
-										</div>
-									</div>
-									<div class="product-body">
-										<p class="product-category"><%= product_top[i].cat_name %> - <%= product_top[i].sub_cat_list != null ? product_top[i].sub_cat_list.replaceAll(","," | ") : "" %></p>
-										<h3 class="product-name"><a
-												href="/product/<%= product_top[i].product_id %>/details"><%= product_top[i].product_name %></a>
-										</h3>
-										<h4 class="product-price">
-											<% let formating=Intl.NumberFormat('en-US') %>
-											<%= formating.format(product_top[i].product_price)+" DA" %></h4>
-										<!-- <div class="product-rating">
+									<% for (var i = 0; i < product_top.length; i++) { %>
+										<!-- product -->
+										<div class="product" style="border-radius: 50px;">
+											<div class="product-img" style="border-radius: 50px;">
+												<img src="/img/product/<%= product_top[i].product_id %>/main.jpg" alt=""
+													 style="height: 320px; border-radius: 50px; ">
+												<div class="product-label">
+													<!-- 	<span class="sale">-30%</span> -->
+													<span class="new">NEW</span>
+												</div>
+											</div>
+											<div class="product-body">
+												<p class="product-category"><%= product_top[i].cat_name %> - <%= product_top[i].sub_cat_list != null ? product_top[i].sub_cat_list.replaceAll(","," | ") : "" %></p>
+												<h3 class="product-name">
+													<a href="/product/<%= product_top[i].product_id %>/details"><%= product_top[i].product_name %></a>
+												</h3>
+												<h4 class="product-price">
+													<% let formating=Intl.NumberFormat('en-US') %>
+													<%= formating.format(product_top[i].product_price)+" DA" %></h4>
+												<!-- <div class="product-rating">
 													<i class="fa fa-star"></i>
 													<i class="fa fa-star"></i>
 													<i class="fa fa-star"></i>
 													<i class="fa fa-star"></i>
 													<i class="fa fa-star"></i>
 												</div> -->
-										<div class="product-btns">
-											<button class="add-to-wishlist productToCart_btn"
-												idp="<%= product_top[i].product_id %>"><i
-													class="fa fa-cart-plus"></i><span class="tooltipp">Ajouter au
-													panier</span></button>
-											<!-- <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button> -->
-											<button class="quick-view"
-												onclick="location.href='/product/<%= product_top[i].product_id %>/details'"><i
-													class="fa fa-eye"></i><span class="tooltipp">Détail</span></button>
+												<div class="product-btns">
+													<button class="add-to-wishlist productToCart_btn" idp="<%= product_top[i].product_id %>">
+														<i class="fa fa-cart-plus"></i><span class="tooltipp">Ajouter aupanier</span>
+													</button>
+													<!-- <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button> -->
+													<button class="quick-view" onclick="location.href='/product/<%= product_top[i].product_id %>/details'">
+														<i class="fa fa-eye"></i><span class="tooltipp">Détail</span>
+													</button>
+												</div>
+
+												<a class="primary-btn cta-btn" href="/checkout/<%= product_top[i].product_id %>">
+													<i class="fa fa-shopping-cart" style="margin-right: 2px;"></i>
+													Commander
+												</a>
+
+											</div>
 										</div>
-									
-											<a class="primary-btn cta-btn" href="/checkout/<%= product_top[i].product_id %>">
-												<i class="fa fa-shopping-cart" style="margin-right: 2px;"></i> 
-												Commander
-											</a>
-								
-									</div>
-								</div>
-								<!-- /product -->
+										<!-- /product -->
 								<% }} %>
 							</div>
 							<div id="slick-nav-2" class="products-slick-nav"></div>
@@ -135,13 +134,13 @@
 	<!-- container -->
 	<div class="container-fluid">
 		<!-- row -->
+
 		<% if (typeof(sub_category) !== 'undefined' && sub_category != null && sub_category.length > 0) { %>
 			<div class="row">
 				<div class="col-4 col-lg-4 col-sm-4 col-md-4 mobile-col row">
 					<div class=" col-12 mobile-col">
 						<div class="product-img text-center ">
-							<video src="./img/video/1.mp4" style="width: 90%;padding: 1%; max-width: 280px;" class="display-none video-mobile"
-								alt="video" autoplay muted></video>
+							<video src="./img/video/1.mp4" style="width: 90%;padding: 1%; max-width: 280px;" class="display-none video-mobile" alt="video" autoplay muted></video>
 						</div>
 					</div>
 				</div>
@@ -149,50 +148,60 @@
 				<div class="col-md-12">
 					<div class="section-title" style="background-color: #223f3a; border-radius: 50px;">
 						<a href="/products/list/1"><h3 class="title" style="padding: 1%;  margin-bottom: 0; color: #d3a04f; margin-left: 15px;">Nos Produits</h3></a>
-	
 					</div>
-					<div class="section-nav">
+					<div class="btnCategory-block">
+						<% if (typeof(category) !== 'undefined' && category != null && category.length > 0) {
+						for (var i = 0; i < category.length; i++){ %>
+							<button class="category-btn" data-toggle="tab" onclick="showSubNav(<%= category[i].cat_id %>)">
+								<%= category[i].cat_name %>
+							</button>
+						<%}}%>
+					</div>
+
+					<div class="section-nav" style="margin: 20px; min-height: 20px">
 						<ul class="section-tab-nav tab-nav">
-	
+
 							<% for (var i = 0; i < sub_category.length; i++){ let active = ""; if (i==0) {active = "active"} %>
-							<li class="<%= active %>"><a data-toggle="tab"
-									href="#subcat<%= sub_category[i].sub_cat_id %>"><%= sub_category[i].sub_cat_name %></a>
+							<li class="subcatnav <%= active %>" category="<%= sub_category[i].cat_id %>">
+								<a data-toggle="tab" href="#subcat<%= sub_category[i].sub_cat_id %>" class="tab-pane <%= active  %>">
+									<%= sub_category[i].sub_cat_name %>
+								</a>
 							</li>
 							<% } %>
-	
+
 						</ul>
 					</div>
 				</div>
 				<!-- /section title -->
-	
+
 				<!-- Products tab & slick -->
 				<div class="col-md-12">
 					<div class="row">
-						
+
 						<div class="products-tabs">
 							<!-- tab -->
 							<% for (var i = 0; i < sub_category.length; i++){ let active = ""; if (i==0) {active = "active"}  %>
 							<div id="subcat<%= sub_category[i].sub_cat_id %>" class="tab-pane <%= active  %>">
 								<div id="store" class="col-md-12 cat-block">
-	
+
 									<!-- store products -->
 									<div class="row">
-										
+
 										<div class="col-8 col-sm-8 col-lg-8 col-xs-12 mobile-col">
 
-											
+
 
 											<div class="paginated-list">
 
 												<!-- product -->
 												<% for (var j = 0; j < sub_category[i].products.length; j++) { %>
-	
+
 													<!-- product -->
 													<div class="col-xs-6 col-3 col-lg-4 col-sm-6 mobile-col products-cat">
 														<div class="product">
 															<div class="product-img text-center">
 																<a href="/product/<%= sub_category[i].products[j].product_id %>/details"><img src="/img/product/<%= sub_category[i].products[j].product_id %>/main.jpg"
-																	alt="literie d'amour" style=" height: 200px; padding: 0px; width: 90%;" class="img-mobile"></a>
+																																			  alt="literie d'amour" style=" height: 200px; padding: 0px; width: 90%;" class="img-mobile"></a>
 																<!-- <div class="product-label">
 														<span class="sale">-30%</span>
 														<span class="new">NEW</span>
@@ -201,9 +210,9 @@
 															<div class="product-body">
 																<p class="product-category">
 																	<%= sub_category[i].products[j].sub_cat_list != null ? sub_category[i].products[j].sub_cat_list.replaceAll(","," | ") : "" %></p>
-																	<p class="product-marque"><%= sub_category[i].products[j].sub_cat_name %></p>
+																<p class="product-marque"><%= sub_category[i].products[j].sub_cat_name %></p>
 																<h3 class="product-name max-lines"><a
-																		href="/product/<%= sub_category[i].products[j].product_id %>/details"><%= sub_category[i].products[j].product_name %></a>
+																			href="/product/<%= sub_category[i].products[j].product_id %>/details"><%= sub_category[i].products[j].product_name %></a>
 																</h3>
 																<h4 class="product-price">
 																	<% let formating=Intl.NumberFormat('en-US') %>
@@ -218,79 +227,79 @@
 													</div> -->
 																<div class="product-btns">
 																	<button class="add-to-wishlist productToCart_btn"
-																		idp="<%= sub_category[i].products[j].product_id %>"><i
-																			class="fa fa-cart-plus"></i><span
-																			class="tooltipp">Ajouter au panier</span></button>
+																			idp="<%= sub_category[i].products[j].product_id %>"><i
+																				class="fa fa-cart-plus"></i><span
+																				class="tooltipp">Ajouter au panier</span></button>
 																	<!-- <button class="add-to-compare" onclick="location.href='/compare/<%= sub_category[i].products[j].product_id %>'"><i
 																class="fa fa-exchange"></i><span
 																class="tooltipp">comparer</span></button> -->
 																	<button class="quick-view"
-																		onclick="location.href='/product/<%= sub_category[i].products[j].product_id %>/details'"><i
-																			class="fa fa-eye"></i><span
-																			class="tooltipp">Détail</span></button>
+																			onclick="location.href='/product/<%= sub_category[i].products[j].product_id %>/details'"><i
+																				class="fa fa-eye"></i><span
+																				class="tooltipp">Détail</span></button>
 																</div>
 																<a class="primary-btn cta-btn" href="/checkout/<%= sub_category[i].products[j].product_id %>">
-																	<i class="fa fa-shopping-cart" style="margin-right: 2px;"></i> 
+																	<i class="fa fa-shopping-cart" style="margin-right: 2px;"></i>
 																	Commander
 																</a>
 															</div>
-		
+
 														</div>
 													</div>
-	
+
 												<% } %>
 												<!-- /product -->
 
 											</div>
-											
-											
+
+
 										</div>
-	
-	
+
+
 										<div class="col-4 col-lg-4 col-sm-4 col-md-4 mobile-col row">
 											<div class=" col-12 mobile-col">
 												<div class="product-img text-center ">
 													<video src="./img/video/1.mp4" style="width: 100%;padding: 1%; max-width: 280px;" class="mobile-none video-mobile"
-														alt="video" autoplay muted></video>
+														   alt="video" autoplay muted></video>
 												</div>
 											</div>
 											<div class=" col-12 mobile-col" >
 												<div class="product-img text-center">
 													<video src="./img/video/2.mp4" style="width: 100%;padding: 1%; max-width: 280px;" class="video-mobile"
-														alt="video" autoplay muted></video>
+														   alt="video" autoplay muted></video>
 												</div>
 											</div>
-										
-										<!-- <div class="product">
+
+											<!-- <div class="product">
 											<div class="product-img text-center">
 												<video src="./img/video/3.mp4" style="width: 100%;padding: 1%; max-width: 480px;"
 													alt="video" autoplay muted></video>
 											</div>
 										</div> -->
-	
-									</div>
-									<div class="col-12">
-										<nav class="pagination-container" >
-											<button class="pagination-button prev-button" aria-label="Previous page" title="Previous page">
-											  &lt;
-											</button>
-										
-											<div class="pagination-numbers">
-										
-											</div>
-										
-											<button class="pagination-button next-button" aria-label="Next page" title="Next page">
-											  &gt;
-											</button>
-										</nav>
-									</div>
-	
-	
-	
-	
+
+										</div>
+										<div class="col-12">
+											<nav class="pagination-container" >
+												<button class="pagination-button prev-button" aria-label="Previous page" title="Previous page">
+													&lt;
+												</button>
+
+												<div class="pagination-numbers">
+
+												</div>
+
+												<button class="pagination-button next-button" aria-label="Next page" title="Next page">
+													&gt;
+												</button>
+											</nav>
+										</div>
+
+
+
+
 									</div>
 									<!-- /store products -->
-	
+
 								</div>
 							</div>
 							<% } %>
@@ -315,111 +324,111 @@
 	const cat_block = document.querySelectorAll(".cat-block");
 
 	if (cat_block.length > 0) {
-	
+
 		cat_block.forEach(block => {
-		
-		const paginatedList = block.querySelector(".paginated-list");
-		const listItems = paginatedList.querySelectorAll(".products-cat");
-		const paginationNumbers = block.querySelector(".pagination-numbers");
-		const nextButton = block.querySelector(".next-button");
-		const prevButton = block.querySelector(".prev-button");
 
-		const paginationLimit = 9;
-		const pageCount = Math.ceil(listItems.length / paginationLimit);
-		let currentPage = 1;
+			const paginatedList = block.querySelector(".paginated-list");
+			const listItems = paginatedList.querySelectorAll(".products-cat");
+			const paginationNumbers = block.querySelector(".pagination-numbers");
+			const nextButton = block.querySelector(".next-button");
+			const prevButton = block.querySelector(".prev-button");
 
-		const disableButton = (button) => {
-		button.classList.add("disabled");
-		button.setAttribute("disabled", true);
-		};
-		
-		const enableButton = (button) => {
-		button.classList.remove("disabled");
-		button.removeAttribute("disabled");
-		};
-		
-		const handlePageButtonsStatus = () => {
-		if (currentPage === 1) {
-			disableButton(prevButton);
-		} else {
-			enableButton(prevButton);
-		}
-		
-		if (pageCount === currentPage) {
-			disableButton(nextButton);
-		} else {
-			enableButton(nextButton);
-		}
-		};
+			const paginationLimit = 9;
+			const pageCount = Math.ceil(listItems.length / paginationLimit);
+			let currentPage = 1;
 
-			
-		const handleActivePageNumber = () => {
-		block.querySelectorAll(".pagination-number").forEach((button) => {
-			button.classList.remove("active");
-			const pageIndex = Number(button.getAttribute("page-index"));
-			if (pageIndex == currentPage) {
-			button.classList.add("active");
-			}
-		});
-		};
+			const disableButton = (button) => {
+				button.classList.add("disabled");
+				button.setAttribute("disabled", true);
+			};
 
-		const appendPageNumber = (index) => {
-		const pageNumber = document.createElement("button");
-		pageNumber.className = "pagination-number";
-		pageNumber.innerHTML = index;
-		pageNumber.setAttribute("page-index", index);
-		pageNumber.setAttribute("aria-label", "Page " + index);
-		
-		paginationNumbers.appendChild(pageNumber);
-		};
-		
-		const getPaginationNumbers = () => {
-		for (let i = 1; i <= pageCount; i++) {
-			appendPageNumber(i);
-		}
-		};
-		
-		const setCurrentPage = (pageNum) => {
-		currentPage = pageNum;
-		
-		handleActivePageNumber();
-		handlePageButtonsStatus();
-		
-		const prevRange = (pageNum - 1) * paginationLimit;
-		const currRange = pageNum * paginationLimit;
-		
-		listItems.forEach((item, index) => {
-			item.classList.add("hidden");
-			if (index >= prevRange && index < currRange) {
-			item.classList.remove("hidden");
-			}
-		});
-		};
+			const enableButton = (button) => {
+				button.classList.remove("disabled");
+				button.removeAttribute("disabled");
+			};
 
-		window.addEventListener("load", () => {
-		getPaginationNumbers();
-		setCurrentPage(1);
-		
-		prevButton.addEventListener("click", () => {
-			setCurrentPage(currentPage - 1);
-		});
-		
-		nextButton.addEventListener("click", () => {
-			setCurrentPage(currentPage + 1);
-		});
-		
-		block.querySelectorAll(".pagination-number").forEach((button) => {
-			const pageIndex = Number(button.getAttribute("page-index"));
-		
-			if (pageIndex) {
-			button.addEventListener("click", () => {
-				setCurrentPage(pageIndex);
+			const handlePageButtonsStatus = () => {
+				if (currentPage === 1) {
+					disableButton(prevButton);
+				} else {
+					enableButton(prevButton);
+				}
+
+				if (pageCount === currentPage) {
+					disableButton(nextButton);
+				} else {
+					enableButton(nextButton);
+				}
+			};
+
+
+			const handleActivePageNumber = () => {
+				block.querySelectorAll(".pagination-number").forEach((button) => {
+					button.classList.remove("active");
+					const pageIndex = Number(button.getAttribute("page-index"));
+					if (pageIndex == currentPage) {
+						button.classList.add("active");
+					}
+				});
+			};
+
+			const appendPageNumber = (index) => {
+				const pageNumber = document.createElement("button");
+				pageNumber.className = "pagination-number";
+				pageNumber.innerHTML = index;
+				pageNumber.setAttribute("page-index", index);
+				pageNumber.setAttribute("aria-label", "Page " + index);
+
+				paginationNumbers.appendChild(pageNumber);
+			};
+
+			const getPaginationNumbers = () => {
+				for (let i = 1; i <= pageCount; i++) {
+					appendPageNumber(i);
+				}
+			};
+
+			const setCurrentPage = (pageNum) => {
+				currentPage = pageNum;
+
+				handleActivePageNumber();
+				handlePageButtonsStatus();
+
+				const prevRange = (pageNum - 1) * paginationLimit;
+				const currRange = pageNum * paginationLimit;
+
+				listItems.forEach((item, index) => {
+					item.classList.add("hidden");
+					if (index >= prevRange && index < currRange) {
+						item.classList.remove("hidden");
+					}
+				});
+			};
+
+			window.addEventListener("load", () => {
+				getPaginationNumbers();
+				setCurrentPage(1);
+
+				prevButton.addEventListener("click", () => {
+					setCurrentPage(currentPage - 1);
+				});
+
+				nextButton.addEventListener("click", () => {
+					setCurrentPage(currentPage + 1);
+				});
+
+				block.querySelectorAll(".pagination-number").forEach((button) => {
+					const pageIndex = Number(button.getAttribute("page-index"));
+
+					if (pageIndex) {
+						button.addEventListener("click", () => {
+							setCurrentPage(pageIndex);
+						});
+					}
+				});
 			});
-			}
-		});
-		});
 
-	});
+		});
 
 	}
 

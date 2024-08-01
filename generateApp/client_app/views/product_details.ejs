@@ -124,14 +124,20 @@
 							<!-- <li><a href="#">Accessories</a></li> -->
 						</ul>
 
-						<% if (typeof(product_subcats) !== 'undefined' && product_subcats != null && product_subcats.length > 0) { %>
-						<%for (let i = 0; i < product_subcats.length; i++) {
-						if(product_subcats[i].product_sub_cat_price > 0) {%>
-							<div class="btnSubCatPrice" style="border: black 1px solid" idsub="<%= product_subcats[i].sub_cat_id %>" data= "<%= product_subcats[i].product_sub_cat_price %>">
-								<p scope="row"><%= product_subcats[i].sub_cat_name %></p>
-								<p><%= product_subcats[i].product_sub_cat_price %></p>
-							</div>
-						<% }}} %>
+						<div style="display: flex; justify-content: start; align-items: center; gap: 5px; margin: 5px 0px; flex-wrap: wrap">
+							<% if (typeof(product_subcats) !== 'undefined' && product_subcats != null && product_subcats.length > 0) { %>
+							<%for (let i = 0; i < product_subcats.length; i++) {
+							if(product_subcats[i].product_sub_cat_price > 0) {%>
+								<button class="btnSubCatPrice category-btn" style="cursor: pointer; width: fit-content" idsub="<%= product_subcats[i].sub_cat_id %>" data= "<%= product_subcats[i].product_sub_cat_price %>">
+									<p scope="row"><%= product_subcats[i].sub_cat_name %></p>
+									<p>
+										<% let formating=Intl.NumberFormat('en-US') %>
+										<%= formating.format(product_subcats[i].product_sub_cat_price)+" DA" %></h4>
+									</p>
+								</button>
+							<% }}} %>
+						</div>
+
 
 						<ul class="product-links">
 							<li>Suivez-nous :</li>
