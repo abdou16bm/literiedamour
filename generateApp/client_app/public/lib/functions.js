@@ -12,21 +12,41 @@ let product_price = document.querySelector("#product_price");
 let subcatnav = document.querySelectorAll(".subcatnav")
 
 
-const showSubNav = function (cat){
+const hideSubNav = function (cat){
     if(typeof subcatnav != "undefined" && subcatnav != null)
     {
         subcatnav.forEach((item) => {
-            console.log(item)
-            console.log(item.getAttribute("category"))
-            console.log(cat)
-            console.log("..")
+
+            item.classList.add("hideBlock")
+        })
+    }
+
+
+}
+
+
+const showSubNav = function (cat,eid){
+    // Declare a fragment:
+    let fragmentBlock = document.createDocumentFragment();
+    let fragmentMove = document.createDocumentFragment();
+
+    if(typeof subcatnav != "undefined" && subcatnav != null)
+    {
+        subcatnav.forEach((item) => {
             if (item.getAttribute("category") == cat)
             {
-                item.classList.remove("hideBlock")
+                // fragmentBlock.appendChild(document.querySelector("#"+eid).append(item))
+                // fragmentMove.appendChild(item)
 
+                // fragmentBlock.appendChild(fragmentMove)
+                // $("item").appendTo("#"+eid);
+
+                fragmentBlock.appendChild(document.querySelector("#"+eid))
+                fragmentMove.appendChild(item)
+                fragmentBlock.appendChild(fragmentMove)
+                item.classList.remove("hideBlock")
             }
             else {
-
                 item.classList.add("hideBlock")
             }
         })
@@ -707,4 +727,7 @@ function loadDropCart() {
 
 
 
-window.onload = loadDropCart()
+window.onload = function() {
+    loadDropCart()
+    hideSubNav()
+}
