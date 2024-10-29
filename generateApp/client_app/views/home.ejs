@@ -159,9 +159,17 @@
 						<ul class="nav nav-pills mobile-none" role="tablist">
 							<% if (typeof(category) !== 'undefined' && category != null && category.length > 0) {
 								for (var i = 0; i < category.length; i++){ %>
-						  <li role="presentation" class="dropdown"> <a  href="" onclick="showSubNav(<%= category[i].cat_id %>)" class="dropdown-toggle category-btn" id="drop<%= category[i].cat_id %>" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <%= category[i].cat_name %> <span class="caret"></span> </a>
+						  <li role="presentation" class="dropdown"> <a  href=""  class="dropdown-toggle category-btn" id="drop<%= category[i].cat_id %>" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <%= category[i].cat_name %> <span class="caret"></span> </a>
 							<ul class="dropdown-menu" id="menu<%= category[i].cat_id %>" aria-labelledby="drop<%= category[i].cat_id %>">
-							  <li><a href="#"><%= category[i].sub_cat_name %></a></li>
+								<% category[i].subcat.forEach(subcat => { %>
+											
+									<li>
+										<a data-toggle="tab" href="#subcat<%= subcat.sub_cat_id %>" class="tab-pane">
+											<%= subcat.sub_cat_name %>
+										</a>
+									</li>
+									
+								<% }); %>
 							</ul>
 						  </li>
 						  <%}}%>
@@ -177,9 +185,17 @@
 									<ul class="main-nav nav navbar-nav" >
 										<% if (typeof(category) !== 'undefined' && category != null && category.length > 0) {
 											for (var i = 0; i < category.length; i++){ %>
-									  <li role="presentation" class="dropdown"> <a  href="" onclick="showSubNav(<%= category[i].cat_id %>)" class="dropdown-toggle category-btn" id="drop<%= category[i].cat_id %>" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <%= category[i].cat_name %> <span class="caret"></span> </a>
+									  <li role="presentation" class="dropdown"> <a  href="" class="dropdown-toggle category-btn" id="drop<%= category[i].cat_id %>" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <%= category[i].cat_name %> <span class="caret"></span> </a>
 										<ul class="dropdown-menu" id="menu<%= category[i].cat_id %>" aria-labelledby="drop<%= category[i].cat_id %>">
-										  <li><a href="#"><%= category[i].sub_cat_name %></a></li>
+											<% category[i].subcat.forEach(subcat => { %>
+											
+												<li>
+													<a data-toggle="tab" href="#subcat<%= subcat.sub_cat_id %>" class="tab-pane">
+														<%= subcat.sub_cat_name %>
+													</a>
+												</li>
+											
+											<% }); %>
 										</ul>
 									  </li>
 									  <%}}%>
@@ -192,28 +208,28 @@
 						<!-- /NAVIGATION -->
 					  </div>
 
-					<div class="btnCategory-block">
+					  <!--<div class="btnCategory-block">
 						<% if (typeof(category) !== 'undefined' && category != null && category.length > 0) {
 						for (var i = 0; i < category.length; i++){ %>
-							<button class="category-btn" data-toggle="tab" onclick="showSubNav(<%= category[i].cat_id %>)">
+							<button class="category-btn" data-toggle="tab">
 								<%= category[i].cat_name %>
 							</button>
 						<%}}%>
-					</div>
+					</div>-->
 
-					<div class="section-nav" style="margin: 20px; min-height: 20px">
+					<!-- <div class="section-nav" style="margin: 20px; min-height: 20px">
 						<ul class="section-tab-nav tab-nav">
 
-							<% for (var i = 0; i < sub_category.length; i++){ let active = ""; if (i==0) {active = "active"} %>
-							<li class="subcatnav <%= active %>" category="<%= sub_category[i].cat_id %>">
-								<a data-toggle="tab" href="#subcat<%= sub_category[i].sub_cat_id %>" class="tab-pane <%= active  %>">
+							<% for (var i = 0; i < sub_category.length; i++){ %>
+							<li class="subcatnav" category="<%= sub_category[i].cat_id %>">
+								<a data-toggle="tab" href="#subcat<%= sub_category[i].sub_cat_id %>" class="tab-pane">
 									<%= sub_category[i].sub_cat_name %>
 								</a>
 							</li>
 							<% } %>
 
 						</ul>
-					</div>
+					</div>-->
 				</div>
 				<!-- /section title -->
 
@@ -224,8 +240,8 @@
 						<div class="products-tabs">
 							
 							<!-- tab -->
-							<% for (var i = 0; i < sub_category.length; i++){ let active = ""; if (i==0) {active = "active"}  %>
-							<div id="subcat<%= sub_category[i].sub_cat_id %>" class="tab-pane <%= active  %>">
+							<% for (var i = 0; i < sub_category.length; i++){ %>
+							<div id="subcat<%= sub_category[i].sub_cat_id %>" class="tab-pane">
 								<div id="store" class="col-md-12 cat-block">
 
 									<!-- store products -->

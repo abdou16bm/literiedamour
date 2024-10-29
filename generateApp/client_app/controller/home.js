@@ -29,6 +29,8 @@ const home = function (req, res) {
 
         if (err) console.log(err)
 
+        result1.forEach(cat => sub_category_module.sub_category_get_all(cat["cat_id"],(err,resultCatSubCat) => cat["subcat"] = resultCatSubCat));
+
         sub_category_module.sub_category_get_all_client(function (err,result_subcat) {
 
             for (let i = 0; i < result_subcat.length; i++) {
