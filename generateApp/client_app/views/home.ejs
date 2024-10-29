@@ -1,4 +1,5 @@
 <%- include ("layout/header") %>
+<% let firstSubscat %>
 <!-- HOT DEAL SECTION -->
 <div id="hot-deal" class="section slidemob" style="background-image: url('./img/banner/main.jpg') ; background-size: cover;">
 	<!-- container -->
@@ -159,11 +160,11 @@
 						<ul class="nav nav-pills mobile-none" role="tablist">
 							<% if (typeof(category) !== 'undefined' && category != null && category.length > 0) {
 								for (var i = 0; i < category.length; i++){ %>
-						  <li role="presentation" class="dropdown"> <a  href=""  class="dropdown-toggle category-btn" id="drop<%= category[i].cat_id %>" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <%= category[i].cat_name %> <span class="caret"></span> </a>
+						  <li role="presentation" class="dropdown <%= (i == 0) ? "active" : "" %>"> <a  href=""  class="dropdown-toggle category-btn" id="drop<%= category[i].cat_id %>" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <%= category[i].cat_name %> <span class="caret"></span> </a>
 							<ul class="dropdown-menu" id="menu<%= category[i].cat_id %>" aria-labelledby="drop<%= category[i].cat_id %>">
-								<% category[i].subcat.forEach(subcat => { %>
+								<% category[i].subcat.forEach((subcat,j) => { if (i == 0 && j == 0) firstSubscat = subcat.sub_cat_id %>
 											
-									<li>
+									<li class="<%= (i == 0 && j == 0) ? "active" : "" %>">
 										<a data-toggle="tab" href="#subcat<%= subcat.sub_cat_id %>" class="tab-pane">
 											<%= subcat.sub_cat_name %>
 										</a>
@@ -185,11 +186,11 @@
 									<ul class="main-nav nav navbar-nav" >
 										<% if (typeof(category) !== 'undefined' && category != null && category.length > 0) {
 											for (var i = 0; i < category.length; i++){ %>
-									  <li role="presentation" class="dropdown"> <a  href="" class="dropdown-toggle category-btn" id="drop<%= category[i].cat_id %>" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <%= category[i].cat_name %> <span class="caret"></span> </a>
+									  <li role="presentation" class="dropdown <%= (i == 0) ? "active" : "" %>"> <a  href="" class="dropdown-toggle category-btn" id="drop<%= category[i].cat_id %>" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <%= category[i].cat_name %> <span class="caret"></span> </a>
 										<ul class="dropdown-menu" id="menu<%= category[i].cat_id %>" aria-labelledby="drop<%= category[i].cat_id %>">
-											<% category[i].subcat.forEach(subcat => { %>
+											<% category[i].subcat.forEach((subcat,j) => { if (i == 0 && j == 0) firstSubscat = subcat.sub_cat_id %>
 											
-												<li>
+												<li class="<%= (i == 0 && j == 0) ? "active" : "" %>">
 													<a data-toggle="tab" href="#subcat<%= subcat.sub_cat_id %>" class="tab-pane">
 														<%= subcat.sub_cat_name %>
 													</a>
@@ -241,7 +242,7 @@
 							
 							<!-- tab -->
 							<% for (var i = 0; i < sub_category.length; i++){ %>
-							<div id="subcat<%= sub_category[i].sub_cat_id %>" class="tab-pane">
+							<div id="subcat<%= sub_category[i].sub_cat_id %>" class="tab-pane <%= (sub_category[i].sub_cat_id == firstSubscat) ? "active" : "" %>">
 								<div id="store" class="col-md-12 cat-block">
 
 									<!-- store products -->
