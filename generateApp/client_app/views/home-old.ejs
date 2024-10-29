@@ -135,6 +135,7 @@
 	<div class="container-fluid">
 		<!-- row -->
 
+
 		<% if (typeof(sub_category) !== 'undefined' && sub_category != null && sub_category.length > 0) { %>
 			<div class="row">
 				<div class="col-4 col-lg-4 col-sm-4 col-md-4 mobile-col row">
@@ -152,7 +153,7 @@
 					<div class="btnCategory-block">
 						<% if (typeof(category) !== 'undefined' && category != null && category.length > 0) {
 						for (var i = 0; i < category.length; i++){ %>
-							<button class="category-btn" data-toggle="tab" onclick="showSubNav(<%= category[i].cat_id %>)">
+							<button class="category-btn" data-toggle="tab" id="cat<%= category[i].cat_id %>" onclick="showSubNav(<%= category[i].cat_id %>,this.id)">
 								<%= category[i].cat_name %>
 							</button>
 						<%}}%>
@@ -161,7 +162,7 @@
 					<div class="section-nav" style="margin: 20px; min-height: 20px">
 						<ul class="section-tab-nav tab-nav">
 
-							<% for (var i = 0; i < sub_category.length; i++){ let active = ""; if (i==0) {active = "active"} %>
+							<% for (var i = 0; i < sub_category.length; i++){ let active = "";/* if (i==0) {active = "active"} */%>
 							<li class="subcatnav <%= active %>" category="<%= sub_category[i].cat_id %>">
 								<a data-toggle="tab" href="#subcat<%= sub_category[i].sub_cat_id %>" class="tab-pane <%= active  %>">
 									<%= sub_category[i].sub_cat_name %>
@@ -180,7 +181,7 @@
 
 						<div class="products-tabs">
 							<!-- tab -->
-							<% for (var i = 0; i < sub_category.length; i++){ let active = ""; if (i==0) {active = "active"}  %>
+							<% for (var i = 0; i < sub_category.length; i++){ let active = "";/* if (i==0) {active = "active"} */ %>
 							<div id="subcat<%= sub_category[i].sub_cat_id %>" class="tab-pane <%= active  %>">
 								<div id="store" class="col-md-12 cat-block">
 
