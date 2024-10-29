@@ -5,13 +5,18 @@
 	$('.menu-toggle > a').on('click', function (e) {
 		e.preventDefault();
 		$('#responsive-nav').toggleClass('active');
-	});
+	})
 
 		// Mobile Nav toggle
 		$('.menu-toggle-2 > a').on('click', function (e) {
 			e.preventDefault();
 			$('#responsive-nav-2').toggleClass('active');
-		});
+		})
+		// Mobile Nav toggle
+		$('.nav-5 > a').on('click', function (e) {
+			e.preventDefault();
+			$('#responsive-nav-2').toggleClass('active');
+		})
 	// Fix cart dropdown from closing
 	$('.cart-dropdown').on('click', function (e) {
 		e.stopPropagation();

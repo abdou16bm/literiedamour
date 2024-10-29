@@ -145,7 +145,7 @@
 							<!-- product -->
 							<% if (typeof(products) !== 'undefined' && products != null && products.length > 0) { %>
 							<% for (var i = 0; i < products.length; i++) { %>
-								<div class="col-md-3 col-xs-6">
+								<div class="col-md-3 col-xs-12">
 									<div class="product">
 										<div class="product-img text-center">
 											<img src="/img/product/<%= products[i].product_id %>/main.jpg" alt="literie d'amour" class="img-mobile-prod"
@@ -171,7 +171,7 @@
 															class="tooltipp">Détail</span></button>
 												</div>
 												<a class="primary-btn cta-btn" href="/checkout/<%= products[i].product_id %>">
-													<i class="fa fa-shopping-cart" style="margin-right: 2px;"></i> 
+													<i class="fa fa-shopping-cart mobile-none" style="margin-right: 2px;"></i> 
 													Commander
 												</a>
 
