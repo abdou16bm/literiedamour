@@ -692,6 +692,29 @@ textarea.input {
     transform: translateX(0%);
     width: 100%;
   }
+  #responsive-nav-2 {
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: #1d3a35;
+    height: 100vh;
+    max-width: 250px;
+    width: 0%;
+    overflow: hidden;
+    z-index: 22;
+    padding-top: 60px;
+    -webkit-transform: translateX(-100%);
+    -ms-transform: translateX(-100%);
+    transform: translateX(-100%);
+    -webkit-transition: 0.2s all;
+    transition: 0.2s all;
+  }
+  #responsive-nav-2.active {
+    -webkit-transform: translateX(0%);
+    -ms-transform: translateX(0%);
+    transform: translateX(0%);
+    width: 100%;
+  }
   .main-nav {
     margin: 0px;
     float: none;
